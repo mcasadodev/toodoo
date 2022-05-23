@@ -5,13 +5,18 @@ import Todo from "./Todo";
 
 const Todos = () => {
   const todos = useSelector((state) => state.todos);
-
-  console.log(todos);
   return (
     <>
       <h1>TODOS</h1>
-      <Todo />
-      <Todo />
+      {!todos.length ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          {todos.map((todo) => (
+            <Todo key={todo._id} todo={todo} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

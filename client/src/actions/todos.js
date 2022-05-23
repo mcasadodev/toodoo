@@ -14,18 +14,16 @@ export const getTodos = () => async (dispatch) => {
   }
 };
 
-export const createTodo = (todo) => async (dispatch) => {
-  try {
-    const { data } = await api.createTodo(todo);
-    dispatch({
-      type: "CREATE",
-      payload: data,
-    });
-    dispatch({
-      type: "FETCH_ALL",
-      payload: data,
-    });
-  } catch (err) {
-    console.log(err.message);
-  }
+export const createTodo = (todo) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await api.createTodo(todo);
+      dispatch({
+        type: "CREATE",
+        payload: data,
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 };

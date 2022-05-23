@@ -1,4 +1,4 @@
-export default (todos = [], action) => {
+export const todos = (todos = [], action) => {
   switch (action.type) {
     case "FETCH_ALL":
       return action.payload;

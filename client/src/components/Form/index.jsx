@@ -17,7 +17,6 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createTodo(todoData));
-    console.log("cc");
   };
 
   const handleChange = (e) => {
