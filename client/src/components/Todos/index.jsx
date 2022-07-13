@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import Todo from "./Todo";
 
-const Todos = () => {
+const Todos = ({ func }) => {
   const todos = useSelector((state) => state.todos);
+
+  useEffect(() => {
+    func();
+  }, [func, todos]);
+
   return (
     <>
       <h1>TODOS</h1>

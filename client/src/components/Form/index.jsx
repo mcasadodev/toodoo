@@ -3,6 +3,8 @@ import FileBase from "react-file-base64";
 import { useDispatch } from "react-redux";
 import { createTodo } from "../../actions/todos";
 
+import styles from "./form.module.css";
+
 const Form = () => {
   const [todoData, setTodoData] = useState({
     creator: "",
@@ -26,11 +28,12 @@ const Form = () => {
 
   const clearForm = () => {};
 
+  console.log(styles);
   return (
     <>
       <h1>FORM</h1>
       <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <h6>Create todo</h6>
+        <h6 className={styles.cuki}>Create todo</h6>
         <label htmlFor="creator">Creator</label>
         <input
           id="creatorTextInput"

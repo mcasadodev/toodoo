@@ -14,6 +14,10 @@ const App = () => {
     dispatch(getTodos());
   }, [dispatch]);
 
+  const cc = () => {
+    dispatch(getTodos());
+  };
+
   return (
     <>
       <header>
@@ -22,7 +26,7 @@ const App = () => {
       </header>
       <main>
         <div id="container">
-          <Todos />
+          <Todos func={cc} />
           <Form />
         </div>
       </main>
