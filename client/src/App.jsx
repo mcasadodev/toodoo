@@ -1,35 +1,32 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import StaticContext from "./context/StaticContext";
+import { TodosContextProvider } from "./context/TodosContext";
 
-import { getTodos } from "./actions/todos";
 import Todos from "./components/Todos";
 import Form from "./components/Form";
 
 import logo from "./img/logo.png";
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTodos());
-  }, [dispatch]);
-
-  const cc = () => {
-    dispatch(getTodos());
-  };
-
   return (
     <>
-      <header>
-        <h1>App</h1>
-        <img src={logo} alt="logo" />
-      </header>
-      <main>
-        <div id="container">
-          <Todos func={cc} />
-          <Form />
-        </div>
-      </main>
+      <StaticContext.Provider
+        value={{
+          todos: ["cc", "dd"],
+        }}
+      >
+        <header>
+          <h1>App</h1>
+          <img src={logo} alt="logo" />
+        </header>
+      </StaticContext.Provider>
+      <TodosContextProvider>
+        <main>
+          <div id="container">
+            <Todos />
+            <Form />
+          </div>
+        </main>
+      </TodosContextProvider>
     </>
   );
 };

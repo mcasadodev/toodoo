@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import FileBase from "react-file-base64";
-import { useDispatch } from "react-redux";
-import { createTodo } from "../../actions/todos";
+
+import { createTodo } from "../../api";
+
+//import StaticContext from "../../context/StaticContext";
+import TodosContext from "../../context/TodosContext";
 
 import styles from "./form.module.css";
 
 const Form = () => {
+  //const staticContext = useContext(StaticContext);
+  const { setTodos } = useContext(TodosContext);
+
   const [todoData, setTodoData] = useState({
     creator: "",
     title: "",
@@ -14,11 +20,9 @@ const Form = () => {
     selectedFile: "",
   });
 
-  const dispatch = useDispatch();
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createTodo(todoData));
+    createTodo(todoData, setTodos);
   };
 
   const handleChange = (e) => {
@@ -28,7 +32,6 @@ const Form = () => {
 
   const clearForm = () => {};
 
-  console.log(styles);
   return (
     <>
       <h1>FORM</h1>

@@ -1,14 +1,19 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useContext } from "react";
 
 import Todo from "./Todo";
 
-const Todos = ({ func }) => {
-  const todos = useSelector((state) => state.todos);
+import { fetchTodos } from "../../api";
+import TodosContext from "../../context/TodosContext";
 
-  useEffect(() => {
-    func();
-  }, [func, todos]);
+const Todos = () => {
+  const { todos, setTodos } = useContext(TodosContext);
+
+  useEffect(
+    function () {
+      fetchTodos(setTodos);
+    },
+    [setTodos]
+  );
 
   return (
     <>
