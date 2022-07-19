@@ -4,8 +4,8 @@ export const fetchTodos = async (setTodos) => {
   await fetch(url)
     .then((res) => res.json())
     .then((res) => {
-      const response = res.map((item) => item);
-      setTodos(response);
+      setTodos(res);
+      console.log(res);
     });
 };
 
