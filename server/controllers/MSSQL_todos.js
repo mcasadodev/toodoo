@@ -21,11 +21,22 @@ export const getTodos = async (req, res) => {
 };
 
 export const createTodo = async (req, res) => {
-  const todo = req.body;
-  const newTodo = new Todo(todo);
   try {
-    await newTodo.save();
-    res.status(201).json(newTodo);
+    const pool = await sql.connect(_config);
+    await pool.request().query(
+      `INSERT INTO todosList (
+        title,
+        creator,
+        message,
+        tags)
+      VALUES (
+        ${req.body.title},
+        ${req.body.creator},
+        ${req.body.message},
+        ${req.body.tags})`
+    );
+    console.log("Todo added succesfully!!!");
+    res.status(200).json(todos.recordsets[0]);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }

@@ -1,0 +1,33 @@
+.d_flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar {
+  height: 5em;
+  background-color: blue;
+  padding: 2em;
+}
+
+.logo {
+  width: 2.2em;
+  height: 2.2em;
+  margin-right: 1em;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 1.75rem;
+  letter-spacing: 0.125rem;
+}
+
+ul {
+  list-style: none;
+}
+ul li a {
+  text-decoration: none;
+  color: white;
+  margin-left: 1em;
+  text-transform: uppercase;
+}

@@ -1,10 +1,11 @@
 import StaticContext from "./context/StaticContext";
 import { TodosContextProvider } from "./context/TodosContext";
 
+import Navbar from "./components/Navbar";
 import Todos from "./components/Todos";
 import Form from "./components/Form";
 
-import logo from "./img/logo.png";
+import "./main.css";
 
 const App = () => {
   return (
@@ -15,8 +16,7 @@ const App = () => {
         }}
       >
         <header>
-          <h1>App</h1>
-          <img src={logo} alt="logo" />
+          <Navbar />
         </header>
       </StaticContext.Provider>
       <TodosContextProvider>

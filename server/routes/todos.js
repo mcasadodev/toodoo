@@ -1,10 +1,10 @@
 import express from "express";
 
 // CONNECT WITH SQLSERVER
-import { getTodos, createTodo } from "../actions/MSSQL_todos.js";
+import { getTodos, createTodo } from "../controllers/MSSQL_todos.js";
 
 // CONNECT WITH MONGODB
-//import { getTodos, createTodo } from "../actions/todos.js";
+//import { getTodos, createTodo } from "../controllers/todos.controller.js";
 
 const router = express.Router();
 

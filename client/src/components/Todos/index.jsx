@@ -5,6 +5,8 @@ import Todo from "./Todo";
 import { fetchTodos } from "../../api";
 import TodosContext from "../../context/TodosContext";
 
+import styles from "./todos.module.css";
+
 const Todos = () => {
   const { todos, setTodos } = useContext(TodosContext);
 
@@ -17,11 +19,10 @@ const Todos = () => {
 
   return (
     <>
-      <h1>TODOS</h1>
       {!todos.length ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div className={styles.container}>
           {todos.map((todo) => (
             <Todo key={todo.id} todo={todo} />
           ))}

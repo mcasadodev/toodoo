@@ -30,56 +30,62 @@ const Form = () => {
     setTodoData({ ...todoData, [name]: value });
   };
 
-  const clearForm = () => {};
+  //const clearForm = () => {};
 
   return (
     <>
-      <h1>FORM</h1>
       <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <h6 className={styles.cuki}>Create todo</h6>
-        <label htmlFor="creator">Creator</label>
-        <input
-          id="creatorTextInput"
-          type="text"
-          name="creator"
-          value={todoData.creator}
-          onChange={handleChange}
-        />
-        <label htmlFor="creator">Title</label>
-        <input
-          id="titleTextInput"
-          type="text"
-          name="title"
-          value={todoData.title}
-          onChange={handleChange}
-        />
-        <label htmlFor="creator">Message</label>
-        <input
-          id="messageTextInput"
-          type="text"
-          name="message"
-          value={todoData.message}
-          onChange={handleChange}
-        />
-        <label htmlFor="creator">Tags</label>
-        <input
-          id="tagsTextInput"
-          type="text"
-          name="tags"
-          value={todoData.tags}
-          onChange={handleChange}
-        />
-        <div>
-          <FileBase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) =>
-              setTodoData({ ...todoData, selectedFile: base64 })
-            }
+        <h6 className={styles.form_title}>Create todo</h6>
+        <div className={styles.container}>
+          <input
+            className={styles.inputField}
+            id="titleTextInput"
+            type="text"
+            name="title"
+            value={todoData.title}
+            onChange={handleChange}
+            placeholder="Title"
           />
+          <input
+            className={styles.inputField}
+            id="creatorTextInput"
+            type="text"
+            name="creator"
+            value={todoData.creator}
+            onChange={handleChange}
+            placeholder="Creator"
+          />
+          <input
+            className={styles.inputField}
+            id="messageTextInput"
+            type="text"
+            name="message"
+            value={todoData.message}
+            onChange={handleChange}
+            placeholder="Message"
+          />
+          <input
+            className={styles.inputField}
+            id="tagsTextInput"
+            type="text"
+            name="tags"
+            value={todoData.tags}
+            onChange={handleChange}
+            placeholder="Tags"
+          />
+          {/*
+          <div className={styles.inputField}>
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) =>
+                setTodoData({ ...todoData, selectedFile: base64 })
+              }
+            />
+          </div>
+          */}
+          <button>Submit</button>
         </div>
-        <button>Submit</button>
-        <button onClick={clearForm}>Clear</button>
       </form>
     </>
   );
