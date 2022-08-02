@@ -4,4 +4,25 @@
   background-color: white;
   color: black;
   line-height: 1.5rem;
+  display: inline-block;
+}
+
+.blue_button,
+.red_button {
+  width: 100%;
+  background-color: rgb(25, 25, 121);
+  color: white;
+  text-transform: uppercase;
+  padding: 1em;
+  margin-top: 1em;
+  border: 0;
+}
+.red_button {
+  background-color: rgb(196, 8, 8);
+}
+.blue_button:hover {
+  background-color: rgb(37, 37, 141);
+}
+.red_button:hover {
+  background-color: rgb(209, 41, 41);
 }

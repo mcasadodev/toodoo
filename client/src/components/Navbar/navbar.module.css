@@ -6,8 +6,9 @@
 
 .navbar {
   height: 5em;
-  background-color: blue;
+  background-color: rgb(25, 25, 121);
   padding: 2em;
+  margin-bottom: 2em;
 }
 
 .logo {

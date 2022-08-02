@@ -1,20 +1,23 @@
 import React, { useState, useContext } from "react";
-import FileBase from "react-file-base64";
+import { useNavigate } from "react-router-dom";
+//import FileBase from "react-file-base64";
 
-import { createTodo } from "../../api";
+import { createTodo } from "../../../api";
 
 //import StaticContext from "../../context/StaticContext";
-import TodosContext from "../../context/TodosContext";
+import TodosContext from "../../../context/TodosContext";
 
-import styles from "./form.module.css";
+import styles from "./createTodo.module.css";
 
-const Form = () => {
+const CreateTodo = () => {
   //const staticContext = useContext(StaticContext);
   const { setTodos } = useContext(TodosContext);
 
+  const navigate = useNavigate();
+
   const [todoData, setTodoData] = useState({
-    creator: "",
     title: "",
+    creator: "",
     message: "",
     tags: "",
     selectedFile: "",
@@ -23,6 +26,7 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     createTodo(todoData, setTodos);
+    navigate("/");
   };
 
   const handleChange = (e) => {
@@ -35,7 +39,7 @@ const Form = () => {
   return (
     <>
       <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <h6 className={styles.form_title}>Create todo</h6>
+        <h6 className={styles.form_title}>Create Todo</h6>
         <div className={styles.container}>
           <input
             className={styles.inputField}
@@ -84,11 +88,11 @@ const Form = () => {
             />
           </div>
           */}
-          <button>Submit</button>
+          <button className={styles.blue_button}>Create Todo</button>
         </div>
       </form>
     </>
   );
 };
 
-export default Form;
+export default CreateTodo;

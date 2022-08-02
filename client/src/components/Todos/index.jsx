@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 
 import Todo from "./Todo";
 
-import { fetchTodos } from "../../api";
+import { getTodos } from "../../api";
 import TodosContext from "../../context/TodosContext";
 
 import styles from "./todos.module.css";
@@ -12,7 +12,7 @@ const Todos = () => {
 
   useEffect(
     function () {
-      fetchTodos(setTodos);
+      getTodos(setTodos);
     },
     [setTodos]
   );
@@ -24,7 +24,7 @@ const Todos = () => {
       ) : (
         <div className={styles.container}>
           {todos.map((todo) => (
-            <Todo key={todo.id} todo={todo} />
+            <Todo key={todo.id} todo={todo} setTodos={setTodos} />
           ))}
         </div>
       )}

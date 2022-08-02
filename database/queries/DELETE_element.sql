@@ -1,0 +1,1 @@
+DELETE FROM todosList WHERE id = @id;

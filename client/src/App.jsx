@@ -1,32 +1,41 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import StaticContext from "./context/StaticContext";
 import { TodosContextProvider } from "./context/TodosContext";
 
 import Navbar from "./components/Navbar";
 import Todos from "./components/Todos";
-import Form from "./components/Form";
+import CreateTodo from "./components/Forms/CreateTodo";
+import EditTodo from "./components/Forms/EditTodo";
 
 import "./main.css";
 
 const App = () => {
   return (
     <>
-      <StaticContext.Provider
-        value={{
-          todos: ["cc", "dd"],
-        }}
-      >
-        <header>
-          <Navbar />
-        </header>
-      </StaticContext.Provider>
-      <TodosContextProvider>
-        <main>
-          <div id="container">
-            <Todos />
-            <Form />
-          </div>
-        </main>
-      </TodosContextProvider>
+      <Router>
+        <StaticContext.Provider
+          value={{
+            todos: ["cc", "dd"],
+          }}
+        >
+          <header>
+            <Navbar />
+          </header>
+          <TodosContextProvider>
+            <main>
+              <div id="container">
+                <Routes>
+                  <Route path="/" element={<Todos />} />
+                  <Route path="/create-todo" element={<CreateTodo />} />
+                  <Route path="/edit/:id" element={<EditTodo />} />
+                </Routes>
+              </div>
+            </main>
+          </TodosContextProvider>
+        </StaticContext.Provider>
+      </Router>
     </>
   );
 };

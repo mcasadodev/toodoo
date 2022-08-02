@@ -2,13 +2,21 @@ form {
   width: 80%;
   max-width: 800px;
   background-color: white;
-  margin: 0 auto;
+  margin: 4em auto;
   color: black;
 }
 
-button {
+.blue_button {
   width: 100%;
-  background-color: blue;
+  background-color: rgb(25, 25, 121);
+  color: white;
+  text-transform: uppercase;
+  padding: 1em;
+  margin-top: 1em;
+}
+.blue_button:hover {
+  width: 100%;
+  background-color: rgb(37, 37, 141);
   color: white;
   text-transform: uppercase;
   padding: 1em;

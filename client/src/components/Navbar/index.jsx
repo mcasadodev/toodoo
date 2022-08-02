@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import logo from "../../img/logo.png";
 import styles from "./navbar.module.css";
@@ -13,10 +14,13 @@ const Navbar = () => {
       <nav>
         <ul className={styles.d_flex}>
           <li>
-            <a href="#">Create Todo</a>
+            <Link to="/">My List</Link>
           </li>
           <li>
-            <a href="#">Log out</a>
+            <Link to="/create-todo">Create Todo</Link>
+          </li>
+          <li>
+            <Link to="/logout">Log out</Link>
           </li>
         </ul>
       </nav>
