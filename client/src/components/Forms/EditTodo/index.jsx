@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 //import FileBase from "react-file-base64";
 
-import { editTodo } from "../../../api";
+import { editTodo } from "../../../api/todos.api";
 
 //import StaticContext from "../../context/StaticContext";
 import TodosContext from "../../../context/TodosContext";
@@ -15,9 +15,6 @@ const EditTodo = ({ todo }) => {
   const { currentTodo } = useContext(TodosContext);
 
   const params = useParams();
-
-  console.log(params);
-
   const navigate = useNavigate();
 
   const [todoData, setTodoData] = useState({

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./todo.module.css";
 
-import { deleteTodo } from "../../../api";
+import { deleteTodo } from "../../../api/todos.api";
 import TodosContext from "../../../context/TodosContext";
 
 const Todo = ({ todo, setTodos }) => {

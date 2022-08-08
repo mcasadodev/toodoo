@@ -4,8 +4,13 @@ export const getTodos = async (setTodos) => {
   await fetch(url)
     .then((res) => res.json())
     .then((res) => {
+      res.forEach((item) => {
+        const _id = item._id;
+        if (_id) item.id = item._id;
+      });
+
+      console.log(res);
       setTodos(res);
-      //console.log(res);
     });
 };
 

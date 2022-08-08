@@ -1,25 +1,24 @@
 import mssql from "mssql";
 
-import { Todo } from "../models/MSSQL_todo.js";
-import { config } from "./MSSQL_dbconfig.js";
-
-//import config from "./MSSQL_dbconfig";
+import { Todo } from "../../models/sqlserver/todo.model";
+import { config } from "./config";
 
 const sql = mssql;
 const _config = config;
 
-export const getTodos = async (req, res) => {
+export const todosController = {};
+
+todosController.getTodos = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const todos = await pool.request().query("SELECT * FROM todosList");
     res.status(200).json(todos.recordsets[0]);
   } catch (e) {
-    console.log(e);
     res.status(404).json({ message: e.message });
   }
 };
 
-export const getTodo = async (req, res) => {
+todosController.getTodo = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const todo = await pool
@@ -28,12 +27,11 @@ export const getTodo = async (req, res) => {
       .query("SELECT * FROM todosList WHERE id = @id");
     res.status(200).json(todo.recordsets[0]);
   } catch (e) {
-    console.log(e);
     res.status(404).json({ message: e.message });
   }
 };
 
-export const createTodo = async (req, res) => {
+todosController.createTodo = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const insertTodo = await pool
@@ -44,16 +42,9 @@ export const createTodo = async (req, res) => {
       .input("tags", sql.NVarChar, req.body.tags)
       .query(
         `INSERT INTO 
-          todosList (
-          title,
-          creator,
-          message,
-          tags)
-        VALUES (
-          @title,
-          @creator,
-          @message,
-          @tags)`
+          todosList 
+          (title, creator, message, tags)
+         VALUES ( @title, @creator, @message, @tags)`
       );
     //console.log("Todo added succesfully!!!");
     res.status(201).json(insertTodo.recordsets);
@@ -62,7 +53,7 @@ export const createTodo = async (req, res) => {
   }
 };
 
-export const editTodo = async (req, res) => {
+todosController.editTodo = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const editTodo = await pool
@@ -76,7 +67,7 @@ export const editTodo = async (req, res) => {
         `UPDATE 
           todosList
         SET 
-          title = @title,
+          title = @title, 
           creator = @creator,
           message = @message,
           tags = @tags
@@ -89,7 +80,7 @@ export const editTodo = async (req, res) => {
   }
 };
 
-export const deleteTodo = async (req, res) => {
+todosController.deleteTodo = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const deleteTodo = await pool

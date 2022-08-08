@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 
 import Todo from "./Todo";
 
-import { getTodos } from "../../api";
+import { getTodos } from "../../api/todos.api";
 import TodosContext from "../../context/TodosContext";
 
 import styles from "./todos.module.css";

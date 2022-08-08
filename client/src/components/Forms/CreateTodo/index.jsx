@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 //import FileBase from "react-file-base64";
 
-import { createTodo } from "../../../api";
+import { createTodo } from "../../../api/todos.api";
 
 //import StaticContext from "../../context/StaticContext";
 import TodosContext from "../../../context/TodosContext";
