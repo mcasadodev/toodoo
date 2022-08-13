@@ -6,9 +6,9 @@ import { config } from "./config";
 const sql = mssql;
 const _config = config;
 
-export const todosController = {};
+export const controller = {};
 
-todosController.getTodos = async (req, res) => {
+controller.getTodos = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const todos = await pool.request().query("SELECT * FROM todosList");
@@ -18,7 +18,7 @@ todosController.getTodos = async (req, res) => {
   }
 };
 
-todosController.getTodo = async (req, res) => {
+controller.getTodo = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const todo = await pool
@@ -31,7 +31,7 @@ todosController.getTodo = async (req, res) => {
   }
 };
 
-todosController.createTodo = async (req, res) => {
+controller.createTodo = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const insertTodo = await pool
@@ -53,7 +53,7 @@ todosController.createTodo = async (req, res) => {
   }
 };
 
-todosController.editTodo = async (req, res) => {
+controller.editTodo = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const editTodo = await pool
@@ -80,7 +80,7 @@ todosController.editTodo = async (req, res) => {
   }
 };
 
-todosController.deleteTodo = async (req, res) => {
+controller.deleteTodo = async (req, res) => {
   try {
     const pool = await sql.connect(_config);
     const deleteTodo = await pool

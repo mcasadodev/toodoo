@@ -3,14 +3,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import postRoutes from "../routes/todos.routes";
+import todosRoutes from "../routes/todos.routes";
+import usersRoutes from "../routes/users.routes";
+
 import { connectDb as connectDbMongoDb } from "../controllers/mongodb/connection.controller";
 import { connectDb as connectDbSQLServer } from "../controllers/sqlserver/connection.controller";
 
 dotenv.config();
 
-let connectDb = () => {};
-
+let connectDb;
 if (process.env.DATABASE === "MONGODB") connectDb = connectDbMongoDb;
 else connectDb = connectDbSQLServer;
 
@@ -20,6 +21,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
-app.use("/todos", postRoutes);
+app.use("/todos", todosRoutes);
+app.use("/users", usersRoutes);
 
 connectDb(app);

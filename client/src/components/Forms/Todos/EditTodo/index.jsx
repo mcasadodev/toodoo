@@ -2,14 +2,14 @@ import React, { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 //import FileBase from "react-file-base64";
 
-import { editTodo } from "../../../api/todos.api";
+import { editTodo } from "../../../../api/todos.api";
 
 //import StaticContext from "../../context/StaticContext";
-import TodosContext from "../../../context/TodosContext";
+import TodosContext from "../../../../context/TodosContext";
 
-import styles from "./editTodo.module.css";
+import styles from "../../form.module.css";
 
-const EditTodo = ({ todo }) => {
+const EditTodo = () => {
   //const staticContext = useContext(StaticContext);
   const { setTodos } = useContext(TodosContext);
   const { currentTodo } = useContext(TodosContext);
@@ -43,7 +43,7 @@ const EditTodo = ({ todo }) => {
         <div className={styles.container}>
           <input
             className={styles.inputField}
-            id="titleTextInput"
+            id="titleInput"
             type="text"
             name="title"
             value={todoData.title}
@@ -52,7 +52,7 @@ const EditTodo = ({ todo }) => {
           />
           <input
             className={styles.inputField}
-            id="creatorTextInput"
+            id="creatorInput"
             type="text"
             name="creator"
             value={todoData.creator}
@@ -61,7 +61,7 @@ const EditTodo = ({ todo }) => {
           />
           <input
             className={styles.inputField}
-            id="messageTextInput"
+            id="messageInput"
             type="text"
             name="message"
             value={todoData.message}
@@ -70,7 +70,7 @@ const EditTodo = ({ todo }) => {
           />
           <input
             className={styles.inputField}
-            id="tagsTextInput"
+            id="tagsInput"
             type="text"
             name="tags"
             value={todoData.tags}

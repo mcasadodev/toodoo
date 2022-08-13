@@ -1,8 +1,8 @@
 import Todo from "../../models/mongodb/todo.model";
 
-export const todosController = {};
+export const controller = {};
 
-todosController.getTodos = async (req, res) => {
+controller.getTodos = async (req, res) => {
   try {
     const todos = await Todo.find();
     res.status(200).json(todos);
@@ -11,7 +11,7 @@ todosController.getTodos = async (req, res) => {
   }
 };
 
-todosController.getTodo = async (req, res) => {
+controller.getTodo = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
     res.status(200).json(todo);
@@ -20,7 +20,7 @@ todosController.getTodo = async (req, res) => {
   }
 };
 
-todosController.createTodo = async (req, res) => {
+controller.createTodo = async (req, res) => {
   const todo = req.body;
   const newTodo = new Todo(todo);
   try {
@@ -31,7 +31,7 @@ todosController.createTodo = async (req, res) => {
   }
 };
 
-todosController.editTodo = async (req, res) => {
+controller.editTodo = async (req, res) => {
   try {
     const { title, creator, message, tags } = req.body;
     const todo = await Todo.findByIdAndUpdate(req.params.id, {
@@ -46,7 +46,7 @@ todosController.editTodo = async (req, res) => {
   }
 };
 
-todosController.deleteTodo = async (req, res) => {
+controller.deleteTodo = async (req, res) => {
   try {
     const todo = await Todo.findByIdAndDelete(req.params.id);
     res.status(200).json(todo);

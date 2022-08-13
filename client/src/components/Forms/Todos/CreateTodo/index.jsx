@@ -2,12 +2,12 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 //import FileBase from "react-file-base64";
 
-import { createTodo } from "../../../api/todos.api";
+import { createTodo } from "../../../../api/todos.api";
 
 //import StaticContext from "../../context/StaticContext";
-import TodosContext from "../../../context/TodosContext";
+import TodosContext from "../../../../context/TodosContext";
 
-import styles from "./createTodo.module.css";
+import styles from "../../form.module.css";
 
 const CreateTodo = () => {
   //const staticContext = useContext(StaticContext);
@@ -43,7 +43,7 @@ const CreateTodo = () => {
         <div className={styles.container}>
           <input
             className={styles.inputField}
-            id="titleTextInput"
+            id="titleInput"
             type="text"
             name="title"
             value={todoData.title}
@@ -52,7 +52,7 @@ const CreateTodo = () => {
           />
           <input
             className={styles.inputField}
-            id="creatorTextInput"
+            id="creatorInput"
             type="text"
             name="creator"
             value={todoData.creator}
@@ -61,7 +61,7 @@ const CreateTodo = () => {
           />
           <input
             className={styles.inputField}
-            id="messageTextInput"
+            id="messageInput"
             type="text"
             name="message"
             value={todoData.message}
@@ -70,7 +70,7 @@ const CreateTodo = () => {
           />
           <input
             className={styles.inputField}
-            id="tagsTextInput"
+            id="tagsInput"
             type="text"
             name="tags"
             value={todoData.tags}

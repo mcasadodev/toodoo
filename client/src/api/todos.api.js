@@ -5,8 +5,7 @@ export const getTodos = async (setTodos) => {
     .then((res) => res.json())
     .then((res) => {
       res.forEach((item) => {
-        const _id = item._id;
-        if (_id) item.id = item._id;
+        if (item._id) item.id = item._id;
       });
 
       console.log(res);

@@ -5,9 +5,9 @@ import Todo from "./Todo";
 import { getTodos } from "../../api/todos.api";
 import TodosContext from "../../context/TodosContext";
 
-import styles from "./todos.module.css";
+import styles from "./todosList.module.css";
 
-const Todos = () => {
+const TodosList = () => {
   const { todos, setTodos } = useContext(TodosContext);
 
   useEffect(
@@ -32,4 +32,4 @@ const Todos = () => {
   );
 };
 
-export default Todos;
+export default TodosList;

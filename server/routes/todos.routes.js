@@ -1,16 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
 
-import { todosController as todosControllerMongoDb } from "../controllers/mongodb/todos.controller";
-import { todosController as todosControllerSQLServer } from "../controllers/sqlserver/todos.controller";
+import { controller as controllerMongoDb } from "../controllers/mongodb/todos.controller";
+import { controller as controllerSQLServer } from "../controllers/sqlserver/todos.controller";
 
 dotenv.config();
 
-let todosController = {};
-
-if (process.env.DATABASE === "MONGODB")
-  todosController = todosControllerMongoDb;
-else todosController = todosControllerSQLServer;
+let todosController;
+if (process.env.DATABASE === "MONGODB") todosController = controllerMongoDb;
+else todosController = controllerSQLServer;
 
 const router = express.Router();
 

@@ -5,9 +5,12 @@ import StaticContext from "./context/StaticContext";
 import { TodosContextProvider } from "./context/TodosContext";
 
 import Navbar from "./components/Navbar";
-import Todos from "./components/Todos";
-import CreateTodo from "./components/Forms/CreateTodo";
-import EditTodo from "./components/Forms/EditTodo";
+import TodosList from "./components/Todos";
+import SignIn from "./components/Forms/Users/SignIn";
+import SignUp from "./components/Forms/Users/SignUp";
+//import LogOut from "./components/Forms/Users/LogOut";
+import CreateTodo from "./components/Forms/Todos/CreateTodo";
+import EditTodo from "./components/Forms/Todos/EditTodo";
 
 import "./main.css";
 
@@ -17,7 +20,7 @@ const App = () => {
       <Router>
         <StaticContext.Provider
           value={{
-            todos: ["cc", "dd"],
+            currentUser: {},
           }}
         >
           <header>
@@ -27,7 +30,11 @@ const App = () => {
             <main>
               <div id="container">
                 <Routes>
-                  <Route path="/" element={<Todos />} />
+                  {/* Users */}
+                  <Route path="/sign-in" element={<SignIn />} />
+                  <Route path="/sign-up" element={<SignUp />} />
+                  {/* Todos */}
+                  <Route path="/" element={<TodosList />} />
                   <Route path="/create-todo" element={<CreateTodo />} />
                   <Route path="/edit/:id" element={<EditTodo />} />
                 </Routes>
