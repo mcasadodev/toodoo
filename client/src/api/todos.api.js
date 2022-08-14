@@ -1,19 +1,22 @@
 const url = "http://localhost:5000/todos";
 
-export const getTodos = async (setTodos) => {
-  await fetch(url)
+export const getTodos = async (setTodos, user) => {
+  await fetch(url, {
+    headers: {
+      "x-access-token": localStorage.getItem("token"),
+      "user-email": user,
+    },
+  })
     .then((res) => res.json())
     .then((res) => {
       res.forEach((item) => {
         if (item._id) item.id = item._id;
       });
-
-      console.log(res);
       setTodos(res);
     });
 };
 
-export const createTodo = async (todo, setTodos) => {
+export const createTodo = async (todo, setTodos, user) => {
   await fetch(url, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
@@ -21,15 +24,16 @@ export const createTodo = async (todo, setTodos) => {
     credentials: "same-origin", // include, *same-origin, omit
     headers: {
       "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
     },
     body: JSON.stringify(todo),
   }).then(() => {
-    getTodos(setTodos);
+    getTodos(setTodos, user);
     //console.log(`Created new todo: ${todo.publicationDate}`);
   });
 };
 
-export const editTodo = async (todo, id, setTodos) => {
+export const editTodo = async (todo, id, setTodos, user) => {
   await fetch(`${url}/edit/${id}`, {
     method: "PUT",
     mode: "cors",
@@ -37,15 +41,18 @@ export const editTodo = async (todo, id, setTodos) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
     },
     body: JSON.stringify(todo),
-  }).then(() => {
-    getTodos(setTodos);
-    //console.log(`Created new todo: ${todo.publicationDate}`);
-  });
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      getTodos(setTodos, user);
+      return res;
+    });
 };
 
-export const deleteTodo = async (todo, setTodos) => {
+export const deleteTodo = async (todo, setTodos, user) => {
   await fetch(`${url}/delete/${todo.id}`, {
     method: "DELETE",
     mode: "cors",
@@ -53,9 +60,10 @@ export const deleteTodo = async (todo, setTodos) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("token"),
     },
     body: JSON.stringify(todo),
   }).then(() => {
-    getTodos(setTodos);
+    getTodos(setTodos, user);
   });
 };

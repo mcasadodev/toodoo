@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+//import session from "express-session";
 
 import todosRoutes from "../routes/todos.routes";
 import usersRoutes from "../routes/users.routes";
@@ -15,13 +16,23 @@ let connectDb;
 if (process.env.DATABASE === "MONGODB") connectDb = connectDbMongoDb;
 else connectDb = connectDbSQLServer;
 
+// Initialization
 const app = express();
 
+// Midlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+// app.use(
+//   session({
+//     secret: "secret",
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
 
+// Routes
 app.use("/todos", todosRoutes);
-app.use("/users", usersRoutes);
+app.use("/", usersRoutes);
 
 connectDb(app);

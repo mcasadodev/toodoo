@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-//import { createTodo } from "../../../api/todos.api";
+import { signUp } from "api/users.api";
+import UsersContext from "context/TodosContext";
 
 import styles from "../../form.module.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { setMessages } = useContext(UsersContext);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -17,7 +19,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //singUp(userData);
+    signUp(userData, setMessages);
     navigate("/");
   };
 
@@ -30,7 +32,7 @@ const SignUp = () => {
 
   return (
     <>
-      <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit}>
         <h6 className={styles.form_title}>Sign Up</h6>
         <div className={styles.container}>
           <input
@@ -45,7 +47,7 @@ const SignUp = () => {
           <input
             className={styles.inputField}
             id="emailInput"
-            type="text"
+            type="email"
             name="email"
             value={userData.email}
             onChange={handleChange}
@@ -56,7 +58,7 @@ const SignUp = () => {
             id="passwordInput"
             type="password"
             name="password"
-            value={userData.message}
+            value={userData.password}
             onChange={handleChange}
             placeholder="Password"
           />
@@ -65,7 +67,7 @@ const SignUp = () => {
             id="confirmPasswordInput"
             type="password"
             name="confirmPassword"
-            value={userData.tags}
+            value={userData.confirmPassword}
             onChange={handleChange}
             placeholder="Confirm Password"
           />

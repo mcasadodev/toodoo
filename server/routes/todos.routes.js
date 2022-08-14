@@ -12,10 +12,15 @@ else todosController = controllerSQLServer;
 
 const router = express.Router();
 
+/* todosController.verifyJWT, */
 router.get("/", todosController.getTodos);
-router.get("/:id", todosController.getTodo);
-router.post("/", todosController.createTodo);
-router.put("/edit/:id", todosController.editTodo);
-router.delete("/delete/:id", todosController.deleteTodo);
+router.get("/:id", todosController.verifyJWT, todosController.getTodo);
+router.post("/", todosController.verifyJWT, todosController.createTodo);
+router.put("/edit/:id", todosController.verifyJWT, todosController.editTodo);
+router.delete(
+  "/delete/:id",
+  todosController.verifyJWT,
+  todosController.deleteTodo
+);
 
 export default router;

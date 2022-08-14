@@ -1,0 +1,47 @@
+const url = "http://localhost:5000";
+
+export const signIn = async (user, setJWT) => {
+  await fetch(`${url}/sign-in`, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.auth) {
+        localStorage.setItem("token", res.token);
+        setJWT(res.token);
+      } else {
+        setJWT(null);
+        console.log("ddd");
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+export const signUp = async (user, setMessages) => {
+  await fetch(`${url}/sign-up`, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      setMessages(res);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};

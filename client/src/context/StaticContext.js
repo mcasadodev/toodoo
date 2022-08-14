@@ -1,7 +1,7 @@
 import React from "react";
 
 const StaticContext = React.createContext({
-  todos: [],
+  key: "value",
 });
 
 export default StaticContext;

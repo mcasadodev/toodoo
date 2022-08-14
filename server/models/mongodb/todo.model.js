@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const todoSchema = mongoose.Schema(
   {
+    title: { type: String, required: true },
     creator: String,
-    title: String,
     message: String,
     tags: [String],
     selectedFile: String,
@@ -11,10 +11,7 @@ const todoSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    publicationDate: {
-      type: Date,
-      default: new Date(),
-    },
+    user: { type: String, required: true },
   },
   { timestamps: true }
 );

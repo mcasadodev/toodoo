@@ -12,10 +12,8 @@ if (process.env.DATABASE === "MONGODB") usersController = controllerMongoDb;
 
 const router = express.Router();
 
-// router.get("/", usersController.getUsers);
-// router.get("/:id", usersController.getUser);
-// router.post("/", usersController.createUser);
-// router.put("/edit/:id", usersController.editUser);
-// router.delete("/delete/:id", usersController.deleteUser);
+router.post("/sign-in", usersController.signIn);
+router.post("/sign-up", usersController.signUp);
+router.post("/log-out", usersController.logOut);
 
 export default router;

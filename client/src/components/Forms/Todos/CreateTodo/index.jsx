@@ -2,16 +2,17 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 //import FileBase from "react-file-base64";
 
-import { createTodo } from "../../../../api/todos.api";
+import { createTodo } from "api/todos.api";
+import { useUser } from "hooks/useUser";
 
-//import StaticContext from "../../context/StaticContext";
-import TodosContext from "../../../../context/TodosContext";
+import TodosContext from "context/TodosContext";
 
 import styles from "../../form.module.css";
 
 const CreateTodo = () => {
-  //const staticContext = useContext(StaticContext);
   const { setTodos } = useContext(TodosContext);
+
+  const { user } = useUser();
 
   const navigate = useNavigate();
 
@@ -21,11 +22,13 @@ const CreateTodo = () => {
     message: "",
     tags: "",
     selectedFile: "",
+    //user: localStorage.getItem("token"),
+    user: user,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createTodo(todoData, setTodos);
+    createTodo(todoData, setTodos, user);
     navigate("/");
   };
 

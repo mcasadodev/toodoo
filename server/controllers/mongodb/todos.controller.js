@@ -1,10 +1,28 @@
 import Todo from "../../models/mongodb/todo.model";
+import jwt from "jsonwebtoken";
 
 export const controller = {};
 
+controller.verifyJWT = (req, res, next) => {
+  const token = req.headers["x-access-token"];
+
+  if (!token) {
+    res.json({ auth: false, message: "There is no token" });
+  } else {
+    jwt.verify(token, "jwtSecret", (err, decoded) => {
+      if (err) {
+        res.json({ auth: false, message: "You failed to authenticate" });
+      } else {
+        req.userId = decoded.id;
+        next();
+      }
+    });
+  }
+};
+
 controller.getTodos = async (req, res) => {
   try {
-    const todos = await Todo.find();
+    const todos = await Todo.find({ user: req.headers["user-email"] });
     res.status(200).json(todos);
   } catch (err) {
     res.status(404).json({ message: err.message });

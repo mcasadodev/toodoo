@@ -2,17 +2,16 @@ import React, { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 //import FileBase from "react-file-base64";
 
-import { editTodo } from "../../../../api/todos.api";
+import { editTodo } from "api/todos.api";
 
-//import StaticContext from "../../context/StaticContext";
-import TodosContext from "../../../../context/TodosContext";
+import TodosContext from "context/TodosContext";
+import { useUser } from "hooks/useUser";
 
 import styles from "../../form.module.css";
 
 const EditTodo = () => {
-  //const staticContext = useContext(StaticContext);
-  const { setTodos } = useContext(TodosContext);
-  const { currentTodo } = useContext(TodosContext);
+  const { setTodos, currentTodo } = useContext(TodosContext);
+  const { user } = useUser();
 
   const params = useParams();
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ const EditTodo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    editTodo(todoData, params.id, setTodos);
+    editTodo(todoData, params.id, setTodos, user);
     navigate("/");
   };
 
