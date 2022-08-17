@@ -22,7 +22,9 @@ controller.verifyJWT = (req, res, next) => {
 
 controller.getTodos = async (req, res) => {
   try {
-    const todos = await Todo.find({ user: req.headers["user-email"] });
+    console.log(req.session);
+    const todos = await Todo.find({ user: req.session.user.email });
+    todos.push = "cc";
     res.status(200).json(todos);
   } catch (err) {
     res.status(404).json({ message: err.message });

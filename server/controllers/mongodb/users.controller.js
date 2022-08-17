@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 export const controller = {};
 
 controller.signIn = async (req, res) => {
-  const messages = [];
   const errors = [];
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -20,6 +19,9 @@ controller.signIn = async (req, res) => {
       const token = jwt.sign({ id }, "jwtSecret", {
         expiresIn: 300,
       });
+      req.session.user = user;
+      console.log(req.session);
+      req.session.save();
       res.json({ auth: true, token, result: user });
     } else {
       res.json({ auth: false });

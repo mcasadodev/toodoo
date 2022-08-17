@@ -1,17 +1,19 @@
 const url = "http://localhost:5000/todos";
 
-export const getTodos = async (setTodos, user) => {
+export const getTodos = async (setTodos) => {
   await fetch(url, {
     headers: {
       "x-access-token": localStorage.getItem("token"),
-      "user-email": user,
     },
+    credentials: "include",
   })
     .then((res) => res.json())
     .then((res) => {
-      res.forEach((item) => {
-        if (item._id) item.id = item._id;
-      });
+      if (res.auth === undefined)
+        // It means we have passed the middleware verifyJWT() and we reached getTodos()
+        res.forEach((item) => {
+          if (item._id) item.id = item._id;
+        });
       setTodos(res);
     });
 };

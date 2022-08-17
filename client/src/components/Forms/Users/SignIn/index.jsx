@@ -28,7 +28,7 @@ const SignIn = () => {
     e.preventDefault();
     signIn(userData, setJWT);
     setUser(userData.email);
-    localStorage.setItem("user-email", userData.email);
+    // localStorage.setItem("user-email", userData.email);
   };
 
   const handleChange = (e) => {

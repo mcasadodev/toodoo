@@ -12,11 +12,11 @@ import styles from "./todosList.module.css";
 const TodosList = () => {
   const { todos, setTodos, messages } = useContext(TodosContext);
 
-  const { user, isLogged } = useUser();
+  const { isLogged } = useUser();
 
   useEffect(() => {
-    getTodos(setTodos, user);
-  }, [setTodos, user]);
+    getTodos(setTodos);
+  }, [setTodos, isLogged]);
 
   return (
     <>

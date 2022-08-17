@@ -13,6 +13,8 @@ export const useUser = () => {
 
   return {
     isLogged: Boolean(jwt),
+    jwt,
+    setJWT,
     user,
     setUser,
     logout,
