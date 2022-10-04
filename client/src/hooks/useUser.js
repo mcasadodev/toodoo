@@ -7,7 +7,8 @@ export const useUser = () => {
 
   const logout = useCallback(() => {
     setJWT(null);
-    setUser(null);
+    setUser("");
+    console.log("logout");
     localStorage.removeItem("token");
   }, [setJWT, setUser]);
 

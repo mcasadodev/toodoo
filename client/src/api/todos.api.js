@@ -19,7 +19,7 @@ export const getTodos = async (setTodos) => {
 };
 
 export const createTodo = async (todo, setTodos, user) => {
-  await fetch(url, {
+  await fetch(`${url}/create-todo`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached

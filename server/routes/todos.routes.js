@@ -15,7 +15,11 @@ const router = express.Router();
 /* todosController.verifyJWT, */
 router.get("/", todosController.verifyJWT, todosController.getTodos);
 router.get("/:id", todosController.verifyJWT, todosController.getTodo);
-router.post("/", todosController.verifyJWT, todosController.createTodo);
+router.post(
+  "/create-todo",
+  todosController.verifyJWT,
+  todosController.createTodo
+);
 router.put("/edit/:id", todosController.verifyJWT, todosController.editTodo);
 router.delete(
   "/delete/:id",

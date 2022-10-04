@@ -9,10 +9,12 @@ controller.verifyJWT = (req, res, next) => {
   if (!token) {
     res.json({ auth: false, message: "There is no token" });
   } else {
-    jwt.verify(token, "jwtSecret", (err, decoded) => {
+    jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {
         res.json({ auth: false, message: "You failed to authenticate" });
+        //console.log("Auth failed");
       } else {
+        //console.log("Auth succeeded");
         req.userId = decoded.id;
         next();
       }
@@ -22,9 +24,7 @@ controller.verifyJWT = (req, res, next) => {
 
 controller.getTodos = async (req, res) => {
   try {
-    console.log(req.session);
     const todos = await Todo.find({ user: req.session.user.email });
-    todos.push = "cc";
     res.status(200).json(todos);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -41,6 +41,8 @@ controller.getTodo = async (req, res) => {
 };
 
 controller.createTodo = async (req, res) => {
+  // console.log("req.session FROM createTodo: " + req.session);
+  // console.log("req.session.user FROM createTodo: " + req.session.user);
   const todo = req.body;
   const newTodo = new Todo(todo);
   try {

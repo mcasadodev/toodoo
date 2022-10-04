@@ -4,7 +4,7 @@ const UserContext = React.createContext({});
 
 export function UserContextProvider({ children }) {
   const [jwt, setJWT] = useState(() => localStorage.getItem("token"));
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => localStorage.getItem("email"));
 
   return (
     <UserContext.Provider

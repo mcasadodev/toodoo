@@ -1,4 +1,4 @@
-UPDATE todosList
+UPDATE todos
 SET 
 	[title] = 'Yeah!!',
 	[creator] = 'Michael',

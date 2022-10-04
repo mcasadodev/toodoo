@@ -8,9 +8,12 @@ import { useUser } from "hooks/useUser";
 import TodosContext from "context/TodosContext";
 
 import styles from "../../form.module.css";
+import { useEffect } from "react";
+import { getTodos } from "api/todos.api";
 
 const CreateTodo = () => {
   const { setTodos } = useContext(TodosContext);
+  const { isLogged } = useUser();
 
   const { user } = useUser();
 
@@ -25,6 +28,10 @@ const CreateTodo = () => {
     //user: localStorage.getItem("token"),
     user: user,
   });
+
+  useEffect(() => {
+    getTodos(setTodos);
+  }, [setTodos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -15,10 +15,11 @@ export const signIn = async (user, setJWT) => {
     .then((res) => {
       if (res.auth) {
         localStorage.setItem("token", res.token);
+        localStorage.setItem("email", user.email);
         setJWT(res.token);
       } else {
+        console.log("User not authenticated");
         setJWT(null);
-        console.log("ddd");
       }
     })
     .catch((err) => {

@@ -20,7 +20,6 @@ controller.signIn = async (req, res) => {
         expiresIn: 300,
       });
       req.session.user = user;
-      console.log(req.session);
       req.session.save();
       res.json({ auth: true, token, result: user });
     } else {

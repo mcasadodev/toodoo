@@ -2,13 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 
 import { controller as controllerMongoDb } from "../controllers/mongodb/users.controller";
-//import { controller as controllerSQLServer } from "../controllers/sqlserver/users.controller";
+import { controller as controllerSQLServer } from "../controllers/sqlserver/users.controller";
 
 dotenv.config();
 
 let usersController;
 if (process.env.DATABASE === "MONGODB") usersController = controllerMongoDb;
-//else usersController = controllerSQLServer;
+else usersController = controllerSQLServer;
 
 const router = express.Router();
 
