@@ -6,6 +6,7 @@ import { TodosContextProvider } from "context/TodosContext";
 import { UserContextProvider } from "context/UserContext";
 
 import Navbar from "components/Navbar";
+import Aside from "components/Aside";
 import TodosList from "components/TodosList";
 import SignIn from "components/Forms/Users/SignIn";
 import SignUp from "components/Forms/Users/SignUp";
@@ -24,9 +25,10 @@ const App = () => {
             <header>
               <Navbar />
             </header>
-            <main>
-              <TodosContextProvider>
-                <div id="container">
+            <TodosContextProvider>
+              <div id="container">
+                <Aside />
+                <main>
                   <Routes>
                     {/* Users */}
                     <Route path="/sign-in" element={<SignIn />} />
@@ -36,9 +38,9 @@ const App = () => {
                     <Route path="/create-todo" element={<CreateTodo />} />
                     <Route path="/edit/:id" element={<EditTodo />} />
                   </Routes>
-                </div>
-              </TodosContextProvider>
-            </main>
+                </main>
+              </div>
+            </TodosContextProvider>
           </UserContextProvider>
         </StaticContext.Provider>
       </Router>

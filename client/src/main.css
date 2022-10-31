@@ -9,3 +9,9 @@ body {
   color: white;
   font-family: sans-serif;
 }
+
+#container {
+  display: flex;
+  flex-direction: row;
+  min-height: 90vh;
+}

@@ -28,8 +28,8 @@ controller.signIn = async (req, res) => {
       .request()
       //.input("email", sql.NVarChar, req.body.email)
       .query(
-        `SELECT * FROM members WHERE email LIKE '${req.body.email}'`
-        //`SELECT * FROM members WHERE email LIKE '${req.body.email}'`
+        `SELECT * FROM users WHERE email LIKE '${req.body.email}'`
+        //`SELECT * FROM users WHERE email LIKE '${req.body.email}'`
       );
 
     if (!user.recordset[0].name) {
@@ -76,7 +76,7 @@ controller.signUp = async (req, res) => {
       const emailUser = await pool
         .request()
         .input("email", sql.NVarChar, req.body.email)
-        .query(`SELECT * FROM members WHERE email LIKE '${req.body.email}'`);
+        .query(`SELECT * FROM users WHERE email LIKE '${req.body.email}'`);
 
       if (emailUser.recordset[0].name) {
         messages.push({ text: "Email already exists" });
@@ -92,7 +92,7 @@ controller.signUp = async (req, res) => {
           .input("password", sql.NVarChar, pwd)
           .query(
             `INSERT INTO 
-            members 
+            users 
              (name, email, password)
              VALUES ( @name, @email, @password)`
           );
