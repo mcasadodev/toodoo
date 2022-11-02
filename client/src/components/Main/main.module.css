@@ -1,0 +1,9 @@
+.section {
+  background-color: rgb(210, 210, 210);
+  width: 100%;
+}
+
+.aside {
+  background-color: rgb(193, 193, 193);
+  width: 300px;
+}

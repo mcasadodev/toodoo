@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 //import styles from "./aside.module.css";
 
-const Navbar = () => {
+const Aside = () => {
   //const { isLogged, logout } = useUser();
 
   let panelName = "Panel name";
@@ -43,4 +43,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Aside;

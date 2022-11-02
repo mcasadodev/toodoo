@@ -9,11 +9,12 @@ export const getTodos = async (setTodos) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.auth === undefined)
+      if (res.user === undefined) {
         // It means we have passed the middleware verifyJWT() and we reached getTodos()
         res.forEach((item) => {
           if (item._id) item.id = item._id;
         });
+      }
       setTodos(res);
     });
 };

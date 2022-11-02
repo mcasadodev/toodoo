@@ -28,6 +28,7 @@ controller.verifyJWT = (req, res, next) => {
 
 controller.getTodos = async (req, res) => {
   try {
+    //if (req.session.user === undefined) res.status(200).json([]);
     const pool = await sql.connect(_config);
     const todos = await pool
       .request()

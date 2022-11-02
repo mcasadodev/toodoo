@@ -34,7 +34,8 @@ const TodosList = () => {
           </div>
         )
       ) : (
-        <h2>Sign in to begin toodooing!</h2>
+        <h2>Sign in to begin todooing!</h2>
+        // <h2>{"Not logged (you shouldn't see this page)"}</h2>
       )}
     </>
   );

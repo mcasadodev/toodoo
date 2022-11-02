@@ -1,16 +1,18 @@
 import { useContext, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Context from "context/UserContext";
 
 export const useUser = () => {
   const { jwt, setJWT, user, setUser } = useContext(Context);
+  const navigate = useNavigate();
 
   const logout = useCallback(() => {
     setJWT(null);
     setUser("");
-    console.log("logout");
+    navigate("/");
     localStorage.removeItem("token");
-  }, [setJWT, setUser]);
+  }, [setJWT, setUser, navigate]);
 
   return {
     isLogged: Boolean(jwt),
