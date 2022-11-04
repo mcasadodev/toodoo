@@ -9,17 +9,15 @@ export const getTodos = async (setTodos) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.user === undefined) {
-        // It means we have passed the middleware verifyJWT() and we reached getTodos()
-        res.forEach((item) => {
-          if (item._id) item.id = item._id;
-        });
-      }
+      // It means we have passed the middleware verifyJWT() and we reached getTodos()
+      res.forEach((item) => {
+        if (item._id) item.id = item._id;
+      });
       setTodos(res);
     });
 };
 
-export const createTodo = async (todo, setTodos, user) => {
+export const createTodo = async (todo, setTodos) => {
   await fetch(`${url}/create-todo`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
@@ -31,12 +29,12 @@ export const createTodo = async (todo, setTodos, user) => {
     },
     body: JSON.stringify(todo),
   }).then(() => {
-    getTodos(setTodos, user);
+    getTodos(setTodos);
     //console.log(`Created new todo: ${todo.publicationDate}`);
   });
 };
 
-export const editTodo = async (todo, id, setTodos, user) => {
+export const editTodo = async (todo, id, setTodos) => {
   await fetch(`${url}/edit/${id}`, {
     method: "PUT",
     mode: "cors",
@@ -50,7 +48,7 @@ export const editTodo = async (todo, id, setTodos, user) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      getTodos(setTodos, user);
+      getTodos(setTodos);
       return res;
     });
 };

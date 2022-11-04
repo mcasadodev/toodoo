@@ -28,14 +28,13 @@ controller.verifyJWT = (req, res, next) => {
 
 controller.getTodos = async (req, res) => {
   try {
-    //if (req.session.user === undefined) res.status(200).json([]);
     const pool = await sql.connect(_config);
-    const todos = await pool
+    const tasks = await pool
       .request()
-      .input("creator_email", sql.NVarChar, req.session.user.email)
-      .query("SELECT * FROM todos WHERE creator_email = @creator_email");
+      .input("creator_id", sql.Int, req.userId)
+      .query("SELECT * FROM tasks WHERE creator_id = @creator_id");
 
-    res.status(200).json(todos.recordsets[0]);
+    res.status(200).json(tasks.recordsets[0]);
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -47,7 +46,7 @@ controller.getTodo = async (req, res) => {
     const todo = await pool
       .request()
       .input("id", sql.Int, req.params.id)
-      .query("SELECT * FROM todos WHERE id = @id");
+      .query("SELECT * FROM tasks WHERE id = @id");
     res.status(200).json(todo.recordset[0]);
   } catch (e) {
     res.status(404).json({ message: e.message });
@@ -55,22 +54,20 @@ controller.getTodo = async (req, res) => {
 };
 
 controller.createTodo = async (req, res) => {
-  console.log(req.session.user);
-  console.log(req.body.user);
+  //console.log("req.session.user: " + req.session.result);
+  console.log("req.body.user: " + req.body.user);
   try {
     const pool = await sql.connect(_config);
     const insertTodo = await pool
       .request()
       .input("title", sql.NVarChar, req.body.title)
-      .input("creator", sql.NVarChar, req.body.creator)
-      .input("message", sql.NVarChar, req.body.message)
-      .input("tags", sql.NVarChar, req.body.tags)
-      .input("creator_email", sql.NVarChar, req.body.user)
+      .input("description", sql.NVarChar, req.body.description)
+      .input("creator_id", sql.Int, req.userId)
       .query(
         `INSERT INTO 
-          todos 
-          (title, creator, message, tags, creator_email)
-         VALUES ( @title, @creator, @message, @tags, @creator_email)`
+          tasks 
+          (title, description, creator_id)
+         VALUES ( @title, @description,  @creator_id)`
       );
     console.log("Todo added succesfully!!!");
     res.status(201).json(insertTodo.recordsets);
@@ -86,17 +83,13 @@ controller.editTodo = async (req, res) => {
       .request()
       .input("id", sql.Int, req.params.id)
       .input("title", sql.NVarChar, req.body.title)
-      .input("creator", sql.NVarChar, req.body.creator)
-      .input("message", sql.NVarChar, req.body.message)
-      .input("tags", sql.NVarChar, req.body.tags)
+      .input("description", sql.NVarChar, req.body.description)
       .query(
         `UPDATE 
-          todos
+          tasks
         SET 
           title = @title, 
-          creator = @creator,
-          message = @message,
-          tags = @tags
+          description = @description
         WHERE id = @id`
       );
     //console.log("Todo added succesfully!!!");
@@ -112,7 +105,7 @@ controller.deleteTodo = async (req, res) => {
     const deleteTodo = await pool
       .request()
       .input("id", sql.Int, req.body.id)
-      .query("DELETE FROM todos WHERE id = @id");
+      .query("DELETE FROM tasks WHERE id = @id");
     res.status(201).json(deleteTodo.recordsets);
   } catch (err) {
     res.status(409).json({ message: err.message });

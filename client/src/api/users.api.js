@@ -15,7 +15,7 @@ export const signIn = async (user, setJWT) => {
     .then((res) => {
       if (res.auth) {
         localStorage.setItem("token", res.token);
-        localStorage.setItem("email", user.email);
+        localStorage.setItem("id", res.result.id);
         setJWT(res.token);
       } else {
         console.log("User not authenticated");

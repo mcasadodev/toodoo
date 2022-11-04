@@ -44,7 +44,7 @@ controller.signIn = async (req, res) => {
       );
       if (match) {
         const id = user.recordset[0].id;
-        const token = jwt.sign({ id }, "jwtSecret", {
+        const token = jwt.sign({ id }, process.env.SECRET, {
           expiresIn: 300,
         });
         req.session.user = user.recordset[0];
@@ -77,10 +77,11 @@ controller.signUp = async (req, res) => {
         .request()
         .input("email", sql.NVarChar, req.body.email)
         .query(`SELECT * FROM users WHERE email LIKE '${req.body.email}'`);
-
-      if (emailUser.recordset[0].name) {
-        messages.push({ text: "Email already exists" });
-        res.send(messages);
+      if (emailUser.recordset[0]) {
+        if (emailUser.recordset[0].name) {
+          messages.push({ text: "Email already exists" });
+          res.send(messages);
+        }
       } else {
         //SUCCESS
         const pwd = await encryptPassword(req.body.password);
@@ -94,9 +95,8 @@ controller.signUp = async (req, res) => {
             `INSERT INTO 
             users 
              (name, email, password)
-             VALUES ( @name, @email, @password)`
+             VALUES (@name, @email, @password)`
           );
-
         messages.push({ text: "New user created" });
         res.send(messages);
         //res.send(messages).redirect("../");

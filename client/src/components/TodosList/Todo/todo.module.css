@@ -1,11 +1,8 @@
 .todoCard {
-  margin: 2em;
   padding: 2em;
   background-color: white;
   color: black;
   line-height: 1.5rem;
-  display: inline-block;
-  width: 20em;
 }
 
 .blue_button,

@@ -18,10 +18,7 @@ const EditTodo = () => {
 
   const [todoData, setTodoData] = useState({
     title: currentTodo.title,
-    creator: currentTodo.creator,
-    message: currentTodo.message,
-    tags: currentTodo.tags,
-    selectedFile: "",
+    description: currentTodo.description,
   });
 
   const handleSubmit = (e) => {
@@ -51,42 +48,13 @@ const EditTodo = () => {
           />
           <input
             className={styles.inputField}
-            id="creatorInput"
+            id="descriptionInput"
             type="text"
-            name="creator"
-            value={todoData.creator}
+            name="description"
+            value={todoData.description}
             onChange={handleChange}
-            placeholder="Creator"
+            placeholder="Description"
           />
-          <input
-            className={styles.inputField}
-            id="messageInput"
-            type="text"
-            name="message"
-            value={todoData.message}
-            onChange={handleChange}
-            placeholder="Message"
-          />
-          <input
-            className={styles.inputField}
-            id="tagsInput"
-            type="text"
-            name="tags"
-            value={todoData.tags}
-            onChange={handleChange}
-            placeholder="Tags"
-          />
-          {/*
-          <div className={styles.inputField}>
-            <FileBase
-              type="file"
-              multiple={false}
-              onDone={({ base64 }) =>
-                setTodoData({ ...todoData, selectedFile: base64 })
-              }
-            />
-          </div>
-          */}
           <button className={styles.blue_button}>Edit Todo</button>
         </div>
       </form>

@@ -8,6 +8,7 @@
   height: 5em;
   background-color: rgb(193, 193, 193);
   padding: 2em;
+  border-bottom: 1px rgb(226, 226, 226) solid;
 }
 
 .logo {

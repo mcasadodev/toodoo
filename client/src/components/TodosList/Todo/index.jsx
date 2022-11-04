@@ -27,9 +27,7 @@ const Todo = ({ todo, setTodos }) => {
     <div className={styles.todoCard}>
       <h3>Title: {todo.title}</h3>
       <p>Creator: {todo.creator}</p>
-      <p>Message: {todo.message}</p>
-      <p>Tags: {todo.tags}</p>
-      <p>Likes: {todo.likeCount}</p>
+      <p>Description: {todo.description}</p>
       <p>Created: {moment(todo.publicationDate).fromNow()}</p>
       {todo.selectedFile === "" ? <img src={todo.selectedFile} alt="" /> : null}
       <button className={styles.blue_button} onClick={handleEdit}>
