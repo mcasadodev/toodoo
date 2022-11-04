@@ -1,0 +1,29 @@
+h2 {
+  margin: 25px 35px;
+}
+
+.panel_name {
+  margin: 20px 35px;
+}
+
+ul {
+  list-style: none;
+}
+
+aside ul li a div {
+  padding: 10px 50px;
+
+  margin-bottom: 2px;
+}
+
+aside ul li a {
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+}
+aside ul li a div:hover {
+  text-decoration: none;
+  color: white;
+  background-color: rgb(178, 178, 178);
+  text-transform: uppercase;
+}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 //import { useUser } from "hooks/useUser";
 
-//import styles from "./aside.module.css";
+import styles from "./aside.module.css";
 
 const Aside = () => {
   //const { isLogged, logout } = useUser();
@@ -16,22 +16,30 @@ const Aside = () => {
       <h2>{panelName}</h2>
       <ul>
         <li>
-          <Link to="/create-todo">Create</Link>
+          <Link to="/create-todo">
+            <div>Create</div>
+          </Link>
         </li>
         <li>
-          <Link to="">Members</Link>
+          <Link to="">
+            <div>Members</div>
+          </Link>
         </li>
       </ul>
-      <h3>Views</h3>
+      <h3 className={styles.panel_name}>Views</h3>
       <ul>
         <li>
-          <Link to="">List</Link>
+          <Link to="">
+            <div>List</div>
+          </Link>
         </li>
         <li>
-          <Link to="">Grid</Link>
+          <Link to="">
+            <div>Grid</div>
+          </Link>
         </li>
       </ul>
-      <h3>Panels</h3>
+      <h3 className={styles.panel_name}>Panels</h3>
       <ul>
         {panels.map((item) => (
           <li>

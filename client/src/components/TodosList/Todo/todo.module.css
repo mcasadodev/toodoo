@@ -24,3 +24,7 @@
 .red_button:hover {
   background-color: rgb(209, 41, 41);
 }
+
+.title {
+  font-weight: 900;
+}
