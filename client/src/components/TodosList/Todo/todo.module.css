@@ -3,6 +3,27 @@
   background-color: white;
   color: black;
   line-height: 1.5rem;
+  height: 325px;
+  min-width: 275px;
+}
+
+.header {
+  height: 100px;
+  background-color: rgb(83, 177, 83);
+}
+
+.todoCard h3,
+.todoCard p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.todoCard p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .blue_button,
@@ -27,4 +48,5 @@
 
 .title {
   font-weight: 900;
+  margin-bottom: 10px;
 }

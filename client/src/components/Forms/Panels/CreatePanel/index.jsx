@@ -1,54 +1,54 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createTodo, getTodos } from "api/todos.api";
+import { createPanel, getPanels } from "api/panels.api";
 
 import TodosContext from "context/TodosContext";
 
 import styles from "../../form.module.css";
 import { useEffect } from "react";
 
-const CreateTodo = () => {
-  const { setTodos } = useContext(TodosContext);
+const CreatePanel = () => {
+  const { setPanels } = useContext(TodosContext);
 
   const navigate = useNavigate();
 
-  const [todoData, setTodoData] = useState({
+  const [panelData, setPanelData] = useState({
     title: "",
-    description: "",
+    //description: "",
   });
 
   useEffect(() => {
-    getTodos(setTodos);
-  }, [setTodos]);
+    getPanels(setPanels);
+  }, [setPanels]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createTodo(todoData, setTodos);
-    navigate("/tasks-list");
+    createPanel(panelData, setPanels);
+    navigate("/panels-list");
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTodoData({ ...todoData, [name]: value });
+    setPanelData({ ...panelData, [name]: value });
   };
 
   //const clearForm = () => {};
 
   return (
     <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
-      <h6 className={styles.form_title}>Create Todo</h6>
+      <h6 className={styles.form_title}>Create Panel</h6>
       <div className={styles.container}>
         <input
           className={styles.inputField}
-          id="titleInput"
+          id="nameInput"
           type="text"
-          name="title"
-          value={todoData.title}
+          name="name"
+          value={panelData.name}
           onChange={handleChange}
-          placeholder="Title"
+          placeholder="Name"
         />
-        <input
+        {/* <input
           className={styles.inputField}
           id="descriptionInput"
           type="text"
@@ -56,11 +56,11 @@ const CreateTodo = () => {
           value={todoData.description}
           onChange={handleChange}
           placeholder="Description"
-        />
-        <button className={styles.blue_button}>Create Todo</button>
+        /> */}
+        <button className={styles.blue_button}>Create Panel</button>
       </div>
     </form>
   );
 };
 
-export default CreateTodo;
+export default CreatePanel;

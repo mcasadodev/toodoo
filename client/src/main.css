@@ -15,4 +15,16 @@ body {
   flex-direction: row;
   align-items: stretch;
   min-height: calc(100vh - 5em);
+  margin-top: 5em;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 9999s, opacity 0.1s linear;
+}
+.show {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }

@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import session from "express-session";
+//import session from "express-session";
 
 import todosRoutes from "../routes/todos.routes";
 import usersRoutes from "../routes/users.routes";
@@ -24,18 +24,18 @@ const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-app.use(
-  session({
-    key: "user-id",
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      expires: 60 * 60 * 24, // 24 hours
-      httpOnly: false,
-    },
-  })
-);
+// app.use(
+//   session({
+//     key: "user-id",
+//     secret: process.env.SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//       expires: 60 * 60 * 24, // 24 hours
+//       httpOnly: false,
+//     },
+//   })
+// );
 
 app.use(
   cors({

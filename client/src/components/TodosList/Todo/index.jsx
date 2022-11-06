@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import moment from "moment";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { deleteTodo } from "api/todos.api";
@@ -23,16 +22,45 @@ const Todo = ({ todo, setTodos }) => {
     deleteTodo(todo, setTodos, user);
   };
 
+  useEffect(() => {
+    let todo_card = document.getElementById(`${todo.id}`);
+
+    let edit_btn = document.getElementById(`edit_btn_${todo.id}`);
+    let delete_btn = document.getElementById(`delete_btn_${todo.id}`);
+
+    todo_card.addEventListener("mouseover", () => {
+      edit_btn.classList.remove("hidden");
+      edit_btn.classList.add("show");
+      delete_btn.classList.remove("hidden");
+      delete_btn.classList.add("show");
+    });
+    todo_card.addEventListener("mouseout", () => {
+      edit_btn.classList.remove("show");
+      edit_btn.classList.add("hidden");
+      delete_btn.classList.remove("show");
+      delete_btn.classList.add("hidden");
+    });
+    console.log(todo_card);
+  }, [todo.id]);
+
   return (
-    <div className={styles.todoCard}>
+    <div id={`${todo.id}`} className={styles.todoCard}>
+      <header className={styles.header}></header>
       <h3 className={styles.title}>Title: {todo.title}</h3>
-      <p>Creator: {todo.creator}</p>
       <p>Description: {todo.description}</p>
       <p>Created: </p>
-      <button className={styles.blue_button} onClick={handleEdit}>
+      <button
+        id={`edit_btn_${todo.id}`}
+        className={`hidden ${styles.blue_button}`}
+        onClick={handleEdit}
+      >
         Edit
       </button>
-      <button className={styles.red_button} onClick={handleDelete}>
+      <button
+        id={`delete_btn_${todo.id}`}
+        className={`hidden ${styles.red_button}`}
+        onClick={handleDelete}
+      >
         Delete
       </button>
     </div>

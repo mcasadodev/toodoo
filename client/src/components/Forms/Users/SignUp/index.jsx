@@ -20,7 +20,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     signUp(userData, setMessages);
-    navigate("/");
+    navigate("/tasks-list");
   };
 
   const handleChange = (e) => {

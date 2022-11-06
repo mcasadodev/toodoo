@@ -10,19 +10,19 @@ const _config = config;
 export const controller = {};
 
 controller.verifyJWT = (req, res, next) => {
-  const token = req.headers["x-access-token"];
-
-  if (!token) {
-    res.json({ auth: false, message: "There is no token" });
-  } else {
+  //const token = req.headers["x-access-token"];
+  const token = req.cookies.token;
+  try {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
-      if (err) {
-        res.json({ auth: false, message: "You failed to authenticate" });
-      } else {
-        req.userId = decoded.id;
-        next();
-      }
+      req.userId = decoded.id;
+      next();
     });
+  } catch (e) {
+    res
+      .clearCookie("token")
+      .json({ auth: false, message: "You failed to authenticate" })
+      .end();
+    //res.redirect("/");
   }
 };
 
@@ -92,6 +92,7 @@ controller.editTodo = async (req, res) => {
           description = @description
         WHERE id = @id`
       );
+    consolw.log(editTodo);
     //console.log("Todo added succesfully!!!");
     res.status(201).json(editTodo.recordsets);
   } catch (err) {

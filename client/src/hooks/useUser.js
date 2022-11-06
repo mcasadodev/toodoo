@@ -4,22 +4,28 @@ import { useNavigate } from "react-router-dom";
 import Context from "context/UserContext";
 
 export const useUser = () => {
-  const { jwt, setJWT, user, setUser } = useContext(Context);
+  const { jwt, setJWT, setIsLogged } = useContext(Context);
   const navigate = useNavigate();
 
-  const logout = useCallback(() => {
+  // const logout = useCallback(() => {
+  //   setJWT(null);
+  //   //setUser("");
+  //   navigate("/");
+  //   //localStorage.removeItem("token");
+  // }, [setJWT, navigate]);
+
+  const logoutUseUser = () => {
     setJWT(null);
-    setUser("");
+    //setUser("");
     navigate("/");
-    localStorage.removeItem("token");
-  }, [setJWT, setUser, navigate]);
+    //localStorage.removeItem("token");
+  };
 
   return {
-    isLogged: Boolean(jwt),
     jwt,
     setJWT,
-    user,
-    setUser,
-    logout,
+    isLogged: Boolean(jwt),
+    setIsLogged,
+    logoutUseUser,
   };
 };

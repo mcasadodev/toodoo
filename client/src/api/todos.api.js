@@ -1,9 +1,9 @@
 const url = "http://localhost:5000/todos";
 
 export const getTodos = async (setTodos) => {
-  await fetch(url, {
+  await fetch(`${url}/tasks-list`, {
     headers: {
-      "x-access-token": localStorage.getItem("token"),
+      //"x-access-token": localStorage.getItem("token"),
     },
     credentials: "include",
   })
@@ -22,10 +22,10 @@ export const createTodo = async (todo, setTodos) => {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
+    credentials: "include", // include, *same-origin, omit
     headers: {
       "Content-Type": "application/json",
-      "x-access-token": localStorage.getItem("token"),
+      //"x-access-token": localStorage.getItem("token"),
     },
     body: JSON.stringify(todo),
   }).then(() => {
@@ -39,10 +39,10 @@ export const editTodo = async (todo, id, setTodos) => {
     method: "PUT",
     mode: "cors",
     cache: "no-cache",
-    credentials: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      "x-access-token": localStorage.getItem("token"),
+      //"x-access-token": localStorage.getItem("token"),
     },
     body: JSON.stringify(todo),
   })
@@ -53,18 +53,18 @@ export const editTodo = async (todo, id, setTodos) => {
     });
 };
 
-export const deleteTodo = async (todo, setTodos, user) => {
+export const deleteTodo = async (todo, setTodos) => {
   await fetch(`${url}/delete/${todo.id}`, {
     method: "DELETE",
     mode: "cors",
     cache: "no-cache",
-    credentials: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      "x-access-token": localStorage.getItem("token"),
+      //"x-access-token": localStorage.getItem("token"),
     },
     body: JSON.stringify(todo),
   }).then(() => {
-    getTodos(setTodos, user);
+    getTodos(setTodos);
   });
 };

@@ -3,15 +3,18 @@ import React, { useState } from "react";
 const UserContext = React.createContext({});
 
 export function UserContextProvider({ children }) {
-  const [jwt, setJWT] = useState(() => localStorage.getItem("token"));
-  const [user, setUser] = useState(() => localStorage.getItem("id"));
+  function check_cookie_name(name) {
+    var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    if (match) return match[2];
+  }
+
+  const [jwt, setJWT] = useState(check_cookie_name("token"));
+
   return (
     <UserContext.Provider
       value={{
         jwt,
         setJWT,
-        user,
-        setUser,
       }}
     >
       {children}

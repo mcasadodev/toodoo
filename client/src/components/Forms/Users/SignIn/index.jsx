@@ -1,8 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 //import StaticContext from "context/StaticContext";
-import UserContext from "context/UserContext";
 import { useUser } from "hooks/useUser";
 import { signIn } from "api/users.api";
 
@@ -11,8 +10,7 @@ import { useEffect } from "react";
 
 const SignIn = () => {
   //const staticContext = useContext(StaticContext);
-  const { setJWT } = useContext(UserContext);
-  const { isLogged, setUser } = useUser();
+  const { setJWT, isLogged, setIsLogged } = useUser();
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
@@ -21,13 +19,12 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    if (isLogged) navigate("/");
+    if (isLogged) navigate("/tasks-list");
   }, [isLogged, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn(userData, setJWT);
-    setUser(userData.email);
+    signIn(userData, setJWT, setIsLogged);
     // localStorage.setItem("user-email", userData.email);
   };
 

@@ -21,7 +21,7 @@ const Aside = () => {
           </Link>
         </li>
         <li>
-          <Link to="">
+          <Link to="/tasks-list">
             <div>Members</div>
           </Link>
         </li>
@@ -42,7 +42,7 @@ const Aside = () => {
       <h3 className={styles.panel_name}>Panels</h3>
       <ul>
         {panels.map((item) => (
-          <li>
+          <li key={item.id}>
             <Link to="">{item}</Link>
           </li>
         ))}

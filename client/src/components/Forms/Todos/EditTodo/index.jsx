@@ -24,7 +24,7 @@ const EditTodo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     editTodo(todoData, params.id, setTodos, user);
-    navigate("/");
+    navigate("/tasks-list");
   };
 
   const handleChange = (e) => {
@@ -33,32 +33,30 @@ const EditTodo = () => {
   };
 
   return (
-    <>
-      <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <h6 className={styles.form_title}>Edit Todo</h6>
-        <div className={styles.container}>
-          <input
-            className={styles.inputField}
-            id="titleInput"
-            type="text"
-            name="title"
-            value={todoData.title}
-            onChange={handleChange}
-            placeholder="Title"
-          />
-          <input
-            className={styles.inputField}
-            id="descriptionInput"
-            type="text"
-            name="description"
-            value={todoData.description}
-            onChange={handleChange}
-            placeholder="Description"
-          />
-          <button className={styles.blue_button}>Edit Todo</button>
-        </div>
-      </form>
-    </>
+    <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <h6 className={styles.form_title}>Edit Todo</h6>
+      <div className={styles.container}>
+        <input
+          className={styles.inputField}
+          id="titleInput"
+          type="text"
+          name="title"
+          value={todoData.title}
+          onChange={handleChange}
+          placeholder="Title"
+        />
+        <input
+          className={styles.inputField}
+          id="descriptionInput"
+          type="text"
+          name="description"
+          value={todoData.description}
+          onChange={handleChange}
+          placeholder="Description"
+        />
+        <button className={styles.blue_button}>Edit Todo</button>
+      </div>
+    </form>
   );
 };
 

@@ -14,8 +14,7 @@ export const signIn = async (user, setJWT) => {
     .then((res) => res.json())
     .then((res) => {
       if (res.auth) {
-        localStorage.setItem("token", res.token);
-        localStorage.setItem("id", res.result.id);
+        //localStorage.setItem("token", res.token);
         setJWT(res.token);
       } else {
         console.log("User not authenticated");
@@ -42,6 +41,17 @@ export const signUp = async (user, setMessages) => {
     .then((res) => {
       setMessages(res);
     })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+export const logout = async () => {
+  await fetch(`${url}/log-out`, {
+    method: "get",
+    credentials: "include", // <--- YOU NEED THIS LINE
+  })
+    .then((res) => res.json())
     .catch((err) => {
       console.log(err.message);
     });

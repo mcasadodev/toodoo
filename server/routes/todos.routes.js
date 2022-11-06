@@ -13,7 +13,7 @@ else todosController = controllerSQLServer;
 const router = express.Router();
 
 /* todosController.verifyJWT, */
-router.get("/", todosController.verifyJWT, todosController.getTodos);
+router.get("/tasks-list", todosController.verifyJWT, todosController.getTodos);
 router.get("/:id", todosController.verifyJWT, todosController.getTodo);
 router.post(
   "/create-todo",

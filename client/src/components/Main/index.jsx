@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { useUser } from "hooks/useUser";
@@ -10,10 +11,20 @@ import SignUp from "components/Forms/Users/SignUp";
 import CreateTodo from "components/Forms/Todos/CreateTodo";
 import EditTodo from "components/Forms/Todos/EditTodo";
 
+import PanelsList from "components/PanelsList";
+import CreatePanel from "components/Forms/Panels/CreatePanel";
+
 import styles from "./main.module.css";
 
 const Main = () => {
   const { isLogged } = useUser();
+
+  const refSection = useRef(null);
+
+  useEffect(() => {
+    if (isLogged) refSection.current.classList.add(`${styles.margin_left300}`);
+    else refSection.current.classList.remove(`${styles.margin_left300}`);
+  });
 
   return (
     <main id="container">
@@ -22,15 +33,27 @@ const Main = () => {
           <Aside />
         </div>
       ) : null}
-      <section className={`${styles.section}`}>
+      <section
+        ref={refSection}
+        className={`${styles.section} ${styles.margin_left300}`}
+      >
         <Routes>
+          <Route path="/" element={null} />
           {/* Users */}
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-          {/* Todos */}
-          <Route path="/" element={<TodosList />} />
-          <Route path="/create-todo" element={<CreateTodo />} />
-          <Route path="/edit/:id" element={<EditTodo />} />
+
+          {isLogged ? (
+            <>
+              {/* Panels */}
+              <Route path="/panels-list" element={<PanelsList />} />
+              <Route path="/create-panel" element={<CreatePanel />} />
+              {/* Todos */}
+              <Route path="/tasks-list" element={<TodosList />} />
+              <Route path="/create-todo" element={<CreateTodo />} />
+              <Route path="/edit/:id" element={<EditTodo />} />
+            </>
+          ) : null}
         </Routes>
       </section>
     </main>

@@ -17,9 +17,7 @@ const App = () => {
       <Router>
         <StaticContext.Provider value={{ key: "value" }}>
           <UserContextProvider>
-            <header>
-              <Navbar />
-            </header>
+            <Navbar />
             <TodosContextProvider>
               <Main />
             </TodosContextProvider>

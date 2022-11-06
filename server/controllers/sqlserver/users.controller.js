@@ -45,10 +45,16 @@ controller.signIn = async (req, res) => {
       if (match) {
         const id = user.recordset[0].id;
         const token = jwt.sign({ id }, process.env.SECRET, {
-          expiresIn: 300,
+          expiresIn: 1000,
         });
-        req.session.user = user.recordset[0];
-        req.session.save();
+
+        //req.session.user = user.recordset[0];
+        //req.session.save();
+
+        res.cookie("token", token, {
+          httpOnly: false,
+        });
+
         res.json({ auth: true, token, result: user.recordset[0] });
       } else {
         res.json({ auth: false });
@@ -109,6 +115,12 @@ controller.signUp = async (req, res) => {
 
 controller.logOut = async (req, res) => {
   try {
+    res.status(200).clearCookie("token", {
+      sameSite: "none",
+      secure: true,
+    });
+    res.end();
+    //json({ message: "logged out successfully" });
   } catch (err) {
     res.status(409).json({ message: err.message });
   }

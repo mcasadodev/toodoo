@@ -1,9 +1,17 @@
 .section {
-  background-color: rgb(210, 210, 210);
   width: 100%;
+  background-color: rgb(210, 210, 210);
 }
 
 .aside {
+  min-height: calc(100vh - 5em);
+  width: 300px;
+  position: fixed;
+  top: 5em;
+  left: 0;
   background-color: rgb(193, 193, 193);
-  min-width: 300px;
+}
+
+.margin_left300 {
+  margin-left: 300px;
 }
