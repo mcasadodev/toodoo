@@ -5,8 +5,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 //import session from "express-session";
 
-import todosRoutes from "../routes/todos.routes";
 import usersRoutes from "../routes/users.routes";
+import panelsRoutes from "../routes/panels.routes";
+import todosRoutes from "../routes/todos.routes";
 
 import { connectDb as connectDbMongoDb } from "../controllers/mongodb/connection.controller";
 import { connectDb as connectDbSQLServer } from "../controllers/sqlserver/connection.controller";
@@ -48,7 +49,8 @@ app.use(
 app.use(cookieParser());
 
 // Routes
-app.use("/todos", todosRoutes);
 app.use("/", usersRoutes);
+app.use("/panels", panelsRoutes);
+app.use("/todos", todosRoutes);
 
 connectDb(app);

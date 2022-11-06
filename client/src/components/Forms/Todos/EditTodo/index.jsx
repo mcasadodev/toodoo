@@ -24,7 +24,7 @@ const EditTodo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     editTodo(todoData, params.id, setTodos, user);
-    navigate("/tasks-list");
+    navigate("/1/tasks-list");
   };
 
   const handleChange = (e) => {

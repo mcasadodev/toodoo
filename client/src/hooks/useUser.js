@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Context from "context/UserContext";
 
 export const useUser = () => {
-  const { jwt, setJWT, setIsLogged } = useContext(Context);
+  const { jwt, setJWT } = useContext(Context);
   const navigate = useNavigate();
 
   // const logout = useCallback(() => {
@@ -25,7 +25,6 @@ export const useUser = () => {
     jwt,
     setJWT,
     isLogged: Boolean(jwt),
-    setIsLogged,
     logoutUseUser,
   };
 };

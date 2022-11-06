@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+
+import TodosContext from "context/TodosContext";
 
 //import { useUser } from "hooks/useUser";
 
@@ -8,8 +10,11 @@ import styles from "./aside.module.css";
 const Aside = () => {
   //const { isLogged, logout } = useUser();
 
+  const { panels } = useContext(TodosContext);
+
+  console.log("DDDDDD: " + panels);
+
   let panelName = "Panel name";
-  let panels = ["Panel placeholder 1", "Panel placeholder 2"];
 
   return (
     <aside>
@@ -21,7 +26,7 @@ const Aside = () => {
           </Link>
         </li>
         <li>
-          <Link to="/tasks-list">
+          <Link to="/1/tasks-list">
             <div>Members</div>
           </Link>
         </li>
@@ -43,7 +48,7 @@ const Aside = () => {
       <ul>
         {panels.map((item) => (
           <li key={item.id}>
-            <Link to="">{item}</Link>
+            <Link to="">{item.name}</Link>
           </li>
         ))}
       </ul>

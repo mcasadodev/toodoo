@@ -2,14 +2,10 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import StaticContext from "context/StaticContext";
-import { TodosContextProvider } from "context/TodosContext";
 import { UserContextProvider } from "context/UserContext";
 
-import Navbar from "components/Navbar";
-
-import Main from "components/Main";
-
 import "main.css";
+import Wrapper from "components/Wrapper";
 
 const App = () => {
   return (
@@ -17,10 +13,7 @@ const App = () => {
       <Router>
         <StaticContext.Provider value={{ key: "value" }}>
           <UserContextProvider>
-            <Navbar />
-            <TodosContextProvider>
-              <Main />
-            </TodosContextProvider>
+            <Wrapper />
           </UserContextProvider>
         </StaticContext.Provider>
       </Router>

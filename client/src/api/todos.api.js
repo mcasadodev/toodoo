@@ -1,15 +1,11 @@
 const url = "http://localhost:5000/todos";
 
-export const getTodos = async (setTodos) => {
-  await fetch(`${url}/tasks-list`, {
-    headers: {
-      //"x-access-token": localStorage.getItem("token"),
-    },
+export const getTodos = async (panelId, setTodos) => {
+  await fetch(`${url}/${panelId}/tasks-list`, {
     credentials: "include",
   })
     .then((res) => res.json())
     .then((res) => {
-      // It means we have passed the middleware verifyJWT() and we reached getTodos()
       res.forEach((item) => {
         if (item._id) item.id = item._id;
       });
@@ -29,7 +25,7 @@ export const createTodo = async (todo, setTodos) => {
     },
     body: JSON.stringify(todo),
   }).then(() => {
-    getTodos(setTodos);
+    getTodos(1, setTodos);
     //console.log(`Created new todo: ${todo.publicationDate}`);
   });
 };
@@ -48,7 +44,7 @@ export const editTodo = async (todo, id, setTodos) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      getTodos(setTodos);
+      getTodos(1, setTodos);
       return res;
     });
 };
@@ -65,6 +61,6 @@ export const deleteTodo = async (todo, setTodos) => {
     },
     body: JSON.stringify(todo),
   }).then(() => {
-    getTodos(setTodos);
+    getTodos(1, setTodos);
   });
 };

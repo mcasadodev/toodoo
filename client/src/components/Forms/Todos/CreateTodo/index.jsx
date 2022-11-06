@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { createTodo, getTodos } from "api/todos.api";
 
@@ -11,6 +11,7 @@ import { useEffect } from "react";
 const CreateTodo = () => {
   const { setTodos } = useContext(TodosContext);
 
+  const params = useParams();
   const navigate = useNavigate();
 
   const [todoData, setTodoData] = useState({
@@ -18,14 +19,15 @@ const CreateTodo = () => {
     description: "",
   });
 
+  // ESTA MAL params.panelId HAY QUE SACARLO DE useTodo
   useEffect(() => {
-    getTodos(setTodos);
+    getTodos(1, setTodos);
   }, [setTodos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createTodo(todoData, setTodos);
-    navigate("/tasks-list");
+    navigate(`/1/tasks-list`);
   };
 
   const handleChange = (e) => {

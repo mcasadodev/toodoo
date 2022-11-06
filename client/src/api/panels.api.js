@@ -24,11 +24,9 @@ export const createPanel = async (panel, setPanels) => {
     credentials: "include", // include, *same-origin, omit
     headers: {
       "Content-Type": "application/json",
-      //"x-access-token": localStorage.getItem("token"),
     },
     body: JSON.stringify(panel),
   }).then(() => {
     getPanels(setPanels);
-    //console.log(`Created new todo: ${todo.publicationDate}`);
   });
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { getTodos } from "api/todos.api";
+import { getPanels } from "api/panels.api";
 import { useUser } from "hooks/useUser";
 import TodosContext from "context/TodosContext";
 
@@ -13,9 +13,10 @@ const PanelsList = () => {
   const { panels, setPanels, messages } = useContext(TodosContext);
 
   const { isLogged } = useUser();
+  console.log("TTTT: " + panels);
 
   useEffect(() => {
-    getTodos(setPanels);
+    getPanels(setPanels);
   }, [setPanels, isLogged]);
 
   return (

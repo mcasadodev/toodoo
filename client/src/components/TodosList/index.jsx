@@ -14,8 +14,10 @@ const TodosList = () => {
 
   const { isLogged } = useUser();
 
+  console.log("CCCCCC: " + todos);
+
   useEffect(() => {
-    getTodos(setTodos);
+    getTodos(1, setTodos);
   }, [setTodos, isLogged]);
 
   return (

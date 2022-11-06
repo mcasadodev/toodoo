@@ -14,6 +14,8 @@ import EditTodo from "components/Forms/Todos/EditTodo";
 import PanelsList from "components/PanelsList";
 import CreatePanel from "components/Forms/Panels/CreatePanel";
 
+import PrivateRoute from "components/PrivateRoute";
+
 import styles from "./main.module.css";
 
 const Main = () => {
@@ -43,17 +45,41 @@ const Main = () => {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
 
-          {isLogged ? (
-            <>
-              {/* Panels */}
-              <Route path="/panels-list" element={<PanelsList />} />
-              <Route path="/create-panel" element={<CreatePanel />} />
-              {/* Todos */}
-              <Route path="/tasks-list" element={<TodosList />} />
-              <Route path="/create-todo" element={<CreateTodo />} />
-              <Route path="/edit/:id" element={<EditTodo />} />
-            </>
-          ) : null}
+          {/* Panels */}
+          <Route path="/panels-list" element={<PanelsList />} />
+          <Route
+            path="/create-panel"
+            element={
+              <PrivateRoute>
+                <CreatePanel />
+              </PrivateRoute>
+            }
+          />
+          {/* Todos */}
+          <Route
+            path="/1/tasks-list"
+            element={
+              <PrivateRoute>
+                <TodosList />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/create-todo"
+            element={
+              <PrivateRoute>
+                <CreateTodo />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/edit/:id"
+            element={
+              <PrivateRoute>
+                <EditTodo />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </section>
     </main>

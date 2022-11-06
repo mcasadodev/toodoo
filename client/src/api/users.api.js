@@ -56,3 +56,23 @@ export const logout = async () => {
       console.log(err.message);
     });
 };
+
+export const checkIsLogged = async (setJTW, navigate) => {
+  await fetch(`${url}/check-if-logged`, {
+    method: "get",
+    credentials: "include", // <--- YOU NEED THIS LINE
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status !== "LOGGED!") {
+        console.log(res.status);
+        //navigate("/");
+        setJTW(null);
+      } else {
+        console.log(res.status);
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};

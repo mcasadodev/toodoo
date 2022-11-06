@@ -37,7 +37,7 @@ const Navbar = () => {
           {isLogged && (
             <>
               <li>
-                <Link to="/tasks-list">My List</Link>
+                <Link to="/1/tasks-list">My List</Link>
               </li>
               <li>
                 <Link to="/create-todo">Create Todo</Link>

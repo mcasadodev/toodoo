@@ -45,7 +45,7 @@ controller.signIn = async (req, res) => {
       if (match) {
         const id = user.recordset[0].id;
         const token = jwt.sign({ id }, process.env.SECRET, {
-          expiresIn: 1000,
+          expiresIn: 500,
         });
 
         //req.session.user = user.recordset[0];
@@ -123,5 +123,21 @@ controller.logOut = async (req, res) => {
     //json({ message: "logged out successfully" });
   } catch (err) {
     res.status(409).json({ message: err.message });
+  }
+};
+
+controller.checkIfLogged = async (req, res) => {
+  const token = req.cookies.token;
+  console.log(token);
+  try {
+    jwt.verify(token, process.env.SECRET, (err) => {
+      if (!err) {
+        res.json({ status: "LOGGED!" });
+      } else {
+        res.json({ status: "Not logged" });
+      }
+    });
+  } catch (e) {
+    res.json({ status: "No token" });
   }
 };
