@@ -4,9 +4,13 @@ const TodosContext = React.createContext({});
 
 export function TodosContextProvider({ children }) {
   const [panels, setPanels] = useState([]);
+  // const [currentPanel, setCurrentPanel] = useState(() =>
+  //   localStorage.getItem("current-panel")
+  // );
   const [todos, setTodos] = useState([]);
-  const [members, setMembers] = useState([]);
+  const [isPanelSelected, setIsPanelSelected] = useState(false);
   const [currentTodo, setCurrentTodo] = useState({});
+  const [members, setMembers] = useState([]);
   const [messages, setMessages] = useState([]);
 
   return (
@@ -14,6 +18,10 @@ export function TodosContextProvider({ children }) {
       value={{
         panels,
         setPanels,
+        isPanelSelected,
+        setIsPanelSelected,
+        //currentPanel,
+        //setCurrentPanel,
         todos,
         setTodos,
         currentTodo,

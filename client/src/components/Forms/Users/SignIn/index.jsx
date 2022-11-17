@@ -19,7 +19,7 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    if (isLogged) navigate("/1/tasks-list");
+    if (isLogged) navigate("/panels-list");
   }, [isLogged, navigate]);
 
   const handleSubmit = (e) => {

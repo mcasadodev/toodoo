@@ -36,12 +36,14 @@ const Navbar = () => {
           )}
           {isLogged && (
             <>
+              {/*
               <li>
-                <Link to="/1/tasks-list">My List</Link>
+                <Link to={`/${currentPanel.id}/tasks-list`}>My List</Link>
               </li>
               <li>
                 <Link to="/create-todo">Create Todo</Link>
               </li>
+              */}
               <li>
                 <button onClick={logOut}>Log Out</button>
               </li>

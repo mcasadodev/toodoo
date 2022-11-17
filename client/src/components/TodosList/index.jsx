@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 
 import { getTodos } from "api/todos.api";
 import { useUser } from "hooks/useUser";
@@ -8,17 +9,21 @@ import Notification from "components/Notification";
 import Todo from "./Todo";
 
 import styles from "./todosList.module.css";
+import { getPanel } from "api/panels.api";
 
 const TodosList = () => {
-  const { todos, setTodos, messages } = useContext(TodosContext);
+  const { setIsPanelSelected, todos, setTodos, messages } =
+    useContext(TodosContext);
 
   const { isLogged } = useUser();
 
-  console.log("CCCCCC: " + todos);
+  const params = useParams();
 
   useEffect(() => {
-    getTodos(1, setTodos);
-  }, [setTodos, isLogged]);
+    setIsPanelSelected(true);
+    getPanel(params.id);
+    getTodos(params.id, setTodos);
+  }, [params.id, setTodos, isLogged, setIsPanelSelected]);
 
   return (
     <>

@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, useContext, useRef } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import { useUser } from "hooks/useUser";
+import TodosContext from "context/TodosContext";
 
 import Aside from "components/Aside";
 import TodosList from "components/TodosList";
@@ -14,6 +15,8 @@ import EditTodo from "components/Forms/Todos/EditTodo";
 import PanelsList from "components/PanelsList";
 import CreatePanel from "components/Forms/Panels/CreatePanel";
 
+import AddMembers from "components/AddMembers";
+
 import PrivateRoute from "components/PrivateRoute";
 
 import styles from "./main.module.css";
@@ -21,32 +24,54 @@ import styles from "./main.module.css";
 const Main = () => {
   const { isLogged } = useUser();
 
+  const refAside = useRef(null);
   const refSection = useRef(null);
 
+  const { isPanelSelected } = useContext(TodosContext);
+
   useEffect(() => {
-    if (isLogged) refSection.current.classList.add(`${styles.margin_left300}`);
-    else refSection.current.classList.remove(`${styles.margin_left300}`);
+    if (isLogged) {
+      if (isPanelSelected) {
+        refAside.current.classList.remove(`hidden`);
+        refSection.current.classList.add(`${styles.margin_left300}`);
+      } else {
+        refAside.current.classList.add(`hidden`);
+        refSection.current.classList.remove(`${styles.margin_left300}`);
+      }
+    } else {
+      refAside.current.classList.add(`hidden`);
+      refSection.current.classList.remove(`${styles.margin_left300}`);
+    }
   });
 
   return (
     <main id="container">
-      {isLogged ? (
-        <div className={`${styles.aside}`}>
-          <Aside />
-        </div>
-      ) : null}
+      <div ref={refAside} className={`${styles.aside}`}>
+        <Aside />
+      </div>
       <section
         ref={refSection}
         className={`${styles.section} ${styles.margin_left300}`}
       >
         <Routes>
-          <Route path="/" element={null} />
+          <Route
+            exact
+            path="/"
+            element={isLogged ? <Navigate to="/panels-list" /> : null}
+          />
           {/* Users */}
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
 
           {/* Panels */}
-          <Route path="/panels-list" element={<PanelsList />} />
+          <Route
+            path="/panels-list"
+            element={
+              <PrivateRoute>
+                <PanelsList />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/create-panel"
             element={
@@ -55,9 +80,20 @@ const Main = () => {
               </PrivateRoute>
             }
           />
+
+          {/* Members */}
+          <Route
+            path={`/panel-:id/members-list`}
+            element={
+              <PrivateRoute>
+                <AddMembers />
+              </PrivateRoute>
+            }
+          />
+
           {/* Todos */}
           <Route
-            path="/1/tasks-list"
+            path={`/panel-:id/tasks-list`}
             element={
               <PrivateRoute>
                 <TodosList />

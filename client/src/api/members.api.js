@@ -1,15 +1,14 @@
 const url = "http://localhost:5000/members";
 
 export const getMembers = async (setMembers) => {
-  await fetch(url, {
+  await fetch(`${url}/members-list`, {
     headers: {
-      //"x-access-token": localStorage.getItem("token"),
+      "current-panel": localStorage.getItem("current-panel"),
     },
     credentials: "include",
   })
     .then((res) => res.json())
     .then((res) => {
-      // It means we have passed the middleware verifyJWT() and we reached getTodos()
       res.forEach((item) => {
         if (item._id) item.id = item._id;
       });
@@ -18,16 +17,16 @@ export const getMembers = async (setMembers) => {
 };
 
 export const addMember = async (member, setMembers) => {
-  await fetch(`${url}/add`, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
+  await fetch(`${url}/add-member`, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "include",
     headers: {
+      "current-panel": localStorage.getItem("current-panel"),
       "Content-Type": "application/json",
-      "x-access-token": localStorage.getItem("token"),
     },
-    body: JSON.stringify(member),
+    body: JSON.stringify({ memberId: member }),
   }).then(() => {
     getMembers(setMembers);
   });
@@ -38,12 +37,12 @@ export const deleteMember = async (member, setMembers) => {
     method: "DELETE",
     mode: "cors",
     cache: "no-cache",
-    credentials: "same-origin",
+    credentials: "include",
     headers: {
+      // ATENTO IGUAL HAY QUE PONER ESTA LINEA
+      //"current-panel": localStorage.getItem("current-panel"),
       "Content-Type": "application/json",
-      "x-access-token": localStorage.getItem("token"),
     },
-    //body: JSON.stringify(member),
   }).then(() => {
     getMembers(setMembers);
   });

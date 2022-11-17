@@ -1,20 +1,16 @@
 import express from "express";
 import dotenv from "dotenv";
 
-import { controller as controllerMongoDb } from "../controllers/mongodb/users.controller";
-import { controller as controllerSQLServer } from "../controllers/sqlserver/users.controller";
+import { controller } from "../database/controllers/users.controller";
 
 dotenv.config();
 
-let usersController;
-if (process.env.DATABASE === "MONGODB") usersController = controllerMongoDb;
-else usersController = controllerSQLServer;
-
 const router = express.Router();
 
-router.post("/sign-in", usersController.signIn);
-router.post("/sign-up", usersController.signUp);
-router.get("/log-out", usersController.logOut);
-router.get("/check-if-logged", usersController.checkIfLogged);
+router.post("/sign-in", controller.signIn);
+router.post("/sign-up", controller.signUp);
+router.get("/log-out", controller.logOut);
+router.get("/check-if-logged", controller.checkIfLogged);
+router.get("/users-list", controller.getUsers);
 
 export default router;

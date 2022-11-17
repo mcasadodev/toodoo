@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { createTodo, getTodos } from "api/todos.api";
 
@@ -11,7 +11,6 @@ import { useEffect } from "react";
 const CreateTodo = () => {
   const { setTodos } = useContext(TodosContext);
 
-  const params = useParams();
   const navigate = useNavigate();
 
   const [todoData, setTodoData] = useState({
@@ -19,15 +18,16 @@ const CreateTodo = () => {
     description: "",
   });
 
-  // ESTA MAL params.panelId HAY QUE SACARLO DE useTodo
+  const localStorageCurrentPanel = localStorage.getItem("current-panel");
+
   useEffect(() => {
-    getTodos(1, setTodos);
-  }, [setTodos]);
+    getTodos(localStorageCurrentPanel, setTodos);
+  }, [localStorageCurrentPanel, setTodos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createTodo(todoData, setTodos);
-    navigate(`/1/tasks-list`);
+    createTodo(todoData, localStorageCurrentPanel, setTodos);
+    navigate(`/panel-${localStorageCurrentPanel}/tasks-list`);
   };
 
   const handleChange = (e) => {

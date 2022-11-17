@@ -2,9 +2,6 @@ const url = "http://localhost:5000/panels";
 
 export const getPanels = async (setPanels) => {
   await fetch(`${url}/panels-list`, {
-    headers: {
-      //"x-access-token": localStorage.getItem("token"),
-    },
     credentials: "include",
   })
     .then((res) => res.json())
@@ -13,6 +10,19 @@ export const getPanels = async (setPanels) => {
         if (item._id) item.id = item._id;
       });
       setPanels(res);
+    });
+};
+
+export const getPanel = async (panelId, setPanel) => {
+  if (!localStorage.getItem("current-panel")) return;
+  await fetch(`${url}/panel-${panelId}`, {
+    credentials: "include",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res._id) res.id = res._id;
+      localStorage.setItem("current-panel", res.id);
+      if (setPanel) setPanel(res);
     });
 };
 
@@ -28,5 +38,20 @@ export const createPanel = async (panel, setPanels) => {
     body: JSON.stringify(panel),
   }).then(() => {
     getPanels(setPanels);
+  });
+};
+
+export const deletePanel = async (panel, setPanels) => {
+  await fetch(`${url}/delete/${panel.id}`, {
+    method: "DELETE",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(panel),
+  }).then(() => {
+    getPanels(1, setPanels);
   });
 };

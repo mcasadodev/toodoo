@@ -1,8 +1,8 @@
 import mssql from "mssql";
 import jwt from "jsonwebtoken";
 
-import { Todo } from "../../models/sqlserver/todo.model";
-import { config } from "./config";
+import { Todo } from "../../models/todo.model";
+import { config } from "../config";
 
 const sql = mssql;
 const _config = config;
@@ -31,7 +31,7 @@ controller.getTodos = async (req, res) => {
     const pool = await sql.connect(_config);
     const tasks = await pool
       .request()
-      .input("panel_id", sql.Int, 1 /*req.params.panelId*/)
+      .input("panel_id", sql.Int, req.params.panelId)
       .input("creator_id", sql.Int, req.userId)
       .query(
         "SELECT * FROM tasks WHERE panel_id = @panel_id AND creator_id = @creator_id"
@@ -48,7 +48,7 @@ controller.getTodo = async (req, res) => {
     const pool = await sql.connect(_config);
     const todo = await pool
       .request()
-      .input("id", sql.Int, req.params.id)
+      .input("id", sql.Int, req.params.todoId)
       .query("SELECT * FROM tasks WHERE id = @id");
     res.status(200).json(todo.recordset[0]);
   } catch (e) {
@@ -57,13 +57,14 @@ controller.getTodo = async (req, res) => {
 };
 
 controller.createTodo = async (req, res) => {
+  console.log(req.body);
   try {
     const pool = await sql.connect(_config);
     const insertTodo = await pool
       .request()
       .input("title", sql.NVarChar, req.body.title)
       .input("description", sql.NVarChar, req.body.description)
-      .input("panel_id", sql.Int, 1)
+      .input("panel_id", sql.Int, req.body.panelId)
       .input("creator_id", sql.Int, req.userId)
       .query(
         `INSERT INTO 

@@ -4,14 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { deleteTodo } from "api/todos.api";
 import TodosContext from "context/TodosContext";
 
-import { useUser } from "hooks/useUser";
-
 import styles from "./todo.module.css";
 
 const Todo = ({ todo, setTodos }) => {
   const { setCurrentTodo } = useContext(TodosContext);
   const navigate = useNavigate();
-  const { user } = useUser();
 
   const handleEdit = () => {
     setCurrentTodo(todo);
@@ -19,7 +16,7 @@ const Todo = ({ todo, setTodos }) => {
   };
 
   const handleDelete = () => {
-    deleteTodo(todo, setTodos, user);
+    deleteTodo(todo, localStorage.getItem("current-panel"), setTodos);
   };
 
   useEffect(() => {
@@ -40,7 +37,6 @@ const Todo = ({ todo, setTodos }) => {
       delete_btn.classList.remove("show");
       delete_btn.classList.add("hidden");
     });
-    console.log(todo_card);
   }, [todo.id]);
 
   return (

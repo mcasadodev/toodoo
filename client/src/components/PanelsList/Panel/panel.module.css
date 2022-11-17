@@ -1,0 +1,41 @@
+.panelCard {
+  padding: 2em;
+  background-color: white;
+  color: black;
+  line-height: 1.5rem;
+  height: 325px;
+  min-width: 275px;
+  cursor: pointer;
+}
+
+.panelCard:hover {
+  background-color: rgb(228, 228, 228);
+}
+
+.header {
+  height: 100px;
+  background-color: rgb(83, 83, 177);
+}
+
+.panelCard:hover .header {
+  background-color: rgb(56, 56, 125);
+}
+
+.todoCard h3,
+.todoCard p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.todoCard p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title {
+  font-weight: 900;
+  margin-bottom: 10px;
+}

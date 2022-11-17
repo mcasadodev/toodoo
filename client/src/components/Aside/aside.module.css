@@ -12,18 +12,18 @@ ul {
 
 aside ul li a div {
   padding: 10px 50px;
-
-  margin-bottom: 2px;
 }
 
-aside ul li a {
+aside ul li a,
+aside h3 a {
   text-decoration: none;
   color: white;
-  text-transform: uppercase;
 }
+
 aside ul li a div:hover {
-  text-decoration: none;
-  color: white;
   background-color: rgb(178, 178, 178);
-  text-transform: uppercase;
+}
+
+.focus {
+  background-color: rgb(161, 161, 161);
 }

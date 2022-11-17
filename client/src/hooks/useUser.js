@@ -1,10 +1,10 @@
-import { useContext, useCallback } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Context from "context/UserContext";
 
 export const useUser = () => {
-  const { jwt, setJWT } = useContext(Context);
+  const { jwt, setJWT, users, setUsers } = useContext(Context);
   const navigate = useNavigate();
 
   // const logout = useCallback(() => {
@@ -16,15 +16,16 @@ export const useUser = () => {
 
   const logoutUseUser = () => {
     setJWT(null);
-    //setUser("");
     navigate("/");
-    //localStorage.removeItem("token");
+    localStorage.removeItem("current-panel");
   };
 
   return {
+    isLogged: Boolean(jwt),
     jwt,
     setJWT,
-    isLogged: Boolean(jwt),
     logoutUseUser,
+    users,
+    setUsers,
   };
 };

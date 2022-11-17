@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import mssql from "mssql";
 
-import { User } from "../../models/sqlserver/user.model";
-import { config } from "./config";
+import { User } from "../../models/user.model";
+import { config } from "../config";
 import bcrypt from "bcrypt";
 
 const sql = mssql;
@@ -27,10 +27,7 @@ controller.signIn = async (req, res) => {
     const user = await pool
       .request()
       //.input("email", sql.NVarChar, req.body.email)
-      .query(
-        `SELECT * FROM users WHERE email LIKE '${req.body.email}'`
-        //`SELECT * FROM users WHERE email LIKE '${req.body.email}'`
-      );
+      .query(`SELECT * FROM users WHERE email LIKE '${req.body.email}'`);
 
     if (!user.recordset[0].name) {
       errors.push({ text: "User not found" });
@@ -45,7 +42,7 @@ controller.signIn = async (req, res) => {
       if (match) {
         const id = user.recordset[0].id;
         const token = jwt.sign({ id }, process.env.SECRET, {
-          expiresIn: 500,
+          expiresIn: 3000,
         });
 
         //req.session.user = user.recordset[0];
@@ -128,7 +125,6 @@ controller.logOut = async (req, res) => {
 
 controller.checkIfLogged = async (req, res) => {
   const token = req.cookies.token;
-  console.log(token);
   try {
     jwt.verify(token, process.env.SECRET, (err) => {
       if (!err) {
@@ -139,5 +135,15 @@ controller.checkIfLogged = async (req, res) => {
     });
   } catch (e) {
     res.json({ status: "No token" });
+  }
+};
+
+controller.getUsers = async (req, res) => {
+  try {
+    const pool = await sql.connect(_config);
+    const tasks = await pool.request().query("SELECT * FROM users");
+    res.status(200).json(tasks.recordsets[0]);
+  } catch (e) {
+    res.status(404).json({ message: e.message });
   }
 };

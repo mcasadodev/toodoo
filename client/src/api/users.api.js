@@ -76,3 +76,16 @@ export const checkIsLogged = async (setJTW, navigate) => {
       console.log(err.message);
     });
 };
+
+export const getUsers = async (setUsers) => {
+  await fetch(`${url}/users-list`, {
+    credentials: "include",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      res.forEach((item) => {
+        if (item._id) item.id = item._id;
+      });
+      setUsers(res);
+    });
+};

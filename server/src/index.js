@@ -3,20 +3,16 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-//import session from "express-session";
 
 import usersRoutes from "../routes/users.routes";
 import panelsRoutes from "../routes/panels.routes";
+import membersRoutes from "../routes/members.routes";
 import todosRoutes from "../routes/todos.routes";
+import participantsRoutes from "../routes/participants.routes";
 
-import { connectDb as connectDbMongoDb } from "../controllers/mongodb/connection.controller";
-import { connectDb as connectDbSQLServer } from "../controllers/sqlserver/connection.controller";
+import { connectDb } from "../database/connection";
 
 dotenv.config();
-
-let connectDb;
-if (process.env.DATABASE === "MONGODB") connectDb = connectDbMongoDb;
-else connectDb = connectDbSQLServer;
 
 // Initialization
 const app = express();
@@ -24,19 +20,6 @@ const app = express();
 // Midlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-
-// app.use(
-//   session({
-//     key: "user-id",
-//     secret: process.env.SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: {
-//       expires: 60 * 60 * 24, // 24 hours
-//       httpOnly: false,
-//     },
-//   })
-// );
 
 app.use(
   cors({
@@ -51,6 +34,8 @@ app.use(cookieParser());
 // Routes
 app.use("/", usersRoutes);
 app.use("/panels", panelsRoutes);
+app.use("/members", membersRoutes);
 app.use("/todos", todosRoutes);
+app.use("/participants", participantsRoutes);
 
 connectDb(app);

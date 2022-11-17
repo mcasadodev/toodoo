@@ -2,13 +2,13 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { signUp } from "api/users.api";
-import UsersContext from "context/TodosContext";
+import TodosContext from "context/TodosContext";
 
 import styles from "../../form.module.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { setMessages } = useContext(UsersContext);
+  const { currentPanel, setMessages } = useContext(TodosContext);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -20,7 +20,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     signUp(userData, setMessages);
-    navigate("/1/tasks-list");
+    navigate(`/${currentPanel.id}/tasks-list`);
   };
 
   const handleChange = (e) => {
@@ -32,7 +32,7 @@ const SignUp = () => {
 
   return (
     <>
-      <form action="" onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit} autoComplete="off">
         <h6 className={styles.form_title}>Sign Up</h6>
         <div className={styles.container}>
           <input
