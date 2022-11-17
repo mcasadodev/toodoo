@@ -1,6 +1,11 @@
 const url = "http://localhost:5000/todos";
 
-export const getTodos = async (panelId, setTodos) => {
+export const getTodos = async (
+  panelId,
+  setTodos,
+  currentPanel,
+  setCurrentPanel
+) => {
   await fetch(`${url}/${panelId}/tasks-list`, {
     //headers: {
     //"x-access-token": localStorage.getItem("token"),
@@ -12,6 +17,7 @@ export const getTodos = async (panelId, setTodos) => {
       res.forEach((item) => {
         if (item._id) item.id = item._id;
       });
+      if (setCurrentPanel) setCurrentPanel(currentPanel);
       setTodos(res);
     });
 };

@@ -63,11 +63,15 @@ controller.addMember = async (req, res) => {
 
 controller.deleteMember = async (req, res) => {
   try {
+    const panelId = req.headers["current-panel"];
     const pool = await sql.connect(_config);
-    // const deleteMember = await pool
-    //   .request()
-    //   .input("id", sql.Int, req.body.id)
-    //   .query("DELETE FROM panels WHERE id = @id");
+    const deleteMember = await pool
+      .request()
+      .input("member_id", sql.Int, req.body.memberId)
+      .input("panel_id", sql.Int, panelId)
+      .query(
+        "DELETE FROM users_panels WHERE member_id = @member_id AND panel_id = @panel_id;"
+      );
     res.status(201).json(deleteMember.recordsets);
   } catch (err) {
     res.status(409).json({ message: err.message });

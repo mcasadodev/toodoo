@@ -8,7 +8,7 @@ import styles from "../../form.module.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { currentPanel, setMessages } = useContext(TodosContext);
+  const { setMessages } = useContext(TodosContext);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -20,7 +20,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     signUp(userData, setMessages);
-    navigate(`/${currentPanel.id}/tasks-list`);
+    navigate(`/`);
   };
 
   const handleChange = (e) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useRef } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 import { useUser } from "hooks/useUser";
 import TodosContext from "context/TodosContext";
@@ -27,19 +27,21 @@ const Main = () => {
   const refAside = useRef(null);
   const refSection = useRef(null);
 
+  //const navigate = useNavigate();
+
   const { isPanelSelected } = useContext(TodosContext);
 
   useEffect(() => {
     if (isLogged) {
       if (isPanelSelected) {
-        refAside.current.classList.remove(`hidden`);
+        refAside.current.classList.remove(`display-none`);
         refSection.current.classList.add(`${styles.margin_left300}`);
       } else {
-        refAside.current.classList.add(`hidden`);
+        refAside.current.classList.add(`display-none`);
         refSection.current.classList.remove(`${styles.margin_left300}`);
       }
     } else {
-      refAside.current.classList.add(`hidden`);
+      refAside.current.classList.add(`display-none`);
       refSection.current.classList.remove(`${styles.margin_left300}`);
     }
   });
@@ -49,10 +51,7 @@ const Main = () => {
       <div ref={refAside} className={`${styles.aside}`}>
         <Aside />
       </div>
-      <section
-        ref={refSection}
-        className={`${styles.section} ${styles.margin_left300}`}
-      >
+      <section ref={refSection} className={`${styles.section}`}>
         <Routes>
           <Route
             exact

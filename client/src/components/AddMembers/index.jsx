@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useRef } from "react";
 
-import { getMembers, addMember } from "api/members.api";
+import { getMembers, addMember, deleteMember } from "api/members.api";
 
 import { useUser } from "hooks/useUser";
 import TodosContext from "context/TodosContext";
@@ -35,8 +35,13 @@ const AddMembers = () => {
     }
   }
 
-  const handleClick = () => {
-    addMember(refSelect.current.value);
+  const handleAdd = () => {
+    addMember(refSelect.current.value, setMembers);
+    getMembers(setMembers);
+  };
+
+  const handleDelete = () => {
+    deleteMember(refSelect.current.value, setMembers);
     getMembers(setMembers);
   };
 
@@ -52,7 +57,8 @@ const AddMembers = () => {
       <select id="slctMembers" ref={refSelect}>
         <option value="Choose One">Choose one</option>
       </select>
-      <button onClick={handleClick}>Add</button>
+      <button onClick={handleAdd}>Add</button>
+      <button onClick={handleDelete}>Delete</button>
     </>
   );
 };

@@ -39,10 +39,10 @@ export const deleteMember = async (member, setMembers) => {
     cache: "no-cache",
     credentials: "include",
     headers: {
-      // ATENTO IGUAL HAY QUE PONER ESTA LINEA
-      //"current-panel": localStorage.getItem("current-panel"),
+      "current-panel": localStorage.getItem("current-panel"),
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({ memberId: member }),
   }).then(() => {
     getMembers(setMembers);
   });

@@ -12,18 +12,15 @@ import { getPanel, getPanels } from "api/panels.api";
 const Aside = () => {
   //const { isLogged, logout } = useUser();
 
-  const { panels, setPanels } = useContext(TodosContext);
-  const [panel, setPanel] = useState({});
-  let panelId = localStorage.getItem("current-panel");
+  const { panels, setPanels, currentPanel } = useContext(TodosContext);
 
   useEffect(() => {
     getPanels(setPanels);
-    if (panelId) getPanel(panelId, setPanel);
-  }, [setPanels, setPanel, panelId]);
+  }, [setPanels]);
 
   return (
     <aside>
-      <h2>{panel.name}</h2>
+      <h2>{currentPanel.name}</h2>
       <ul>
         <li>
           <Link to="/create-todo">
@@ -31,12 +28,12 @@ const Aside = () => {
           </Link>
         </li>
         <li>
-          <Link to={`/panel-${panel.id}/members-list`}>
+          <Link to={`/panel-${currentPanel.id}/members-list`}>
             <div>Members</div>
           </Link>
         </li>
         <li>
-          <Link to={`/panel-${panel.id}/tasks-list`}>
+          <Link to={`#`}>
             <div>Settings</div>
           </Link>
         </li>
@@ -44,12 +41,12 @@ const Aside = () => {
       <h3 className={styles.panel_name}>Views</h3>
       <ul>
         <li>
-          <Link to="">
+          <Link to="#">
             <div>List</div>
           </Link>
         </li>
         <li>
-          <Link to="">
+          <Link to="#">
             <div>Grid</div>
           </Link>
         </li>

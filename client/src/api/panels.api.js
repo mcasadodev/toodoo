@@ -13,7 +13,7 @@ export const getPanels = async (setPanels) => {
     });
 };
 
-export const getPanel = async (panelId, setPanel) => {
+export const getPanel = async (panelId, setCurrentPanel) => {
   if (!localStorage.getItem("current-panel")) return;
   await fetch(`${url}/panel-${panelId}`, {
     credentials: "include",
@@ -22,7 +22,7 @@ export const getPanel = async (panelId, setPanel) => {
     .then((res) => {
       if (res._id) res.id = res._id;
       localStorage.setItem("current-panel", res.id);
-      if (setPanel) setPanel(res);
+      if (setCurrentPanel) setCurrentPanel(res);
     });
 };
 
