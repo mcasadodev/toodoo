@@ -33,9 +33,10 @@ app.use("/todos", todosRoutes);
 app.use("/participants", participantsRoutes);
 
 if (process.env.ENV === "PRO") {
-  //app.use(express.static("client/build"));
+  app.use(express.static("client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    //res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.redirect("/");
   });
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
