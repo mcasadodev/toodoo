@@ -5,13 +5,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 
-import usersRoutes from "../routes/users.routes";
-import panelsRoutes from "../routes/panels.routes";
-import membersRoutes from "../routes/members.routes";
-import todosRoutes from "../routes/todos.routes";
-import participantsRoutes from "../routes/participants.routes";
+import usersRoutes from "./routes/users.routes";
+import panelsRoutes from "./routes/panels.routes";
+import membersRoutes from "./routes/members.routes";
+import todosRoutes from "./routes/todos.routes";
+import participantsRoutes from "./routes/participants.routes";
 
-import { connectDb } from "../database/connection";
+import { connectDb } from "./database/connection";
 
 dotenv.config();
 

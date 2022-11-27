@@ -1,14 +1,14 @@
 {
-  "name": "server",
+  "name": "toodoo",
   "version": "1.0.0",
   "engines": {
     "node": "14.17.0"
   },
   "description": "",
-  "main": "src/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../client && npm run build --prefix ../client"
   },
