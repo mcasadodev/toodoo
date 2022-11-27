@@ -1,6 +1,9 @@
 {
   "name": "toodoo",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.17.0"
+  },
   "description": "",
   "main": "server/src/index.js",
   "scripts": {
