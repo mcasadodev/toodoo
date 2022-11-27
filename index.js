@@ -41,7 +41,7 @@ if (process.env.ENV === "PRO") {
 }
 
 // Routes
-app.use("/", usersRoutes);
+app.use("/users", usersRoutes);
 app.use("/panels", panelsRoutes);
 app.use("/members", membersRoutes);
 app.use("/todos", todosRoutes);
