@@ -1,4 +1,21 @@
-const url = "https://toodoo.herokuapp.com/todos";
+const url = `${
+  process.env.NODE_ENV === "PRO"
+    ? "https://toodoo.herokuapp.com"
+    : "http://localhost:5000"
+}/todos`;
+
+const headers =
+  process.env.NODE_ENV === "PRO"
+    ? {
+        "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/json",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+      }
+    : {
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/json",
+      };
 
 export const getTodos = async (
   panelId,
@@ -39,10 +56,7 @@ export const createTodo = async (todo, panelId, setTodos) => {
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "include", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      //"x-access-token": localStorage.getItem("token"),
-    },
+    headers: headers,
     body: JSON.stringify({ ...todo, panelId }),
   }).then(() => {
     getTodos(panelId, setTodos);
@@ -56,10 +70,7 @@ export const editTodo = async (todo, id, panelId, setTodos) => {
     mode: "cors",
     cache: "no-cache",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      //"x-access-token": localStorage.getItem("token"),
-    },
+    headers: headers,
     body: JSON.stringify(todo),
   })
     .then((res) => res.json())
@@ -75,9 +86,7 @@ export const deleteTodo = async (todo, panelId, setTodos) => {
     mode: "cors",
     cache: "no-cache",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify(todo),
   }).then(() => {
     getTodos(panelId, setTodos);

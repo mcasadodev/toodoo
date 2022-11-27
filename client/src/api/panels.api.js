@@ -1,4 +1,21 @@
-const url = "https://toodoo.herokuapp.com/panels";
+const url = `${
+  process.env.NODE_ENV === "PRO"
+    ? "https://toodoo.herokuapp.com"
+    : "http://localhost:5000"
+}/panels`;
+
+const headers =
+  process.env.NODE_ENV === "PRO"
+    ? {
+        "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/json",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+      }
+    : {
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/json",
+      };
 
 export const getPanels = async (setPanels) => {
   await fetch(`${url}/panels-list`, {
@@ -33,9 +50,7 @@ export const createPanel = async (panel, setPanels) => {
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "include", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify(panel),
   }).then(() => {
     getPanels(setPanels);
@@ -48,9 +63,7 @@ export const deletePanel = async (panel, setPanels) => {
     mode: "cors",
     cache: "no-cache",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify(panel),
   }).then(() => {
     getPanels(1, setPanels);

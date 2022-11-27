@@ -1,4 +1,21 @@
-const url = "https://toodoo.herokuapp.com";
+const url = `${
+  process.env.NODE_ENV === "PRO"
+    ? "https://toodoo.herokuapp.com"
+    : "http://localhost:5000"
+}`;
+
+const headers =
+  process.env.NODE_ENV === "PRO"
+    ? {
+        "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/json",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+      }
+    : {
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/json",
+      };
 
 export const signIn = async (user, setJWT, setUserName) => {
   await fetch(`${url}/sign-in`, {
@@ -6,10 +23,7 @@ export const signIn = async (user, setJWT, setUserName) => {
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "include", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      "Referrer-Policy": "same-origin",
-    },
+    headers: headers,
     body: JSON.stringify(user),
   })
     .then((res) => res.json())
@@ -35,10 +49,7 @@ export const signUp = async (user, setMessages, setErrors, navigate) => {
     mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "same-origin", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      "Referrer-Policy": "same-origin",
-    },
+    headers: headers,
     body: JSON.stringify(user),
   })
     .then((res) => res.json())
@@ -60,9 +71,6 @@ export const logout = async () => {
   await fetch(`${url}/log-out`, {
     method: "get",
     credentials: "include", // <--- YOU NEED THIS LINE
-    headers: {
-      "Referrer-Policy": "same-origin",
-    },
   })
     .then((res) => res.json())
     .catch((err) => {
@@ -73,10 +81,8 @@ export const logout = async () => {
 export const checkIsLogged = async (setJTW, navigate) => {
   await fetch(`${url}/check-if-logged`, {
     method: "get",
-    credentials: "include", // <--- YOU NEED THIS LINE
-    headers: {
-      "Referrer-Policy": "same-origin",
-    },
+    credentials: "include", // <--- YOU NEED THIS LINE,
+    headers,
   })
     .then((res) => res.json())
     .then((res) => {
