@@ -3,7 +3,7 @@ import mssql from "mssql";
 import mysql from "mysql";
 import bcrypt from "bcrypt";
 
-import { User } from "../../models/user.model";
+//import { User } from "../../models/user.model";
 import { config } from "../config.js";
 
 const sql = mssql;

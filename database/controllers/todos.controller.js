@@ -2,7 +2,7 @@ import mssql from "mssql";
 import mysql from "mysql";
 import jwt from "jsonwebtoken";
 
-import { Todo } from "../../models/todo.model";
+//import { Todo } from "../../models/todo.model";
 import { config } from "../config.js";
 
 const sql = mssql;
