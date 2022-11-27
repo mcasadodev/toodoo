@@ -1,4 +1,4 @@
-const url = "https://toodoo.herokuapp.com";
+const url = "https://toodoo.herokuapp.com/panels";
 
 const headers =
   process.env.NODE_ENV === "PRO"
@@ -29,7 +29,7 @@ export const getPanels = async (setPanels) => {
 
 export const getPanel = async (panelId, setCurrentPanel) => {
   if (!localStorage.getItem("current-panel")) return;
-  await fetch(`${url}/${panelId}`, {
+  await fetch(`${url}/panel-${panelId}`, {
     credentials: "include",
   })
     .then((res) => res.json())

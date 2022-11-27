@@ -26,11 +26,11 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
 
 // Routes
-app.use("/", usersRoutes);
-app.use("/", panelsRoutes);
-app.use("/", membersRoutes);
-app.use("/", todosRoutes);
-app.use("/", participantsRoutes);
+app.use("/users", usersRoutes);
+app.use("/panels", panelsRoutes);
+app.use("/members", membersRoutes);
+app.use("/todos", todosRoutes);
+app.use("/participants", participantsRoutes);
 
 if (process.env.ENV === "PRO") {
   app.use(cors());
