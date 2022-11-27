@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-//import path from "path";
+import path from "node:path";
 
 import usersRoutes from "./routes/users.routes.js";
 import panelsRoutes from "./routes/panels.routes.js";
@@ -17,7 +17,7 @@ dotenv.config();
 
 // Initialization
 const app = express();
-const path = require("node:path");
+//const path = require("node:path");
 
 // Midlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
