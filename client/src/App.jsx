@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import StaticContext from "context/StaticContext";
 import { UserContextProvider } from "context/UserContext";
@@ -9,11 +10,13 @@ import Wrapper from "components/Wrapper";
 const App = () => {
   return (
     <>
-      <StaticContext.Provider value={{ key: "value" }}>
-        <UserContextProvider>
-          <Wrapper />
-        </UserContextProvider>
-      </StaticContext.Provider>
+      <Router>
+        <StaticContext.Provider value={{ key: "value" }}>
+          <UserContextProvider>
+            <Wrapper />
+          </UserContextProvider>
+        </StaticContext.Provider>
+      </Router>
     </>
   );
 };
