@@ -4,18 +4,9 @@ const url = `${
     : "http://localhost:5000"
 }`;
 
-const headers =
-  process.env.NODE_ENV === "PRO"
-    ? {
-        "Access-Control-Allow-Credentials": true,
-        "Content-Type": "application/json",
-        "Referrer-Policy": "strict-origin-when-cross-origin",
-      }
-    : {
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-        "Access-Control-Allow-Credentials": true,
-        "Content-Type": "application/json",
-      };
+const headers = {
+  "Content-Type": "application/json",
+};
 
 export const signIn = async (user, setJWT, setUserName) => {
   await fetch(`${url}/sign-in`, {
@@ -56,10 +47,12 @@ export const signUp = async (user, setMessages, setErrors, navigate) => {
     .then((res) => {
       if (res.messages) {
         setMessages(res.messages);
+        setErrors([]);
         navigate("/");
       }
       if (res.errors) {
         setErrors(res.errors);
+        setMessages([]);
       }
     })
     .catch((err) => {

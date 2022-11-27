@@ -1,14 +1,13 @@
 import jwt from "jsonwebtoken";
-import mssql from "mssql";
-import mysql from "mysql";
 import bcrypt from "bcrypt";
 
 //import { User } from "../../models/user.model";
-import { config } from "../config.js";
+//import { config } from "../config.js";
+import { pool } from "../connection.js";
 
-const sql = mssql;
-const _mysql = mysql;
-const _config = config;
+//const sql = mssql;
+//const _mysql = mysql;
+//const _config = config;
 
 export const controller = {};
 
@@ -25,43 +24,34 @@ const matchPassword = async (formPassword, userPassword) => {
 controller.signIn = async (req, res) => {
   const errors = [];
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
-      `SELECT * FROM users WHERE email LIKE '${req.body.email}'`,
-      (err, results) => {
-        if (err) throw err;
-        if (!results[0].name) {
-          errors.push({ text: "User not found" });
-        }
-        if (errors.length > 0) {
-          res.send(errors);
-        } else {
-          const match = matchPassword(req.body.password, results[0].password);
-          if (match) {
-            const { id } = results[0];
-            const token = jwt.sign({ id }, process.env.SECRET, {
-              expiresIn: 3000,
-            });
-
-            //req.session.user = user.recordset[0];
-            //req.session.save();
-
-            connection.end();
-
-            res.cookie("token", token, {
-              httpOnly: false,
-            });
-
-            res.json({ auth: true, token, result: results[0] });
-          } else {
-            connection.end();
-            res.json({ auth: false });
-          }
-        }
-
-        connection.end();
-      }
+    const [result] = await pool.query(
+      `SELECT * FROM users WHERE email LIKE '${req.body.email}'`
     );
+    if (!result[0].name) {
+      errors.push({ text: "User not found" });
+    }
+    if (errors.length > 0) {
+      res.send(errors);
+    } else {
+      const match = await matchPassword(req.body.password, result[0].password);
+      if (match) {
+        const { id } = result[0];
+        const token = jwt.sign({ id }, process.env.SECRET, {
+          expiresIn: 3000,
+        });
+
+        //req.session.user = user.recordset[0];
+        //req.session.save();
+
+        res.cookie("token", token, {
+          httpOnly: false,
+        });
+
+        res.json({ auth: true, token, result: result[0] });
+      } else {
+        res.json({ auth: false });
+      }
+    }
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -81,41 +71,32 @@ controller.signUp = async (req, res) => {
   } else {
     try {
       const pwd = await encryptPassword(req.body.password);
-      const connection = _mysql.createConnection(_config);
-      connection.query(
-        `SELECT * FROM users WHERE email LIKE '${req.body.email}'`,
-        (err, results) => {
-          if (err) throw err;
-          if (results[0]) {
-            if (results[0].name) {
-              messages.push({ text: "Email already exists" });
-              const obj = { errors: messages };
-              connection.end();
-              res.send(obj);
-            }
-          } else {
-            //SUCCESS
-            connection.query(
-              `INSERT INTO 
+      const [result] = await pool.query(
+        `SELECT * FROM users WHERE email LIKE '${req.body.email}'`
+      );
+
+      if (result[0]) {
+        if (result[0].name) {
+          messages.push({ text: "Email already exists" });
+          const obj = { errors: messages };
+          connection.end();
+          res.send(obj);
+        }
+      } else {
+        //SUCCESS
+        await pool.query(
+          `INSERT INTO 
                 users 
                  (name, email, password)
                  VALUES (?, ?, ?)`,
-              [req.body.name, req.body.email, pwd],
-              (err) => {
-                if (err) throw err;
-                messages.push({
-                  text: "Your new user has been created. Sign in!",
-                });
-                connection.end();
-                res.send({ messages });
-                //res.send(messages).redirect("../");
-              }
-            );
-          }
-
-          connection.end();
-        }
-      );
+          [req.body.name, req.body.email, pwd]
+        );
+        messages.push({
+          text: "Your new user has been created. Sign in!",
+        });
+        res.send({ messages });
+        //res.send(messages).redirect("../");
+      }
     } catch (err) {
       res.status(404).json({ message: err.message });
     }

@@ -2,11 +2,12 @@ import mssql from "mssql";
 import mysql from "mysql";
 import jwt from "jsonwebtoken";
 
-import { config } from "../config.js";
+//import { config } from "../config.js";
+import { pool } from "../connection.js";
 
-const sql = mssql;
-const _mysql = mysql;
-const _config = config;
+//const sql = mssql;
+//const _mysql = mysql;
+//const _config = config;
 
 export const controller = {};
 
@@ -29,16 +30,12 @@ controller.verifyJWT = (req, res, next) => {
 
 controller.getPanels = async (req, res) => {
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
+    const [result] = await pool.query(
       "SELECT * FROM panels WHERE owner_id = ?",
-      [req.userId],
-      (err, results) => {
-        if (err) throw err;
-        connection.end();
-        res.status(200).json(results);
-      }
+      [req.userId]
     );
+    console.log(result);
+    res.status(200).json(result);
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -46,16 +43,11 @@ controller.getPanels = async (req, res) => {
 
 controller.getPanel = async (req, res) => {
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
-      "SELECT * FROM panels WHERE id = ?",
-      [req.params.id],
-      (err, results) => {
-        if (err) throw err;
-        connection.end();
-        res.status(200).json(results[0]);
-      }
-    );
+    const [result] = await pool.query("SELECT * FROM panels WHERE id = ?", [
+      req.params.id,
+    ]);
+    console.log(result[0]);
+    res.status(200).json(result[0]);
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -63,20 +55,16 @@ controller.getPanel = async (req, res) => {
 
 controller.createPanel = async (req, res) => {
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
+    const [result] = await pool.query(
       `INSERT INTO 
           panels 
           (name, owner_id)
          VALUES (?, ?)`,
-      [req.body.name, req.userId],
-      (err, results) => {
-        if (err) throw err;
-        console.log("Panel added succesfully!!!");
-        connection.end();
-        res.status(201).json(results);
-      }
+      [req.body.name, req.userId]
     );
+    console.log("Panel added succesfully!!!");
+    console.log(result);
+    res.status(201).json(result);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -84,21 +72,17 @@ controller.createPanel = async (req, res) => {
 
 controller.editPanel = async (req, res) => {
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
+    const [result] = await pool.query(
       `UPDATE 
           panels
        SET 
           name = ?, 
        WHERE id = ?`,
-      [req.body.name, req.params.id],
-      (err, results) => {
-        if (err) throw err;
-        console.log("Panel edited succesfully!!!");
-        connection.end();
-        res.status(201).json(results);
-      }
+      [req.body.name, req.params.id]
     );
+    console.log("Panel edited succesfully!!!");
+    console.log(result);
+    res.status(201).json(result);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -106,16 +90,11 @@ controller.editPanel = async (req, res) => {
 
 controller.deletePanel = async (req, res) => {
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
-      "DELETE FROM panels WHERE id = ?",
-      [req.body.id],
-      (err, results) => {
-        if (err) throw err;
-        connection.end();
-        res.status(201).json(results);
-      }
-    );
+    const [result] = await pool.query("DELETE FROM panels WHERE id = ?", [
+      req.body.id,
+    ]);
+    console.log(result);
+    res.status(201).json(result);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }

@@ -3,11 +3,12 @@ import mysql from "mysql";
 import jwt from "jsonwebtoken";
 
 //import { Todo } from "../../models/todo.model";
-import { config } from "../config.js";
+//import { config } from "../config.js";
+import { pool } from "../connection.js";
 
-const sql = mssql;
-const _mysql = mysql;
-const _config = config;
+//const sql = mssql;
+//const _mysql = mysql;
+//const _config = config;
 
 export const controller = {};
 
@@ -30,16 +31,12 @@ controller.verifyJWT = (req, res, next) => {
 
 controller.getTodos = async (req, res) => {
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
+    const [result] = await pool.query(
       "SELECT * FROM tasks WHERE panel_id = ? AND creator_id = ?",
-      [req.params.panelId, req.userId],
-      (err, results) => {
-        if (err) throw err;
-        connection.end();
-        res.status(200).json(results);
-      }
+      [req.params.panelId, req.userId]
     );
+    console.log(result);
+    res.status(200).json(result);
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -47,38 +44,28 @@ controller.getTodos = async (req, res) => {
 
 controller.getTodo = async (req, res) => {
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
-      "SELECT * FROM tasks WHERE id = ?",
-      [req.params.todoId],
-      (err, results) => {
-        if (err) throw err;
-        connection.end();
-        res.status(200).json(results);
-      }
-    );
+    const [result] = await pool.query("SELECT * FROM tasks WHERE id = ?", [
+      req.params.todoId,
+    ]);
+    console.log(result[0]);
+    res.status(200).json(result[0]);
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
 };
 
 controller.createTodo = async (req, res) => {
-  console.log(req.body);
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
+    const [result] = await pool.query(
       `INSERT INTO 
           tasks 
           (title, description, panel_id, creator_id)
          VALUES ( ?, ?, ?, ?)`,
-      [req.body.title, req.body.description, req.body.panelId, req.userId],
-      (err, results) => {
-        if (err) throw err;
-        console.log("Task added succesfully!!!");
-        connection.end();
-        res.status(201).json(results);
-      }
+      [req.body.title, req.body.description, req.body.panelId, req.userId]
     );
+    console.log("Task added succesfully!!!");
+    console.log(result);
+    res.status(201).json(result);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -86,22 +73,18 @@ controller.createTodo = async (req, res) => {
 
 controller.editTodo = async (req, res) => {
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
+    const [result] = await pool.query(
       `UPDATE 
           tasks
         SET 
           title = ?, 
           description = ?
         WHERE id = ?`,
-      [req.body.title, req.body.description, req.params.id],
-      (err, results) => {
-        if (err) throw err;
-        console.log("Todo edited succesfully!!!");
-        connection.end();
-        res.status(201).json(results);
-      }
+      [req.body.title, req.body.description, req.params.id]
     );
+    console.log("Todo edited succesfully!!!");
+    console.log(result);
+    res.status(201).json(result);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -109,16 +92,10 @@ controller.editTodo = async (req, res) => {
 
 controller.deleteTodo = async (req, res) => {
   try {
-    const connection = _mysql.createConnection(_config);
-    connection.query(
-      "DELETE FROM tasks WHERE id = ?",
-      [req.body.id],
-      (err, results) => {
-        if (err) throw err;
-        connection.end();
-        res.status(201).json(results);
-      }
-    );
+    const [result] = await pool.query("DELETE FROM tasks WHERE id = ?", [
+      req.body.id,
+    ]);
+    res.status(201).json(result);
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
