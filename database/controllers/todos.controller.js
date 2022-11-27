@@ -36,8 +36,8 @@ controller.getTodos = async (req, res) => {
       [req.params.panelId, req.userId],
       (err, results) => {
         if (err) throw err;
-        res.status(200).json(results);
         connection.end();
+        res.status(200).json(results);
       }
     );
   } catch (e) {
@@ -53,8 +53,8 @@ controller.getTodo = async (req, res) => {
       [req.params.todoId],
       (err, results) => {
         if (err) throw err;
-        res.status(200).json(results);
         connection.end();
+        res.status(200).json(results);
       }
     );
   } catch (e) {
@@ -75,8 +75,8 @@ controller.createTodo = async (req, res) => {
       (err, results) => {
         if (err) throw err;
         console.log("Task added succesfully!!!");
-        res.status(201).json(results);
         connection.end();
+        res.status(201).json(results);
       }
     );
   } catch (err) {
@@ -98,8 +98,8 @@ controller.editTodo = async (req, res) => {
       (err, results) => {
         if (err) throw err;
         console.log("Todo edited succesfully!!!");
-        res.status(201).json(results);
         connection.end();
+        res.status(201).json(results);
       }
     );
   } catch (err) {
@@ -115,8 +115,8 @@ controller.deleteTodo = async (req, res) => {
       [req.body.id],
       (err, results) => {
         if (err) throw err;
-        res.status(201).json(results);
         connection.end();
+        res.status(201).json(results);
       }
     );
   } catch (err) {

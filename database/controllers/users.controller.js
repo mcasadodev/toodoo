@@ -46,15 +46,20 @@ controller.signIn = async (req, res) => {
             //req.session.user = user.recordset[0];
             //req.session.save();
 
+            connection.end();
+
             res.cookie("token", token, {
               httpOnly: false,
             });
 
             res.json({ auth: true, token, result: results[0] });
           } else {
+            connection.end();
             res.json({ auth: false });
           }
         }
+
+        connection.end();
       }
     );
   } catch (e) {
@@ -85,6 +90,7 @@ controller.signUp = async (req, res) => {
             if (results[0].name) {
               messages.push({ text: "Email already exists" });
               const obj = { errors: messages };
+              connection.end();
               res.send(obj);
             }
           } else {
@@ -100,12 +106,14 @@ controller.signUp = async (req, res) => {
                 messages.push({
                   text: "Your new user has been created. Sign in!",
                 });
+                connection.end();
                 res.send({ messages });
                 //res.send(messages).redirect("../");
-                connection.end();
               }
             );
           }
+
+          connection.end();
         }
       );
     } catch (err) {

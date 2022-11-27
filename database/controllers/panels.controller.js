@@ -35,8 +35,8 @@ controller.getPanels = async (req, res) => {
       [req.userId],
       (err, results) => {
         if (err) throw err;
-        res.status(200).json(results);
         connection.end();
+        res.status(200).json(results);
       }
     );
   } catch (e) {
@@ -52,8 +52,8 @@ controller.getPanel = async (req, res) => {
       [req.params.id],
       (err, results) => {
         if (err) throw err;
-        res.status(200).json(results[0]);
         connection.end();
+        res.status(200).json(results[0]);
       }
     );
   } catch (e) {
@@ -73,8 +73,8 @@ controller.createPanel = async (req, res) => {
       (err, results) => {
         if (err) throw err;
         console.log("Panel added succesfully!!!");
-        res.status(201).json(results);
         connection.end();
+        res.status(201).json(results);
       }
     );
   } catch (err) {
@@ -95,8 +95,8 @@ controller.editPanel = async (req, res) => {
       (err, results) => {
         if (err) throw err;
         console.log("Panel edited succesfully!!!");
-        res.status(201).json(results);
         connection.end();
+        res.status(201).json(results);
       }
     );
   } catch (err) {
@@ -112,8 +112,8 @@ controller.deletePanel = async (req, res) => {
       [req.body.id],
       (err, results) => {
         if (err) throw err;
-        res.status(201).json(results);
         connection.end();
+        res.status(201).json(results);
       }
     );
   } catch (err) {

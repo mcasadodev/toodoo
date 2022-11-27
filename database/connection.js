@@ -6,13 +6,13 @@ import { config } from "./config.js";
 
 const PORT = process.env.PORT || 5000;
 
-let _connection;
+//let _connection;
 export const connectDb = (app) => {
   app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 
-  _connection = mysql.createConnection(config);
+  //_connection = mysql.createConnection(config);
 
-  _connection.on("error", connectDb(app));
+  //_connection.on("error", connectDb(app));
 
   function handleDisconnect() {
     const connection = mysql.createConnection(config); // Recreate the connection, since
