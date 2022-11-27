@@ -4,9 +4,18 @@ const url = `${
     : "http://localhost:5000"
 }/todos`;
 
-const headers = {
-  "Content-Type": "application/json",
-};
+const headers =
+  process.env.NODE_ENV === "PRO"
+    ? {
+        "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/json",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+      }
+    : {
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/json",
+      };
 
 export const getTodos = async (
   panelId,
