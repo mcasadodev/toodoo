@@ -29,7 +29,7 @@ if (process.env.ENV === "PRO") {
   app.get("*", (req, res) => {
     req.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
-  app.use(cors(cors()));
+  app.use(cors());
 } else if (process.env.ENV === "DEV") {
   app.use(
     cors({
