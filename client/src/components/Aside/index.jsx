@@ -60,7 +60,7 @@ const Aside = () => {
       <ul>
         {panels.map((item) => (
           <li key={item.id}>
-            <Link to={`/${item.id}/tasks-list`}>
+            <Link to={`/panel-${item.id}/tasks-list`}>
               <div
                 className={`${styles.panel_line} 
                 ${
@@ -70,7 +70,7 @@ const Aside = () => {
                 }`}
               >
                 <h6>{item.name}</h6>
-                <div className={styles.trash}></div>
+                {/* <div className={styles.trash}></div> */}
               </div>
             </Link>
           </li>

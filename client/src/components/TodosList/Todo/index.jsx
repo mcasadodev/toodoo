@@ -47,7 +47,7 @@ const Todo = ({ todo, setTodos }) => {
           className={`hidden ${styles.button} ${styles.delete_button}`}
           onClick={handleDelete}
         >
-          X
+          D
         </button>
         <button
           id={`edit_btn_${todo.id}`}
