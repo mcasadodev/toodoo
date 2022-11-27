@@ -2,7 +2,7 @@ import mysql from "mysql";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { config } from "./config";
+import { config } from "./config.js";
 
 const PORT = process.env.PORT || 5000;
 

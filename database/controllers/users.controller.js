@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 import mssql from "mssql";
 import mysql from "mysql";
+import bcrypt from "bcrypt";
 
 import { User } from "../../models/user.model";
-import { config } from "../config";
-import bcrypt from "bcrypt";
+import { config } from "../config.js";
 
 const sql = mssql;
 const _mysql = mysql;

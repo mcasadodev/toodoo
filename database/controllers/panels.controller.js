@@ -2,7 +2,7 @@ import mssql from "mssql";
 import mysql from "mysql";
 import jwt from "jsonwebtoken";
 
-import { config } from "../config";
+import { config } from "../config.js";
 
 const sql = mssql;
 const _mysql = mysql;

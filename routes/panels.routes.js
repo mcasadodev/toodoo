@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 
-import { controller } from "../database/controllers/panels.controller";
+import { controller } from "../database/controllers/panels.controller.js";
 
 dotenv.config();
 

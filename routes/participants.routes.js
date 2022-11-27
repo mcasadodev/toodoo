@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 
-import { controller } from "../database/controllers/participants.controller";
+import { controller } from "../database/controllers/participants.controller.js";
 
 dotenv.config();
 
