@@ -1,4 +1,4 @@
-const url = "https://sleepy-sands-80416.herokuapp.com/participants";
+const url = "https://toodoo.herokuapp.com/participants";
 
 export const getParticipants = async (setParticipants) => {
   await fetch(url, {

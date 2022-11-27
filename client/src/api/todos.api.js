@@ -1,4 +1,4 @@
-const url = "https://sleepy-sands-80416.herokuapp.com/todos";
+const url = "https://toodoo.herokuapp.com/todos";
 
 export const getTodos = async (
   panelId,
