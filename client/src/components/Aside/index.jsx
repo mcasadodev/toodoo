@@ -60,7 +60,7 @@ const Aside = () => {
       <ul>
         {panels.map((item) => (
           <li key={item.id}>
-            <Link to={`/panel-${item.id}/tasks-list`}>
+            <Link to={`/${item.id}/tasks-list`}>
               <div
                 className={`${styles.panel_line} 
                 ${

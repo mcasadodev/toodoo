@@ -104,7 +104,7 @@ const Main = () => {
 
           {/* Members */}
           <Route
-            path={`/panel-:id/members-list`}
+            path={`/:id/members-list`}
             element={
               <PrivateRoute>
                 <AddMembers />

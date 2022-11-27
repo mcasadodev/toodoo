@@ -27,7 +27,7 @@ const CreateTodo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     createTodo(todoData, localStorageCurrentPanel, setTodos);
-    navigate(`/panel-${localStorageCurrentPanel}/tasks-list`);
+    navigate(`/${localStorageCurrentPanel}/tasks-list`);
   };
 
   const handleChange = (e) => {

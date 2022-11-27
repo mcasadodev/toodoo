@@ -8,7 +8,7 @@ const Panel = ({ panel }) => {
 
   const handleClick = () => {
     localStorage.setItem("current-panel", panel.id);
-    navigate(`/panel-${panel.id}/tasks-list`);
+    navigate(`/${panel.id}/tasks-list`);
   };
 
   useEffect(() => {

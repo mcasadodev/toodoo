@@ -29,7 +29,7 @@ export const getPanels = async (setPanels) => {
 
 export const getPanel = async (panelId, setCurrentPanel) => {
   if (!localStorage.getItem("current-panel")) return;
-  await fetch(`${url}/panel-${panelId}`, {
+  await fetch(`${url}/${panelId}`, {
     credentials: "include",
   })
     .then((res) => res.json())
