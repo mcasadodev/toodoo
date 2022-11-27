@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import path from "node:path";
+import path from "path";
 
 import usersRoutes from "./routes/users.routes.js";
 import panelsRoutes from "./routes/panels.routes.js";
@@ -41,9 +41,9 @@ if (process.env.ENV === "PRO") {
     })
   );
   app.use(express.static("client/build"));
-  // app.get("*", (req, res) => {
-  //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  // });
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  });
 } else if (process.env.ENV === "DEV") {
   app.use(
     cors({
