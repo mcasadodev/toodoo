@@ -25,9 +25,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 if (process.env.ENV === "PRO") {
   app.use(express.static("../client/build"));
   app.get("*", (req, res) => {
-    req.sendFile(
-      path.resolve(__dirname, "..", "client", "build", "index.html")
-    );
+    req.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 } else if (process.env.ENV === "DEV") {
   app.use(
