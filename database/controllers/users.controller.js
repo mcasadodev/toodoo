@@ -79,7 +79,6 @@ controller.signUp = async (req, res) => {
         if (result[0].name) {
           messages.push({ text: "Email already exists" });
           const obj = { errors: messages };
-          connection.end();
           res.send(obj);
         }
       } else {
