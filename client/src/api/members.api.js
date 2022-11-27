@@ -1,4 +1,4 @@
-const url = "http://localhost:5000/members";
+const url = "https://sleepy-sands-80416.herokuapp.com/members";
 
 export const getMembers = async (setMembers) => {
   await fetch(`${url}/members-list`, {

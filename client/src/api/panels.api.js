@@ -1,4 +1,4 @@
-const url = "http://localhost:5000/panels";
+const url = "https://sleepy-sands-80416.herokuapp.com/panels";
 
 export const getPanels = async (setPanels) => {
   await fetch(`${url}/panels-list`, {

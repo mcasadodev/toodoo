@@ -1,4 +1,4 @@
-const url = "http://localhost:5000";
+const url = "https://sleepy-sands-80416.herokuapp.com/";
 
 export const signIn = async (user, setJWT, setUserName) => {
   await fetch(`${url}/sign-in`, {
