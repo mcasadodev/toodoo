@@ -33,16 +33,10 @@ app.use("/todos", todosRoutes);
 app.use("/participants", participantsRoutes);
 
 if (process.env.ENV === "PRO") {
-  app.use(
-    cors({
-      origin: ["https://toodoo.herokuapp.com"],
-      methods: ["GET", "POST", "PUT", "DELETE"],
-      credentials: true,
-    })
-  );
+  app.use(cors());
   app.use(express.static("client/build"));
-  app.get("/panels-list", (req, res) => {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 } else if (process.env.ENV === "DEV") {
   app.use(
