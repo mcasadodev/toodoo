@@ -8,6 +8,7 @@ export const signIn = async (user, setJWT, setUserName) => {
     credentials: "include", // include, *same-origin, omit
     headers: {
       "Content-Type": "application/json",
+      "Referrer-Policy": "same-origin",
     },
     body: JSON.stringify(user),
   })
@@ -36,6 +37,7 @@ export const signUp = async (user, setMessages, setErrors, navigate) => {
     credentials: "same-origin", // include, *same-origin, omit
     headers: {
       "Content-Type": "application/json",
+      "Referrer-Policy": "same-origin",
     },
     body: JSON.stringify(user),
   })
@@ -58,6 +60,9 @@ export const logout = async () => {
   await fetch(`${url}/log-out`, {
     method: "get",
     credentials: "include", // <--- YOU NEED THIS LINE
+    headers: {
+      "Referrer-Policy": "same-origin",
+    },
   })
     .then((res) => res.json())
     .catch((err) => {
@@ -69,6 +74,9 @@ export const checkIsLogged = async (setJTW, navigate) => {
   await fetch(`${url}/check-if-logged`, {
     method: "get",
     credentials: "include", // <--- YOU NEED THIS LINE
+    headers: {
+      "Referrer-Policy": "same-origin",
+    },
   })
     .then((res) => res.json())
     .then((res) => {
