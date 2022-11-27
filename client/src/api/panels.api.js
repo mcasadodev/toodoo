@@ -1,4 +1,4 @@
-const url = "https://toodoo.herokuapp.com/panels";
+const url = "https://toodoo.herokuapp.com";
 
 const headers =
   process.env.NODE_ENV === "PRO"
