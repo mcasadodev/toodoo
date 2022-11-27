@@ -1,24 +1,17 @@
 import React, { useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { getTodos } from "api/todos.api";
 import TodosContext from "context/TodosContext";
 
-import Notification from "components/Notification";
 import Todo from "./Todo";
 
 import styles from "./todosList.module.css";
 import { getPanel } from "api/panels.api";
 
 const TodosList = () => {
-  const {
-    setIsPanelSelected,
-    currentPanel,
-    setCurrentPanel,
-    todos,
-    setTodos,
-    messages,
-  } = useContext(TodosContext);
+  const { setIsPanelSelected, currentPanel, setCurrentPanel, todos, setTodos } =
+    useContext(TodosContext);
 
   const params = useParams();
 
@@ -31,13 +24,15 @@ const TodosList = () => {
 
   return (
     <>
-      {messages.map((message) => (
-        <Notification text={message.text} />
-      ))}
       {!todos.length ? (
-        <p>Loading...</p>
+        <div className={styles.container_flex}>
+          <h6 className={styles.title}>You have no tasks</h6>
+          <Link className={styles.link} to="/create-todo">
+            <div>New task</div>
+          </Link>
+        </div>
       ) : (
-        <div className={styles.container}>
+        <div className={styles.container_grid}>
           {todos.map((todo) => (
             <Todo key={todo.id} todo={todo} setTodos={setTodos} />
           ))}

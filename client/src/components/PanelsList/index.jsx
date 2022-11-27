@@ -17,23 +17,22 @@ const PanelsList = () => {
   }, [setIsPanelSelected, setPanels]);
 
   return (
-    <>
-      <h6>My Panels</h6>
-
+    <div className={styles.container}>
       {!panels.length ? (
-        <p>Loading...</p>
+        <h6 className={styles.title}>You have no panels for now</h6>
       ) : (
-        <div className={styles.container}>
+        <>
+          <h6 className={styles.title}>My Panels</h6>
           {panels.map((panel) => (
             <Panel key={panel.id} panel={panel} setPanels={setPanels} />
           ))}
-        </div>
+        </>
       )}
 
-      <Link to="/create-panel">
-        <div>Add new panel</div>
+      <Link className={styles.link} to="/create-panel">
+        <div>New panel</div>
       </Link>
-    </>
+    </div>
   );
 };
 

@@ -5,8 +5,12 @@
 }
 
 body {
-  background-color: rgb(144, 144, 144);
+  background-color: rgb(210, 210, 210);
   color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+button {
   font-family: "Roboto", sans-serif;
 }
 

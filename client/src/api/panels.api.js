@@ -9,6 +9,7 @@ export const getPanels = async (setPanels) => {
       res.forEach((item) => {
         if (item._id) item.id = item._id;
       });
+      console.log("defef");
       setPanels(res);
     });
 };

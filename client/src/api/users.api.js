@@ -1,6 +1,6 @@
 const url = "http://localhost:5000";
 
-export const signIn = async (user, setJWT) => {
+export const signIn = async (user, setJWT, setUserName) => {
   await fetch(`${url}/sign-in`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
@@ -16,9 +16,11 @@ export const signIn = async (user, setJWT) => {
       if (res.auth) {
         //localStorage.setItem("token", res.token);
         setJWT(res.token);
+        setUserName(res.result.name);
       } else {
         console.log("User not authenticated");
         setJWT(null);
+        setUserName("");
       }
     })
     .catch((err) => {
@@ -26,7 +28,7 @@ export const signIn = async (user, setJWT) => {
     });
 };
 
-export const signUp = async (user, setMessages) => {
+export const signUp = async (user, setMessages, setErrors, navigate) => {
   await fetch(`${url}/sign-up`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
@@ -39,7 +41,13 @@ export const signUp = async (user, setMessages) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      setMessages(res);
+      if (res.messages) {
+        setMessages(res.messages);
+        navigate("/");
+      }
+      if (res.errors) {
+        setErrors(res.errors);
+      }
     })
     .catch((err) => {
       console.log(err.message);

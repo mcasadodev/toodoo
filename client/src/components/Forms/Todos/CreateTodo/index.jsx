@@ -39,7 +39,6 @@ const CreateTodo = () => {
 
   return (
     <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
-      <h6 className={styles.form_title}>Create Todo</h6>
       <div className={styles.container}>
         <input
           className={styles.inputField}

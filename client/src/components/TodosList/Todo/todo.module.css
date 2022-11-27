@@ -1,49 +1,64 @@
 .todoCard {
-  padding: 2em;
   background-color: white;
   color: black;
   line-height: 1.5rem;
   height: 325px;
   min-width: 275px;
+  border-radius: 8px;
 }
 
 .header {
-  height: 100px;
-  background-color: rgb(83, 177, 83);
+  border-radius: 8px 8px 0 0;
+  height: 138px;
+  background-color: rgb(90, 90, 90);
+}
+
+.todoCard hr {
+  margin: 1em 0;
+}
+
+.container {
+  padding: 1.75em 2em;
 }
 
 .todoCard h3,
 .todoCard p {
   text-overflow: ellipsis;
   overflow: hidden;
-}
-
-.todoCard p {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.blue_button,
-.red_button {
-  width: 100%;
-  background-color: rgb(25, 25, 121);
+.todoCard h3 {
+  -webkit-line-clamp: 1;
+}
+
+.todoCard p {
+  -webkit-line-clamp: 3;
+  font-weight: 300;
+}
+
+.edit_button,
+.delete_button {
+  float: right;
+  background-color: rgb(161, 161, 161);
   color: white;
   text-transform: uppercase;
   padding: 1em;
-  margin-top: 1em;
+  margin-top: 8px;
+  margin-left: 5px;
   border: 0;
+  border-radius: 5px;
+  width: 45px;
+  height: 45px;
 }
-.red_button {
-  background-color: rgb(196, 8, 8);
+.delete_button {
+  margin-right: 10px;
 }
-.blue_button:hover {
-  background-color: rgb(37, 37, 141);
-}
-.red_button:hover {
-  background-color: rgb(209, 41, 41);
+.button:hover {
+  background-color: rgb(178, 178, 178);
 }
 
 .title {

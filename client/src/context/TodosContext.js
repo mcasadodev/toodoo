@@ -13,6 +13,7 @@ export function TodosContextProvider({ children }) {
   const [currentTodo, setCurrentTodo] = useState({});
   const [members, setMembers] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   return (
     <TodosContext.Provider
@@ -31,6 +32,8 @@ export function TodosContextProvider({ children }) {
         setMembers,
         messages,
         setMessages,
+        errors,
+        setErrors,
       }}
     >
       {children}

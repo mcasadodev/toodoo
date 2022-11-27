@@ -41,24 +41,28 @@ const Todo = ({ todo, setTodos }) => {
 
   return (
     <div id={`${todo.id}`} className={styles.todoCard}>
-      <header className={styles.header}></header>
-      <h3 className={styles.title}>Title: {todo.title}</h3>
-      <p>Description: {todo.description}</p>
-      <p>Created: </p>
-      <button
-        id={`edit_btn_${todo.id}`}
-        className={`hidden ${styles.blue_button}`}
-        onClick={handleEdit}
-      >
-        Edit
-      </button>
-      <button
-        id={`delete_btn_${todo.id}`}
-        className={`hidden ${styles.red_button}`}
-        onClick={handleDelete}
-      >
-        Delete
-      </button>
+      <header className={styles.header}>
+        <button
+          id={`delete_btn_${todo.id}`}
+          className={`hidden ${styles.button} ${styles.delete_button}`}
+          onClick={handleDelete}
+        >
+          X
+        </button>
+        <button
+          id={`edit_btn_${todo.id}`}
+          className={`hidden ${styles.button} ${styles.edit_button}`}
+          onClick={handleEdit}
+        >
+          E
+        </button>
+      </header>
+      <div className={styles.container}>
+        <h3 className={styles.title}>{todo.title}</h3>
+        <hr />
+        <p>{todo.description !== "" ? todo.description : "No description."}</p>
+        {/*<p>Created: </p>*/}
+      </div>
     </div>
   );
 };

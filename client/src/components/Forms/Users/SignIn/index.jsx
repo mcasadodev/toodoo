@@ -7,10 +7,13 @@ import { signIn } from "api/users.api";
 
 import styles from "../../form.module.css";
 import { useEffect } from "react";
+import { useContext } from "react";
+import TodosContext from "context/TodosContext";
 
 const SignIn = () => {
   //const staticContext = useContext(StaticContext);
-  const { setJWT, isLogged, setIsLogged } = useUser();
+  const { setJWT, setUserName, isLogged } = useUser();
+  const { setMessages, setErrors } = useContext(TodosContext);
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
@@ -24,7 +27,7 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn(userData, setJWT, setIsLogged);
+    signIn(userData, setJWT, setUserName);
     // localStorage.setItem("user-email", userData.email);
   };
 
@@ -33,12 +36,14 @@ const SignIn = () => {
     setUserData({ ...userData, [name]: value });
   };
 
-  //const clearForm = () => {};
+  useEffect(() => {
+    setMessages([]);
+    setErrors([]);
+  }, [setMessages, setErrors]);
 
   return (
     <>
       <form action="" onSubmit={handleSubmit}>
-        <h6 className={styles.form_title}>Sign In</h6>
         <div className={styles.container}>
           <input
             className={styles.inputField}

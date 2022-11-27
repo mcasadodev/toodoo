@@ -1,9 +1,11 @@
 import mssql from "mssql";
+import mysql from "mysql";
 import jwt from "jsonwebtoken";
 
 import { config } from "../config";
 
 const sql = mssql;
+const _mysql = mysql;
 const _config = config;
 
 export const controller = {};
@@ -27,13 +29,16 @@ controller.verifyJWT = (req, res, next) => {
 
 controller.getPanels = async (req, res) => {
   try {
-    const pool = await sql.connect(_config);
-    const tasks = await pool
-      .request()
-      .input("owner_id", sql.Int, req.userId)
-      .query("SELECT * FROM panels WHERE owner_id = @owner_id");
-
-    res.status(200).json(tasks.recordsets[0]);
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      "SELECT * FROM panels WHERE owner_id = ?",
+      [req.userId],
+      (err, results) => {
+        if (err) throw err;
+        res.status(200).json(results);
+        connection.end();
+      }
+    );
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -41,12 +46,16 @@ controller.getPanels = async (req, res) => {
 
 controller.getPanel = async (req, res) => {
   try {
-    const pool = await sql.connect(_config);
-    const todo = await pool
-      .request()
-      .input("id", sql.Int, req.params.id)
-      .query("SELECT * FROM panels WHERE id = @id");
-    res.status(200).json(todo.recordset[0]);
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      "SELECT * FROM panels WHERE id = ?",
+      [req.params.id],
+      (err, results) => {
+        if (err) throw err;
+        res.status(200).json(results[0]);
+        connection.end();
+      }
+    );
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -54,20 +63,20 @@ controller.getPanel = async (req, res) => {
 
 controller.createPanel = async (req, res) => {
   try {
-    const pool = await sql.connect(_config);
-    const insertPanel = await pool
-      .request()
-      .input("name", sql.NVarChar, req.body.name)
-      //.input("description", sql.NVarChar, req.body.description)
-      .input("owner_id", sql.Int, req.userId)
-      .query(
-        `INSERT INTO 
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      `INSERT INTO 
           panels 
           (name, owner_id)
-         VALUES ( @name, @owner_id)`
-      );
-    console.log("Panel added succesfully!!!");
-    res.status(201).json(insertPanel.recordsets);
+         VALUES (?, ?)`,
+      [req.body.name, req.userId],
+      (err, results) => {
+        if (err) throw err;
+        console.log("Panel added succesfully!!!");
+        res.status(201).json(results);
+        connection.end();
+      }
+    );
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -75,21 +84,21 @@ controller.createPanel = async (req, res) => {
 
 controller.editPanel = async (req, res) => {
   try {
-    const pool = await sql.connect(_config);
-    const editPanel = await pool
-      .request()
-      .input("id", sql.Int, req.params.id)
-      .input("name", sql.NVarChar, req.body.name)
-      //.input("description", sql.NVarChar, req.body.description)
-      .query(
-        `UPDATE 
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      `UPDATE 
           panels
-        SET 
-        name = @name, 
-        WHERE id = @id`
-      );
-    consolw.log(editPanel);
-    res.status(201).json(editPanel.recordsets);
+       SET 
+          name = ?, 
+       WHERE id = ?`,
+      [req.body.name, req.params.id],
+      (err, results) => {
+        if (err) throw err;
+        console.log("Panel edited succesfully!!!");
+        res.status(201).json(results);
+        connection.end();
+      }
+    );
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -97,12 +106,16 @@ controller.editPanel = async (req, res) => {
 
 controller.deletePanel = async (req, res) => {
   try {
-    const pool = await sql.connect(_config);
-    const deletePanel = await pool
-      .request()
-      .input("id", sql.Int, req.body.id)
-      .query("DELETE FROM panels WHERE id = @id");
-    res.status(201).json(deletePanel.recordsets);
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      "DELETE FROM panels WHERE id = ?",
+      [req.body.id],
+      (err, results) => {
+        if (err) throw err;
+        res.status(201).json(results);
+        connection.end();
+      }
+    );
   } catch (err) {
     res.status(409).json({ message: err.message });
   }

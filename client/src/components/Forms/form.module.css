@@ -2,21 +2,25 @@ form {
   width: 80%;
   max-width: 800px;
   background-color: white;
-  margin: 4em auto;
+  margin: 50px auto 4em auto;
   color: black;
+  border-radius: 8px;
 }
 
 .blue_button {
   width: 100%;
-  background-color: rgb(25, 25, 121);
+  background-color: rgb(90, 90, 90);
   color: white;
+  font-size: 1em;
   text-transform: uppercase;
   padding: 1em;
   margin-top: 1em;
+  border: none;
+  border-radius: 5px;
 }
 .blue_button:hover {
   width: 100%;
-  background-color: rgb(37, 37, 141);
+  background-color: rgb(119, 119, 119);
   color: white;
   text-transform: uppercase;
   padding: 1em;
@@ -29,20 +33,23 @@ form {
 }
 
 .container {
-  padding: 2em 3em 3em 3em;
+  padding: 3em;
 }
 
 .inputField {
   width: 100%;
   padding: 1em;
-  margin-bottom: 1em;
+  margin-bottom: 10px;
   font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(228, 228, 228);
 }
 
-input[type="file"] {
-  width: 100%;
-  background-color: blue;
-  color: white;
-  text-transform: uppercase;
-  padding: 1em;
+/* Change the white to any color */
+.inputField:-webkit-autofill,
+.inputField:-webkit-autofill:hover,
+.inputField:-webkit-autofill:focus,
+.inputField:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px rgb(228, 228, 228) inset !important;
 }

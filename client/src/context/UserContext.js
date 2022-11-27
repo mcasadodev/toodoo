@@ -10,6 +10,8 @@ export function UserContextProvider({ children }) {
 
   const [jwt, setJWT] = useState(check_cookie_name("token"));
 
+  const [userName, setUserName] = useState("");
+
   const [users, setUsers] = useState([]);
 
   return (
@@ -17,6 +19,8 @@ export function UserContextProvider({ children }) {
       value={{
         jwt,
         setJWT,
+        userName,
+        setUserName,
         users,
         setUsers,
       }}

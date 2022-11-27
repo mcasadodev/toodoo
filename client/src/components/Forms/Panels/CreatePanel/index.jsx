@@ -37,7 +37,6 @@ const CreatePanel = () => {
 
   return (
     <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
-      <h6 className={styles.form_title}>Create Panel</h6>
       <div className={styles.container}>
         <input
           className={styles.inputField}
@@ -48,15 +47,6 @@ const CreatePanel = () => {
           onChange={handleChange}
           placeholder="Name"
         />
-        {/* <input
-          className={styles.inputField}
-          id="descriptionInput"
-          type="text"
-          name="description"
-          value={todoData.description}
-          onChange={handleChange}
-          placeholder="Description"
-        /> */}
         <button className={styles.blue_button}>Create Panel</button>
       </div>
     </form>

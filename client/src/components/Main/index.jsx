@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useRef } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import { useUser } from "hooks/useUser";
 import TodosContext from "context/TodosContext";
@@ -11,6 +11,7 @@ import SignUp from "components/Forms/Users/SignUp";
 //import LogOut from "components/Forms/Users/LogOut";
 import CreateTodo from "components/Forms/Todos/CreateTodo";
 import EditTodo from "components/Forms/Todos/EditTodo";
+import Notification from "components/Notification";
 
 import PanelsList from "components/PanelsList";
 import CreatePanel from "components/Forms/Panels/CreatePanel";
@@ -29,7 +30,8 @@ const Main = () => {
 
   //const navigate = useNavigate();
 
-  const { isPanelSelected } = useContext(TodosContext);
+  const { messages, setMessages, errors, setErrors, isPanelSelected } =
+    useContext(TodosContext);
 
   useEffect(() => {
     if (isLogged) {
@@ -46,12 +48,31 @@ const Main = () => {
     }
   });
 
+  useEffect(() => {
+    setMessages([]);
+    setErrors([]);
+  }, [setMessages, setErrors]);
+
   return (
     <main id="container">
       <div ref={refAside} className={`${styles.aside}`}>
         <Aside />
       </div>
       <section ref={refSection} className={`${styles.section}`}>
+        {errors.map((error, i) => (
+          <Notification
+            type={"error"}
+            text={error.text}
+            key={i + 21474800000}
+          />
+        ))}
+        {messages.map((message, i) => (
+          <Notification
+            type={"message"}
+            text={message.text}
+            key={i + 21474800000}
+          />
+        ))}
         <Routes>
           <Route
             exact

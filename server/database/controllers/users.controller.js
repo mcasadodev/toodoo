@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
 import mssql from "mssql";
+import mysql from "mysql";
 
 import { User } from "../../models/user.model";
 import { config } from "../config";
 import bcrypt from "bcrypt";
 
 const sql = mssql;
+const _mysql = mysql;
 const _config = config;
 
 export const controller = {};
@@ -23,40 +25,38 @@ const matchPassword = async (formPassword, userPassword) => {
 controller.signIn = async (req, res) => {
   const errors = [];
   try {
-    const pool = await sql.connect(_config);
-    const user = await pool
-      .request()
-      //.input("email", sql.NVarChar, req.body.email)
-      .query(`SELECT * FROM users WHERE email LIKE '${req.body.email}'`);
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      `SELECT * FROM users WHERE email LIKE '${req.body.email}'`,
+      (err, results) => {
+        if (err) throw err;
+        if (!results[0].name) {
+          errors.push({ text: "User not found" });
+        }
+        if (errors.length > 0) {
+          res.send(errors);
+        } else {
+          const match = matchPassword(req.body.password, results[0].password);
+          if (match) {
+            const { id } = results[0];
+            const token = jwt.sign({ id }, process.env.SECRET, {
+              expiresIn: 3000,
+            });
 
-    if (!user.recordset[0].name) {
-      errors.push({ text: "User not found" });
-    }
-    if (errors.length > 0) {
-      res.send(errors);
-    } else {
-      const match = await matchPassword(
-        req.body.password,
-        user.recordset[0].password
-      );
-      if (match) {
-        const id = user.recordset[0].id;
-        const token = jwt.sign({ id }, process.env.SECRET, {
-          expiresIn: 3000,
-        });
+            //req.session.user = user.recordset[0];
+            //req.session.save();
 
-        //req.session.user = user.recordset[0];
-        //req.session.save();
+            res.cookie("token", token, {
+              httpOnly: false,
+            });
 
-        res.cookie("token", token, {
-          httpOnly: false,
-        });
-
-        res.json({ auth: true, token, result: user.recordset[0] });
-      } else {
-        res.json({ auth: false });
+            res.json({ auth: true, token, result: results[0] });
+          } else {
+            res.json({ auth: false });
+          }
+        }
       }
-    }
+    );
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -72,38 +72,42 @@ controller.signUp = async (req, res) => {
     errors.push({ text: "Passwords must be at least 4 characters" });
   }
   if (errors.length > 0) {
-    res.send(errors);
+    res.send({ errors });
   } else {
     try {
-      const pool = await sql.connect(_config);
-      const emailUser = await pool
-        .request()
-        .input("email", sql.NVarChar, req.body.email)
-        .query(`SELECT * FROM users WHERE email LIKE '${req.body.email}'`);
-      if (emailUser.recordset[0]) {
-        if (emailUser.recordset[0].name) {
-          messages.push({ text: "Email already exists" });
-          res.send(messages);
+      const pwd = await encryptPassword(req.body.password);
+      const connection = _mysql.createConnection(_config);
+      connection.query(
+        `SELECT * FROM users WHERE email LIKE '${req.body.email}'`,
+        (err, results) => {
+          if (err) throw err;
+          if (results[0]) {
+            if (results[0].name) {
+              messages.push({ text: "Email already exists" });
+              const obj = { errors: messages };
+              res.send(obj);
+            }
+          } else {
+            //SUCCESS
+            connection.query(
+              `INSERT INTO 
+                users 
+                 (name, email, password)
+                 VALUES (?, ?, ?)`,
+              [req.body.name, req.body.email, pwd],
+              (err) => {
+                if (err) throw err;
+                messages.push({
+                  text: "Your new user has been created. Sign in!",
+                });
+                res.send({ messages });
+                //res.send(messages).redirect("../");
+                connection.end();
+              }
+            );
+          }
         }
-      } else {
-        //SUCCESS
-        const pwd = await encryptPassword(req.body.password);
-
-        await pool
-          .request()
-          .input("name", sql.NVarChar, req.body.name)
-          .input("email", sql.NVarChar, req.body.email)
-          .input("password", sql.NVarChar, pwd)
-          .query(
-            `INSERT INTO 
-            users 
-             (name, email, password)
-             VALUES (@name, @email, @password)`
-          );
-        messages.push({ text: "New user created" });
-        res.send(messages);
-        //res.send(messages).redirect("../");
-      }
+      );
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
@@ -139,11 +143,11 @@ controller.checkIfLogged = async (req, res) => {
 };
 
 controller.getUsers = async (req, res) => {
-  try {
-    const pool = await sql.connect(_config);
-    const tasks = await pool.request().query("SELECT * FROM users");
-    res.status(200).json(tasks.recordsets[0]);
-  } catch (e) {
-    res.status(404).json({ message: e.message });
-  }
+  // try {
+  //   const pool = await sql.connect(_config);
+  //   const tasks = await pool.request().query("SELECT * FROM users");
+  //   res.status(200).json(tasks.recordsets[0]);
+  // } catch (e) {
+  //   res.status(404).json({ message: e.message });
+  // }
 };

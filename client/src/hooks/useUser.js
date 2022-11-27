@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Context from "context/UserContext";
 
 export const useUser = () => {
-  const { jwt, setJWT, users, setUsers } = useContext(Context);
+  const { jwt, setJWT, userName, setUserName, users, setUsers } =
+    useContext(Context);
   const navigate = useNavigate();
 
   // const logout = useCallback(() => {
@@ -25,6 +26,8 @@ export const useUser = () => {
     jwt,
     setJWT,
     logoutUseUser,
+    userName,
+    setUserName,
     users,
     setUsers,
   };

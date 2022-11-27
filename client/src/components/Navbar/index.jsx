@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 import { useUser } from "hooks/useUser";
 
-import logo from "img/logo.png";
+//import logo from "img/logo.png";
 import styles from "./navbar.module.css";
 
 import { logout } from "api/users.api";
 
 const Navbar = () => {
-  const { isLogged, logoutUseUser } = useUser();
+  const { isLogged, logoutUseUser, userName } = useUser();
 
   const logOut = () => {
     logout();
@@ -20,9 +20,12 @@ const Navbar = () => {
     <header className={styles.header}>
       <nav className={`${styles.d_flex} ${styles.navbar}`}>
         <div className={styles.d_flex}>
-          <img src={logo} alt="logo" className={styles.logo} />
-          <h1 className={styles.title}>Todoo</h1>
+          {/* <img src={logo} alt="logo" className={styles.logo} /> */}
+          <Link to={`/panels-list`}>
+            <h1 className={styles.title}>Todoo</h1>
+          </Link>
         </div>
+
         <ul className={styles.d_flex}>
           {!isLogged && (
             <>
@@ -36,14 +39,9 @@ const Navbar = () => {
           )}
           {isLogged && (
             <>
-              {/*
               <li>
-                <Link to={`/${currentPanel.id}/tasks-list`}>My List</Link>
+                <h2>{userName}</h2>
               </li>
-              <li>
-                <Link to="/create-todo">Create Todo</Link>
-              </li>
-              */}
               <li>
                 <button onClick={logOut}>Log Out</button>
               </li>

@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
 
 import usersRoutes from "../routes/users.routes";
 import panelsRoutes from "../routes/panels.routes";
@@ -21,13 +22,22 @@ const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+if (process.env.ENV === "PRO") {
+  app.use(express.static("../client/build"));
+  app.get("*", (req, res) => {
+    req.sendFile(
+      path.resolve(__dirname, "..", "client", "build", "index.html")
+    );
+  });
+} else if (process.env.ENV === "DEV") {
+  app.use(
+    cors({
+      origin: ["http://localhost:3000"],
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      credentials: true,
+    })
+  );
+}
 
 app.use(cookieParser());
 

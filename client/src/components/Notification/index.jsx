@@ -1,11 +1,11 @@
 import React from "react";
 
-//import styles from "./notification.module.css";
+import styles from "./notification.module.css";
 
-const Notification = ({ text }) => {
+const Notification = ({ type, text }) => {
   return (
-    <div>
-      <h2>{text}</h2>
+    <div className={type === "message" ? styles.message : styles.error}>
+      <p>{text}</p>
     </div>
   );
 };

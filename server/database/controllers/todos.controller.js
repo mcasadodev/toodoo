@@ -1,10 +1,12 @@
 import mssql from "mssql";
+import mysql from "mysql";
 import jwt from "jsonwebtoken";
 
 import { Todo } from "../../models/todo.model";
 import { config } from "../config";
 
 const sql = mssql;
+const _mysql = mysql;
 const _config = config;
 
 export const controller = {};
@@ -28,16 +30,16 @@ controller.verifyJWT = (req, res, next) => {
 
 controller.getTodos = async (req, res) => {
   try {
-    const pool = await sql.connect(_config);
-    const tasks = await pool
-      .request()
-      .input("panel_id", sql.Int, req.params.panelId)
-      .input("creator_id", sql.Int, req.userId)
-      .query(
-        "SELECT * FROM tasks WHERE panel_id = @panel_id AND creator_id = @creator_id"
-      );
-
-    res.status(200).json(tasks.recordsets[0]);
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      "SELECT * FROM tasks WHERE panel_id = ? AND creator_id = ?",
+      [req.params.panelId, req.userId],
+      (err, results) => {
+        if (err) throw err;
+        res.status(200).json(results);
+        connection.end();
+      }
+    );
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -45,12 +47,16 @@ controller.getTodos = async (req, res) => {
 
 controller.getTodo = async (req, res) => {
   try {
-    const pool = await sql.connect(_config);
-    const todo = await pool
-      .request()
-      .input("id", sql.Int, req.params.todoId)
-      .query("SELECT * FROM tasks WHERE id = @id");
-    res.status(200).json(todo.recordset[0]);
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      "SELECT * FROM tasks WHERE id = ?",
+      [req.params.todoId],
+      (err, results) => {
+        if (err) throw err;
+        res.status(200).json(results);
+        connection.end();
+      }
+    );
   } catch (e) {
     res.status(404).json({ message: e.message });
   }
@@ -59,21 +65,20 @@ controller.getTodo = async (req, res) => {
 controller.createTodo = async (req, res) => {
   console.log(req.body);
   try {
-    const pool = await sql.connect(_config);
-    const insertTodo = await pool
-      .request()
-      .input("title", sql.NVarChar, req.body.title)
-      .input("description", sql.NVarChar, req.body.description)
-      .input("panel_id", sql.Int, req.body.panelId)
-      .input("creator_id", sql.Int, req.userId)
-      .query(
-        `INSERT INTO 
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      `INSERT INTO 
           tasks 
           (title, description, panel_id, creator_id)
-         VALUES ( @title, @description, @panel_id, @creator_id)`
-      );
-    console.log("Todo added succesfully!!!");
-    res.status(201).json(insertTodo.recordsets);
+         VALUES ( ?, ?, ?, ?)`,
+      [req.body.title, req.body.description, req.body.panelId, req.userId],
+      (err, results) => {
+        if (err) throw err;
+        console.log("Task added succesfully!!!");
+        res.status(201).json(results);
+        connection.end();
+      }
+    );
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -81,22 +86,22 @@ controller.createTodo = async (req, res) => {
 
 controller.editTodo = async (req, res) => {
   try {
-    const pool = await sql.connect(_config);
-    const editTodo = await pool
-      .request()
-      .input("id", sql.Int, req.params.id)
-      .input("title", sql.NVarChar, req.body.title)
-      .input("description", sql.NVarChar, req.body.description)
-      .query(
-        `UPDATE 
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      `UPDATE 
           tasks
         SET 
-          title = @title, 
-          description = @description
-        WHERE id = @id`
-      );
-    console.log("Todo edited succesfully!!!");
-    res.status(201).json(editTodo.recordsets);
+          title = ?, 
+          description = ?
+        WHERE id = ?`,
+      [req.body.title, req.body.description, req.params.id],
+      (err, results) => {
+        if (err) throw err;
+        console.log("Todo edited succesfully!!!");
+        res.status(201).json(results);
+        connection.end();
+      }
+    );
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
@@ -104,12 +109,16 @@ controller.editTodo = async (req, res) => {
 
 controller.deleteTodo = async (req, res) => {
   try {
-    const pool = await sql.connect(_config);
-    const deleteTodo = await pool
-      .request()
-      .input("id", sql.Int, req.body.id)
-      .query("DELETE FROM tasks WHERE id = @id");
-    res.status(201).json(deleteTodo.recordsets);
+    const connection = _mysql.createConnection(_config);
+    connection.query(
+      "DELETE FROM tasks WHERE id = ?",
+      [req.body.id],
+      (err, results) => {
+        if (err) throw err;
+        res.status(201).json(results);
+        connection.end();
+      }
+    );
   } catch (err) {
     res.status(409).json({ message: err.message });
   }
