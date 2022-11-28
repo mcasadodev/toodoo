@@ -7,9 +7,9 @@ import path from "path";
 
 import usersRoutes from "./routes/users.routes.js";
 import panelsRoutes from "./routes/panels.routes.js";
-import membersRoutes from "./routes/members.routes.js";
+//import membersRoutes from "./routes/members.routes.js";
 import todosRoutes from "./routes/todos.routes.js";
-import participantsRoutes from "./routes/participants.routes.js";
+//import participantsRoutes from "./routes/participants.routes.js";
 
 import { connectDb } from "./database/connection.js";
 
@@ -28,9 +28,9 @@ app.use(cookieParser());
 // Routes
 app.use("/users", usersRoutes);
 app.use("/panels", panelsRoutes);
-app.use("/members", membersRoutes);
+//app.use("/members", membersRoutes);
 app.use("/todos", todosRoutes);
-app.use("/participants", participantsRoutes);
+//app.use("/participants", participantsRoutes);
 
 if (process.env.ENV === "PRO") {
   app.use(express.static("client/build"));
