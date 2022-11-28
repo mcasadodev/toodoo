@@ -1,4 +1,8 @@
-const url = "https://toodoo.herokuapp.com/users";
+const url = `${
+  process.env.NODE_ENV === "PRO"
+    ? "https://toodoo.herokuapp.com"
+    : "http://localhost:5000"
+}/users`;
 
 const headers =
   process.env.NODE_ENV === "PRO"

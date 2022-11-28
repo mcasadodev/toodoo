@@ -4,8 +4,8 @@ dotenv.config();
 
 export const config = {
   connectionLimit: 20,
-  host: "eu-cdbr-west-03.cleardb.net",
-  database: "heroku_11cb43984192a0b",
+  host: process.env.HOST,
+  database: process.env.DATABASE,
   user: process.env.USER,
   password: process.env.PASSWORD,
 };
