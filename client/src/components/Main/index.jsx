@@ -16,7 +16,7 @@ import Notification from "components/Notification";
 import PanelsList from "components/PanelsList";
 import CreatePanel from "components/Forms/Panels/CreatePanel";
 
-//import AddMembers from "components/AddMembers";
+import AddMembers from "components/AddMembers";
 
 import PrivateRoute from "components/PrivateRoute";
 
@@ -103,14 +103,14 @@ const Main = () => {
           />
 
           {/* Members */}
-          {/* <Route
+          <Route
             path={`/panel-:id/members-list`}
             element={
               <PrivateRoute>
                 <AddMembers />
               </PrivateRoute>
             }
-          /> */}
+          />
 
           {/* Todos */}
           <Route
