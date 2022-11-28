@@ -1,21 +1,9 @@
-const url = `${
-  process.env.NODE_ENV === "PRO"
-    ? "https://toodoo.herokuapp.com"
-    : "http://localhost:5000"
-}/users`;
+const url = "https://toodoo.herokuapp.com/panels";
 
-const headers =
-  process.env.NODE_ENV === "PRO"
-    ? {
-        "Access-Control-Allow-Credentials": true,
-        "Content-Type": "application/json",
-        "Referrer-Policy": "strict-origin-when-cross-origin",
-      }
-    : {
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-        "Access-Control-Allow-Credentials": true,
-        "Content-Type": "application/json",
-      };
+const headers = {
+  "Access-Control-Allow-Credentials": true,
+  "Content-Type": "application/json",
+};
 
 export const getPanels = async (setPanels) => {
   await fetch(`${url}/panels-list`, {
