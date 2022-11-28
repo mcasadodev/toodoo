@@ -1,2 +1,0 @@
-INSERT INTO [dbo].[todos] (title, creator, [message], tags, [image], likeCount, creationDate, updateDate) VALUES ('Fist Todo', 'Mikelodeon', 'Oh yeah madafaka', 'first, awesome', '', 5, '20220719 6:25:00 PM', '20220719 6:25:00 PM');
-GO

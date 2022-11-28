@@ -1,4 +1,4 @@
-const url = "https://toodoo.herokuapp.com/users";
+const url = "http://localhost:5000/users";
 
 const headers = {
   "Access-Control-Allow-Credentials": true,
