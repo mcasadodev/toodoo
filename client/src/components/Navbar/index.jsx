@@ -22,7 +22,7 @@ const Navbar = () => {
         <div className={styles.d_flex}>
           {/* <img src={logo} alt="logo" className={styles.logo} /> */}
           <Link to={`/panels-list`}>
-            <h1 className={styles.title}>Todoo</h1>
+            <h1 className={styles.title}>Toodoo</h1>
           </Link>
         </div>
 
