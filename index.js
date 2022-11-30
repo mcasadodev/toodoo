@@ -30,8 +30,8 @@ app.use(cookieParser());
 if (process.env.ENV === "PRO") {
   app.use(express.static(root + "/client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(root + "/client/build/index.html");
-    //res.redirect("/");
+    //res.sendFile(root + "/client/build/index.html");
+    res.redirect("/");
   });
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
