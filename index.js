@@ -25,13 +25,6 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use(cookieParser());
 
-// Routes
-app.use("/users", usersRoutes);
-app.use("/panels", panelsRoutes);
-//app.use("/members", membersRoutes);
-app.use("/todos", todosRoutes);
-//app.use("/participants", participantsRoutes);
-
 if (process.env.ENV === "PRO") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
@@ -40,6 +33,7 @@ if (process.env.ENV === "PRO") {
   });
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
+  console.log("uu");
   app.use(
     cors({
       origin: ["http://localhost:3000"],
@@ -48,5 +42,12 @@ if (process.env.ENV === "PRO") {
     })
   );
 }
+
+// Routes - MUST GO BELOW CORS SETUP
+app.use("/users", usersRoutes);
+app.use("/panels", panelsRoutes);
+//app.use("/members", membersRoutes);
+app.use("/todos", todosRoutes);
+//app.use("/participants", participantsRoutes);
 
 connectDb(app);

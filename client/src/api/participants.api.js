@@ -1,8 +1,4 @@
-const url = `${
-  process.env.NODE_ENV === "PRO"
-    ? "https://toodoo.herokuapp.com"
-    : "http://localhost:5000"
-}/participants`;
+const url = `http://localhost:5000/participants`;
 
 export const getParticipants = async (setParticipants) => {
   await fetch(url, {

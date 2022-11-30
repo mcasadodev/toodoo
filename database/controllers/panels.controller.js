@@ -13,6 +13,7 @@ export const controller = {};
 
 controller.verifyJWT = (req, res, next) => {
   const token = req.cookies.token;
+  if (!token) return;
   try {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       req.userId = decoded.id;

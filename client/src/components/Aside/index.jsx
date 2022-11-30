@@ -3,20 +3,20 @@ import { Link } from "react-router-dom";
 
 import TodosContext from "context/TodosContext";
 
-//import { useUser } from "hooks/useUser";
+import { useUser } from "hooks/useUser";
 
 import styles from "./aside.module.css";
 
 import { getPanels } from "api/panels.api";
 
 const Aside = () => {
-  //const { isLogged, logout } = useUser();
+  const { isLogged } = useUser();
 
   const { panels, setPanels, currentPanel } = useContext(TodosContext);
 
   useEffect(() => {
-    getPanels(setPanels);
-  }, [setPanels]);
+    if (isLogged) getPanels(setPanels);
+  }, [isLogged, setPanels]);
 
   return (
     <aside>

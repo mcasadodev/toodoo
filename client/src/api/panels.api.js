@@ -1,6 +1,9 @@
-const url = "https://toodoo.herokuapp.com/panels";
+const url = "http://localhost:5000/panels";
 
 const headers = {
+  "Access-Control-Allow-Origin": "http://localhost:3000",
+  "Access-Control-Allow-Headers":
+    "Origin, X-Requested-With, Content-Type, Accept",
   "Access-Control-Allow-Credentials": true,
   "Content-Type": "application/json",
 };
@@ -14,7 +17,6 @@ export const getPanels = async (setPanels) => {
       res.forEach((item) => {
         if (item._id) item.id = item._id;
       });
-      console.log("defef");
       setPanels(res);
     });
 };

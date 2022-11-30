@@ -1,8 +1,10 @@
-const url = "https://toodoo.herokuapp.com/users";
+const url = "http://localhost:5000/users";
 
 const headers = {
-  "Access-Control-Allow-Credentials": true,
+  "Access-Control-Allow-Origin": "http://localhost:3000",
+  "Access-Control-Allow-Methods": "GET, POST",
   "Content-Type": "application/json",
+  "Access-Control-Allow-Credentials": true,
 };
 
 export const signIn = async (user, setJWT, setUserName) => {
@@ -72,7 +74,11 @@ export const checkIsLogged = async (setJTW, navigate) => {
   await fetch(`${url}/check-if-logged`, {
     method: "get",
     credentials: "include", // <--- YOU NEED THIS LINE,
-    headers,
+    headers: {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Methods": "GET, POST",
+      "Access-Control-Allow-Credentials": true,
+    },
   })
     .then((res) => res.json())
     .then((res) => {

@@ -15,7 +15,6 @@ const CreatePanel = () => {
 
   const [panelData, setPanelData] = useState({
     title: "",
-    //description: "",
   });
 
   useEffect(() => {
@@ -32,8 +31,6 @@ const CreatePanel = () => {
     const { name, value } = e.target;
     setPanelData({ ...panelData, [name]: value });
   };
-
-  //const clearForm = () => {};
 
   return (
     <form action="" autoComplete="off" noValidate onSubmit={handleSubmit}>
