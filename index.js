@@ -19,6 +19,8 @@ dotenv.config();
 const app = express();
 //const path = require("node:path");
 
+const { pathname: root } = new URL("./", import.meta.url);
+
 // Midlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -26,9 +28,9 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
 
 if (process.env.ENV === "PRO") {
-  app.use(express.static(__dirname + "/client/build"));
+  app.use(express.static(root + "/client/build"));
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname + "/client/build/index.html"));
+    res.sendFile(root + "/client/build/index.html");
     //res.redirect("/");
   });
   app.use(cors());
