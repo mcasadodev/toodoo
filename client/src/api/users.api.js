@@ -1,10 +1,8 @@
-const url = "http://localhost:5000/users";
+const url = "https://toodoo.herokuapp.com/users";
 
 const headers = {
-  "Access-Control-Allow-Origin": "http://localhost:3000",
-  "Access-Control-Allow-Methods": "GET, POST",
-  "Content-Type": "application/json",
   "Access-Control-Allow-Credentials": true,
+  "Content-Type": "application/json",
 };
 
 export const signIn = async (user, setJWT, setUserName) => {
@@ -35,11 +33,11 @@ export const signIn = async (user, setJWT, setUserName) => {
 
 export const signUp = async (user, setMessages, setErrors, navigate) => {
   await fetch(`${url}/sign-up`, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
-    headers: headers,
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "include",
+    headers,
     body: JSON.stringify(user),
   })
     .then((res) => res.json())
@@ -74,11 +72,7 @@ export const checkIsLogged = async (setJTW, navigate) => {
   await fetch(`${url}/check-if-logged`, {
     method: "get",
     credentials: "include", // <--- YOU NEED THIS LINE,
-    headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-      "Access-Control-Allow-Methods": "GET, POST",
-      "Access-Control-Allow-Credentials": true,
-    },
+    headers,
   })
     .then((res) => res.json())
     .then((res) => {

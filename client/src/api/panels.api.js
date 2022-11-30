@@ -1,9 +1,6 @@
-const url = "http://localhost:5000/panels";
+const url = "https://toodoo.herokuapp.com/panels";
 
 const headers = {
-  "Access-Control-Allow-Origin": "http://localhost:3000",
-  "Access-Control-Allow-Headers":
-    "Origin, X-Requested-With, Content-Type, Accept",
   "Access-Control-Allow-Credentials": true,
   "Content-Type": "application/json",
 };

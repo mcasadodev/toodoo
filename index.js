@@ -28,8 +28,8 @@ app.use(cookieParser());
 if (process.env.ENV === "PRO") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
-    //res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    res.redirect("/");
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    //res.redirect("/");
   });
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
@@ -43,11 +43,13 @@ if (process.env.ENV === "PRO") {
   );
 }
 
-// Routes - MUST GO BELOW CORS SETUP
+/* Routes -
+ *** MUST GO BELOW CORS SETUP ***
+ */
 app.use("/users", usersRoutes);
 app.use("/panels", panelsRoutes);
-//app.use("/members", membersRoutes);
+app.use("/members", membersRoutes);
 app.use("/todos", todosRoutes);
-//app.use("/participants", participantsRoutes);
+app.use("/participants", participantsRoutes);
 
 connectDb(app);
