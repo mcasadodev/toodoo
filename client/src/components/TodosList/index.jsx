@@ -19,7 +19,6 @@ const TodosList = () => {
     setIsPanelSelected(true);
     getTodos(params.id, setTodos, currentPanel, setCurrentPanel);
     getPanel(params.id, setCurrentPanel);
-    console.log(currentPanel);
   }, [params.id]);
 
   return (
