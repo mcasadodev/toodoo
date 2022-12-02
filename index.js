@@ -28,11 +28,11 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
 
 if (process.env.ENV === "PRO") {
-  app.use(express.static("client/build"));
-  // app.get("*", (req, res) => {
-  //   //res.sendFile(root + "/client/build/index.html");
-  //   res.redirect("/");
-  // });
+  app.use(express.static(root + "/client/build"));
+  app.get("*", (req, res) => {
+    //res.sendFile(root + "/client/build/index.html");
+    res.redirect("/");
+  });
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
   console.log("uu");
