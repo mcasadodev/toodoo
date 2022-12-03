@@ -29,9 +29,9 @@ app.use(cookieParser());
 
 if (process.env.ENV === "PRO") {
   app.use(express.static(root + "/client/build"));
-  app.get("/*", function (req, res) {
-    res.sendFile(path.join(root, "/client/build/index.html"));
-  });
+  // app.get("/*", function (req, res) {
+  //   res.sendFile(path.join(root, "/client/build/index.html"));
+  // });
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
   app.use(
