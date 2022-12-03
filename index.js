@@ -18,9 +18,9 @@ dotenv.config();
 // Initialization
 const app = express();
 //const path = require("node:path");
-app.use(express.static(root + "/client/build"));
 
 const { pathname: root } = new URL("./", import.meta.url);
+app.use(express.static(root + "/client/build"));
 
 // Midlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
