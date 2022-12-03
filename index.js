@@ -18,6 +18,7 @@ dotenv.config();
 // Initialization
 const app = express();
 //const path = require("node:path");
+app.use(express.static(root + "/client/build"));
 
 const { pathname: root } = new URL("./", import.meta.url);
 
@@ -28,10 +29,9 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
 
 if (process.env.ENV === "PRO") {
-  app.use(express.static(root + "/client/build"));
-  // app.get("/*", function (req, res) {
-  //   res.sendFile(path.join(root, "/client/build/index.html"));
-  // });
+  app.get("/*", function (req, res) {
+    res.sendFile(path.join(root, "/client/build/index.html"));
+  });
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
   app.use(
