@@ -26,11 +26,10 @@ app.use(cookieParser());
 
 if (process.env.ENV === "PRO") {
   const { pathname: root } = new URL("./", import.meta.url);
-  app.use(express.static(path.join(root, "client/build")));
+  app.use(express.static("client/build"));
   app.get("/*", function (req, res) {
     res.sendFile(path.join(root, "client/build/index.html"));
   });
-  app.use(cors());
 } else if (process.env.ENV === "DEV") {
   app.use(
     cors({
@@ -50,4 +49,5 @@ app.use("/members", membersRoutes);
 app.use("/todos", todosRoutes);
 app.use("/participants", participantsRoutes);
 
+app.use(cors());
 connectDb(app);
