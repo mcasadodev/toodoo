@@ -22,7 +22,6 @@ const app = express();
 const { pathname: root } = new URL("./", import.meta.url);
 
 if (process.env.ENV === "PRO") {
-  app.use(express.static(root + "/client/build"));
   app.get("/*", function (req, res) {
     res.sendFile(path.join(root, "/client/build/index.html"));
   });
@@ -58,5 +57,6 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use(cookieParser());
+app.use(express.static(root + "/client/build"));
 
 connectDb(app);
