@@ -34,7 +34,7 @@ if (process.env.ENV === "PRO") {
   });
   app.use(
     cors({
-      origin: ["http://toodoo.herokuapp.com"],
+      origin: ["https://toodoo.herokuapp.com"],
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
     })
