@@ -17,10 +17,7 @@ dotenv.config();
 
 // Initialization
 const app = express();
-//const path = require("node:path");
-
-const { pathname: root } = new URL("./", import.meta.url);
-app.use(express.static(root + "/client/build"));
+const path = require("node:path");
 
 // Midlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -29,9 +26,11 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
 
 if (process.env.ENV === "PRO") {
-  app.get("/*", function (req, res) {
-    res.sendFile(path.join(root + "/client/build/index.html"));
-  });
+  const { pathname: root } = new URL("./", import.meta.url);
+  app.use(express.static(path.join(root, "client/build")));
+  // app.get("/*", function (req, res) {
+  //   res.sendFile(path.join(root + "/client/build/index.html"));
+  // });
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
   app.use(
