@@ -17,7 +17,6 @@ dotenv.config();
 
 // Initialization
 const app = express();
-const path = require("node:path");
 
 // Midlewares
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
