@@ -32,15 +32,8 @@ if (process.env.ENV === "PRO") {
   app.get("/*", function (req, res) {
     res.sendFile(path.join(root, "/client/build/index.html"));
   });
-  app.use(
-    cors({
-      origin: ["https://toodoo.herokuapp.com"],
-      methods: ["GET", "POST", "PUT", "DELETE"],
-      credentials: true,
-    })
-  );
+  app.use(cors());
 } else if (process.env.ENV === "DEV") {
-  console.log("uu");
   app.use(
     cors({
       origin: ["http://localhost:3000"],
