@@ -28,17 +28,28 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
 
 if (process.env.ENV === "PRO") {
-  // app.get("*", (req, res) => {
-  //   //res.sendFile(root + "/client/build/index.html");
-  //   res.redirect("/");
-  // });
+  app.use(express.static(root + "/client/build"));
   app.get("/*", function (req, res) {
     res.sendFile(path.join(root, "/client/build/index.html"));
   });
-  app.use(express.static(root + "/client/build"));
+  /* Routes -
+   *** MUST GO BELOW CORS SETUP ***
+   */
+  app.use("/users", usersRoutes);
+  app.use("/panels", panelsRoutes);
+  app.use("/members", membersRoutes);
+  app.use("/todos", todosRoutes);
+  app.use("/participants", participantsRoutes);
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
-  console.log("uu");
+  /* Routes -
+   *** MUST GO BELOW CORS SETUP ***
+   */
+  app.use("/users", usersRoutes);
+  app.use("/panels", panelsRoutes);
+  app.use("/members", membersRoutes);
+  app.use("/todos", todosRoutes);
+  app.use("/participants", participantsRoutes);
   app.use(
     cors({
       origin: ["http://localhost:3000"],
@@ -47,14 +58,5 @@ if (process.env.ENV === "PRO") {
     })
   );
 }
-
-/* Routes -
- *** MUST GO BELOW CORS SETUP ***
- */
-app.use("/users", usersRoutes);
-app.use("/panels", panelsRoutes);
-app.use("/members", membersRoutes);
-app.use("/todos", todosRoutes);
-app.use("/participants", participantsRoutes);
 
 connectDb(app);
