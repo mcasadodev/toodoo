@@ -21,28 +21,20 @@ const app = express();
 
 const { pathname: root } = new URL("./", import.meta.url);
 
+// Midlewares
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+
+app.use(cookieParser());
+
 if (process.env.ENV === "PRO") {
+  app.use(express.static(root + "/client/build"));
   app.get("/*", function (req, res) {
-    res.sendFile(path.join(root, "/client/build/index.html"));
+    //res.sendFile(path.join(root, "/client/build/index.html"));
   });
-  /* Routes -
-   *** MUST GO BELOW CORS SETUP ***
-   */
-  app.use("/users", usersRoutes);
-  app.use("/panels", panelsRoutes);
-  app.use("/members", membersRoutes);
-  app.use("/todos", todosRoutes);
-  app.use("/participants", participantsRoutes);
   app.use(cors());
 } else if (process.env.ENV === "DEV") {
-  /* Routes -
-   *** MUST GO BELOW CORS SETUP ***
-   */
-  app.use("/users", usersRoutes);
-  app.use("/panels", panelsRoutes);
-  app.use("/members", membersRoutes);
-  app.use("/todos", todosRoutes);
-  app.use("/participants", participantsRoutes);
+  console.log("uu");
   app.use(
     cors({
       origin: ["http://localhost:3000"],
@@ -52,11 +44,13 @@ if (process.env.ENV === "PRO") {
   );
 }
 
-// Midlewares
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-
-app.use(cookieParser());
-app.use(express.static(root + "/client/build"));
+/* Routes -
+ *** MUST GO BELOW CORS SETUP ***
+ */
+app.use("/users", usersRoutes);
+app.use("/panels", panelsRoutes);
+app.use("/members", membersRoutes);
+app.use("/todos", todosRoutes);
+app.use("/participants", participantsRoutes);
 
 connectDb(app);
