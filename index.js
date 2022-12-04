@@ -49,7 +49,7 @@ app.use("/participants", participantsRoutes);
 const { pathname: root } = new URL("./", import.meta.url);
 app.use(express.static("client/build"));
 app.get("*", function (req, res) {
-  HTMLFormControlsCollection.log(root);
+  console.log(root);
   res.sendFile(path.join(root, "client/build/index.html"));
 });
 //}
