@@ -1,5 +1,5 @@
-const url = "http://localhost:5000/panels";
-//const url = "https://toodoo.herokuapp.com/panels";
+//const url = "http://localhost:5000/panels";
+const url = "https://toodoo.herokuapp.com/panels";
 
 const headers = {
   "Access-Control-Allow-Credentials": true,
