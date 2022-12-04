@@ -1,33 +1,9 @@
-//import mssql from "mssql";
 import mysql from "mysql";
 import jwt from "jsonwebtoken";
 
-//import { config } from "../config.js";
 import { pool } from "../connection.js";
 
-//const sql = mssql;
-//const _mysql = mysql;
-//const _config = config;
-
 export const controller = {};
-
-controller.verifyJWT = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) return;
-  try {
-    jwt.verify(token, process.env.SECRET, (err, decoded) => {
-      req.userId = decoded.id;
-      next();
-    });
-  } catch (e) {
-    res
-      .clearCookie("token")
-      .redirect("/")
-      .json({ auth: false, message: "You failed to authenticate" })
-      .end();
-    //res.redirect("/");
-  }
-};
 
 controller.getPanels = async (req, res) => {
   try {

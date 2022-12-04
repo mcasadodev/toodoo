@@ -1,10 +1,6 @@
-//const url = "http://localhost:5000/panels";
-const url = "https://toodoo.herokuapp.com/panels";
+import { baseUrl, headers } from "api/config.api";
 
-const headers = {
-  "Access-Control-Allow-Credentials": true,
-  "Content-Type": "application/json",
-};
+const url = `${baseUrl}/panels`;
 
 export const getPanels = async (setPanels) => {
   await fetch(`${url}/panels-list`, {

@@ -1,4 +1,6 @@
-const url = `http://localhost:5000/participants`;
+import { baseUrl } from "api/config.api";
+
+const url = `${baseUrl}/participants`;
 
 export const getParticipants = async (setParticipants) => {
   await fetch(url, {

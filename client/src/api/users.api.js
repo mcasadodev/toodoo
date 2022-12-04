@@ -1,10 +1,6 @@
-//const url = "http://localhost:5000/users";
-const url = "https://toodoo.herokuapp.com/users";
+import { baseUrl, headers } from "api/config.api";
 
-const headers = {
-  "Access-Control-Allow-Credentials": true,
-  "Content-Type": "application/json",
-};
+const url = `${baseUrl}/users`;
 
 export const signIn = async (
   user,

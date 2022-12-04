@@ -1,25 +1,10 @@
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 
 //import { User } from "../../models/user.model";
-//import { config } from "../config.js";
 import { pool } from "../connection.js";
-
-//const sql = mssql;
-//const _mysql = mysql;
-//const _config = config;
+import { encryptPassword, matchPassword } from "./auth.controller.js";
 
 export const controller = {};
-
-// ENCRYPT METHODS - These should go on User.model.js when it's used
-const encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
-};
-
-const matchPassword = async (formPassword, userPassword) => {
-  return await bcrypt.compare(formPassword, userPassword);
-};
 
 controller.signIn = async (req, res) => {
   const errors = [];

@@ -1,10 +1,6 @@
-//const url = "http://localhost:5000/todos";
-const url = "https://toodoo.herokuapp.com/todos";
+import { baseUrl, headers } from "api/config.api";
 
-const headers = {
-  "Access-Control-Allow-Credentials": true,
-  "Content-Type": "application/json",
-};
+const url = `${baseUrl}/todos`;
 
 export const getTodos = async (
   panelId,

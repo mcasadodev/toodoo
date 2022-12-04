@@ -1,4 +1,6 @@
-const url = `http://localhost:5000/members`;
+import { baseUrl } from "api/config.api";
+
+const url = `${baseUrl}/members`;
 
 export const getMembers = async (setMembers) => {
   await fetch(`${url}/members-list`, {
