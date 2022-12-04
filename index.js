@@ -45,12 +45,13 @@ app.use("/members", membersRoutes);
 app.use("/todos", todosRoutes);
 app.use("/participants", participantsRoutes);
 
-if (process.env.ENV === "PRO") {
-  const { pathname: root } = new URL("./", import.meta.url);
-  app.use(express.static("client/build"));
-  app.get("/*", function (req, res) {
-    res.sendFile(path.join(root, "client/build"));
-  });
-}
+// if (process.env.ENV === "PRO") {
+const { pathname: root } = new URL("./", import.meta.url);
+app.use(express.static("client/build"));
+app.get("*", function (req, res) {
+  HTMLFormControlsCollection.log(root);
+  res.sendFile(path.join(root, "client/build/index.html"));
+});
+//}
 
 connectDb(app);
