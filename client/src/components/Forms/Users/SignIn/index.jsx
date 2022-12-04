@@ -27,7 +27,7 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn(userData, setJWT, setUserName);
+    signIn(userData, setJWT, setUserName, setMessages, setErrors);
     // localStorage.setItem("user-email", userData.email);
   };
 

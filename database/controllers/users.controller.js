@@ -27,11 +27,9 @@ controller.signIn = async (req, res) => {
     const [result] = await pool.query(
       `SELECT * FROM users WHERE email LIKE '${req.body.email}'`
     );
-    if (!result[0].name) {
-      errors.push({ text: "User not found" });
-    }
-    if (errors.length > 0) {
-      res.send(errors);
+    if (!result[0]) {
+      errors.push({ text: "User or password do not match" });
+      res.send({ errors });
     } else {
       const match = await matchPassword(req.body.password, result[0].password);
       if (match) {
@@ -49,6 +47,8 @@ controller.signIn = async (req, res) => {
 
         res.json({ auth: true, token, result: result[0] });
       } else {
+        errors.push({ text: "User or password do not match" });
+        res.send({ errors });
         res.json({ auth: false });
       }
     }
@@ -60,11 +60,14 @@ controller.signIn = async (req, res) => {
 controller.signUp = async (req, res) => {
   const messages = [];
   const errors = [];
-  if (req.body.password != req.body.confirmPassword) {
-    errors.push({ text: "Passwords do not match" });
+  if (!req.body.name) {
+    errors.push({ text: "User must have a name" });
   }
   if (req.body.password.length < 4) {
     errors.push({ text: "Passwords must be at least 4 characters" });
+  }
+  if (req.body.password != req.body.confirmPassword) {
+    errors.push({ text: "Passwords do not match" });
   }
   if (errors.length > 0) {
     res.send({ errors });

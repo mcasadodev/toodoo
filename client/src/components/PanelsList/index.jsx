@@ -9,12 +9,18 @@ import Panel from "./Panel";
 import styles from "./panelsList.module.css";
 
 const PanelsList = () => {
-  const { panels, setPanels, setIsPanelSelected } = useContext(TodosContext);
+  const { panels, setPanels, setIsPanelSelected, setMessages, setErrors } =
+    useContext(TodosContext);
 
   useEffect(() => {
     setIsPanelSelected(false);
     getPanels(setPanels);
   }, [setIsPanelSelected, setPanels]);
+
+  useEffect(() => {
+    setMessages([]);
+    setErrors([]);
+  }, [setMessages, setErrors]);
 
   return (
     <div className={styles.container}>

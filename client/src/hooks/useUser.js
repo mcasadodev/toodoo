@@ -17,6 +17,7 @@ export const useUser = () => {
 
   const logoutUseUser = () => {
     setJWT(null);
+    setUserName("");
     navigate("/");
     localStorage.removeItem("current-panel");
   };

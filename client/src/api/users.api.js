@@ -1,11 +1,18 @@
-const url = "https://toodoo.herokuapp.com/users";
+const url = "http://localhost:5000/users";
+//const url = "https://toodoo.herokuapp.com/users";
 
 const headers = {
   "Access-Control-Allow-Credentials": true,
   "Content-Type": "application/json",
 };
 
-export const signIn = async (user, setJWT, setUserName) => {
+export const signIn = async (
+  user,
+  setJWT,
+  setUserName,
+  setMessages,
+  setErrors
+) => {
   await fetch(`${url}/sign-in`, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "cors", // no-cors, *cors, same-origin
@@ -16,6 +23,14 @@ export const signIn = async (user, setJWT, setUserName) => {
   })
     .then((res) => res.json())
     .then((res) => {
+      if (res.messages) {
+        setMessages(res.messages);
+        setErrors([]);
+      }
+      if (res.errors) {
+        setErrors(res.errors);
+        setMessages([]);
+      }
       if (res.auth) {
         //localStorage.setItem("token", res.token);
         setJWT(res.token);
