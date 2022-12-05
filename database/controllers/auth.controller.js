@@ -12,7 +12,7 @@ export const matchPassword = async (formPassword, userPassword) => {
 
 export const verifyJWT = (req, res, next) => {
   const token = req.cookies.token;
-  if (!token) return;
+  if (!token) res.json({ auth: false, message: "You failed to authenticate" });
   try {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       req.userId = decoded.id;
