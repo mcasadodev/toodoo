@@ -48,8 +48,8 @@ controller.signUp = async (req, res) => {
   if (!req.body.name) {
     errors.push({ text: "User must have a name" });
   }
-  if (req.body.password.length < 4) {
-    errors.push({ text: "Passwords must be at least 4 characters" });
+  if (req.body.password.length < 8) {
+    errors.push({ text: "Passwords must be at least 8 characters" });
   }
   if (req.body.password != req.body.confirmPassword) {
     errors.push({ text: "Passwords do not match" });
